@@ -22,6 +22,8 @@
         <module>userManagement</module>
         <module>restaurants</module>
         <module>configServer</module>
+        <module>deliveries</module>
+        <module>sharedDTO</module>
     </modules>
 
 

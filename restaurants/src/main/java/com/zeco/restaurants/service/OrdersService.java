@@ -8,14 +8,13 @@ import com.zeco.restaurants.repository.DishesRepository;
 import com.zeco.restaurants.repository.OrdersRepository;
 import com.zeco.restaurants.repository.RestaurantRepository;
 import com.zeco.restaurants.repository.SpicesRepository;
-import com.zeco.restaurants.restaurantDtos.GetDeliveryFee;
-import com.zeco.restaurants.restaurantDtos.GetDistanceDTO;
-import com.zeco.restaurants.restaurantDtos.GetUserResponseDTO;
-import com.zeco.restaurants.restaurantDtos.PlaceOrderDTO;
+import com.zeco.restaurants.restaurantDtos.*;
+import com.zeco.shared.NewOrder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -23,15 +22,15 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 public class OrdersService {
+
+    @Autowired
+    private KafkaTemplate<String, NewOrder> kafkaTemplate;
 
     @Autowired
     private UserServiceClient userServiceClient;
@@ -54,8 +53,13 @@ public class OrdersService {
     @Value("${mapbox.access-token}")
     private String accessToken;
 
+    @Value("${topics.new-order}")
+    private String newOrderTopic;
+
     public void  placeOrder(List<PlaceOrderDTO > placeOrderDTO){
 
+
+        UUID key = UUID.randomUUID();
 
         for (PlaceOrderDTO order: placeOrderDTO){
             //call to the users-service
@@ -99,10 +103,31 @@ public class OrdersService {
                        orderObj.addDishesForOrder(orderDish);
             });
 
-            ordersRepository.save(orderObj);
+            Orders savedOrder = ordersRepository.save(orderObj);
+
+
+
+            NewOrder newOrder = NewOrder.builder().
+                    orderID(savedOrder.getOrderID()).
+                    restaurantID(savedOrder.getRestaurant().getRestaurantID()).
+                    user_id(savedOrder.getCustomer()).
+                    estimatedTimeToFinish(savedOrder.getEstimatedTimeToFinish()).
+                    orderTime(savedOrder.getOrderTime()).
+                    orderComplete(savedOrder.getOrderComplete()).
+                    deliveryAddress(savedOrder.getDeliveryAddress()).
+                    deliveryInstructions(savedOrder.getDeliveryInstructions()).
+                    deliveryLatitude(savedOrder.getDeliveryLatitude()).
+                    deliveryLongitude(savedOrder.getDeliveryLongitude()).
+                    build();
+
+            sendOrder(newOrder, key);
 
         }
 
+    }
+
+    public void sendOrder(NewOrder deliveryOrder, UUID key){
+        kafkaTemplate.send(newOrderTopic, key.toString(), deliveryOrder);
     }
 
 

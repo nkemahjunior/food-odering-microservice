@@ -53,9 +53,9 @@ public class RestaurantController {
     }
 
 
-    @PostMapping(value = "/menu/picture/{dishID}", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-    public ResponseEntity<Void> uploadMenuPictureEndpoint(@RequestPart("incomingFile") MultipartFile incomingFile, @PathVariable("dishID") Long dishID){
-        s3clientService.uploadPicture(incomingFile, dishID);
+    @PostMapping(value = "/menu/dish/picture/{dishID}", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    public ResponseEntity<Void> uploadDishPictureEndpoint(@RequestPart("incomingFile") MultipartFile incomingFile, @PathVariable("dishID") Long dishID){
+        s3clientService.uploadDishPicture(incomingFile, dishID);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

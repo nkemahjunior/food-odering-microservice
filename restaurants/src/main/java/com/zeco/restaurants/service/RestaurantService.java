@@ -109,11 +109,11 @@ public class RestaurantService {
     /**
      * save the image url of a dish to the database after uploading it to s3
      */
-    public void saveDishImageUrl(String imageUrl, Long dishID){
+    public void saveDishImageUrl(String key, Long dishID){
 
         log.info("**** adding dish image url to database- ****");
         Dishes dish = dishesRepository.findById(dishID).orElseThrow(() -> new NoSuchElementException("Dish not found"));
-        dish.setImageUrl("https://zeco-eats.s3.us-west-2.amazonaws.com/"+imageUrl);
+        dish.setImageUrl("https://zeco-eats.s3.us-west-2.amazonaws.com/"+key);
         dishesRepository.save(dish);
         log.info("**** saved image of dish url in database- ****");
     }

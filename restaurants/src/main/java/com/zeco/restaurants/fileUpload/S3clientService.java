@@ -28,21 +28,24 @@ public class S3clientService {
     private RestaurantService restaurantService;
 
 
-    @Retryable(maxAttempts = 5, backoff = @Backoff(delay = 5000, multiplier = 2000))
-    public void uploadPicture( MultipartFile picture, Long dishID)  {
+    @Retryable(maxAttempts = 5, backoff = @Backoff(delay = 2000, multiplier = 2000))
+    public void uploadDishPicture( MultipartFile picture, Long dishID)  {
         try{
-            log.info("**** Starting to upload photo of menu****");
+            log.info("**** Starting to upload photo for dish -{}****",dishID);
 
-            String key = "menu-"+LocalDateTime.now();
+            String key = "dish-"+LocalDateTime.now();
              s3Client.putObject( req -> req.bucket("zeco-eats")
                                     .contentType(picture.getContentType())
                                     .key(key),
                             AsyncRequestBody.fromBytes(picture.getBytes()))
                    .join();
+
+            // Save the URL in the database after successful upload
             restaurantService.saveDishImageUrl(key,dishID);
 
-        }catch (IOException ex){
-            log.error("**** picture uploading failed****");
+            log.info("**** Successfully uploaded photo for dishID {} ****", dishID);
+        }catch (Exception ex){
+            log.error("**** failed to upload picture for dish -{}****",dishID);
             log.error(ex.getMessage());
         }
 

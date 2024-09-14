@@ -1,19 +1,16 @@
 server:
-  port: 8081
+  port: 8083
 spring:
+
   profiles:
     active: dev
   config:
     import: optional:configserver:http://localhost:8888
   application:
-    name: restaurant-service
+    name: delivery-service
 
-
-
-
-
-
-
-
+  kafka:
+    consumer:
+      enable-auto-commit: true
 
 
