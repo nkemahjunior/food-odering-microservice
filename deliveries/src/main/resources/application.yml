@@ -9,8 +9,6 @@ spring:
   application:
     name: delivery-service
 
-  kafka:
-    consumer:
-      enable-auto-commit: true
+
 
 

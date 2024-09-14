@@ -9,7 +9,7 @@ import com.zeco.restaurants.repository.OrdersRepository;
 import com.zeco.restaurants.repository.RestaurantRepository;
 import com.zeco.restaurants.repository.SpicesRepository;
 import com.zeco.restaurants.restaurantDtos.*;
-import com.zeco.shared.NewOrder;
+import com.zeco.shared.NewOrderShared;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 public class OrdersService {
 
     @Autowired
-    private KafkaTemplate<String, NewOrder> kafkaTemplate;
+    private KafkaTemplate<String, NewOrderShared> kafkaTemplate;
 
     @Autowired
     private UserServiceClient userServiceClient;
@@ -107,10 +107,10 @@ public class OrdersService {
 
 
 
-            NewOrder newOrder = NewOrder.builder().
+            NewOrderShared newOrderShared = NewOrderShared.builder().
                     orderID(savedOrder.getOrderID()).
                     restaurantID(savedOrder.getRestaurant().getRestaurantID()).
-                    user_id(savedOrder.getCustomer()).
+                    userID(savedOrder.getCustomer()).
                     estimatedTimeToFinish(savedOrder.getEstimatedTimeToFinish()).
                     orderTime(savedOrder.getOrderTime()).
                     orderComplete(savedOrder.getOrderComplete()).
@@ -120,13 +120,13 @@ public class OrdersService {
                     deliveryLongitude(savedOrder.getDeliveryLongitude()).
                     build();
 
-            sendOrder(newOrder, key);
+            sendOrder(newOrderShared, key);
 
         }
 
     }
 
-    public void sendOrder(NewOrder deliveryOrder, UUID key){
+    public void sendOrder(NewOrderShared deliveryOrder, UUID key){
         kafkaTemplate.send(newOrderTopic, key.toString(), deliveryOrder);
     }
 

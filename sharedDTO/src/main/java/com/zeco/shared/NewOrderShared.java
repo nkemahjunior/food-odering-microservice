@@ -10,10 +10,10 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class NewOrder {
+public class NewOrderShared {
     Long orderID;
     UUID restaurantID;
-    UUID user_id; // id of customer who placed the order
+    UUID userID; // id of customer who placed the order
     Long estimatedTimeToFinish;
     ZonedDateTime orderTime;
     Boolean orderComplete;
@@ -26,7 +26,7 @@ public class NewOrder {
     public boolean areFieldsNonNull() {
         return orderID != null &&
                 restaurantID != null &&
-                user_id != null &&
+                userID != null &&
                 estimatedTimeToFinish != null &&
                 orderTime != null &&
                 orderComplete != null &&

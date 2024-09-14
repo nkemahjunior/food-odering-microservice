@@ -1,20 +1,24 @@
 package com.deliveries;
 
 
-import com.zeco.shared.NewOrder;
+import com.deliveries.scheduleDeliveries.ScheduleOrderDelivery;
+import com.zeco.shared.NewOrderShared;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.annotation.RetryableTopic;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
 public class ReceiveOrders {
 
+    @Autowired
+    private ScheduleOrderDelivery scheduleOrderDelivery;
+
 
     //check retry logic in topicsConfig
     @KafkaListener(topics ="${topics.new-order}", groupId = "delivery-consumer-group")
-    public void receiveOrders(NewOrder order){
+    public void receiveOrders(NewOrderShared order){
 
 
 
@@ -33,6 +37,7 @@ public class ReceiveOrders {
         log.info("******************************************************************************************************************************");
         log.info("**** order receive - {} ***","hellllllllllllllllllllllllllllllllllllll" );
         System.out.println(order);
+        scheduleOrderDelivery.scheduleDelivery(order);
 
     }
 }
