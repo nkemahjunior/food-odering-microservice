@@ -32,6 +32,7 @@ public class NewOrders {
     @NonNull
     private UUID userId;
 
+
     @Column(name = "estimated_time_to_finish")
     @NonNull
     private Long estimatedTimeToFinish;
