@@ -31,8 +31,11 @@
 
         <awsS3.version>2.27.21</awsS3.version>
         <aws-crt.version>0.30.11</aws-crt.version>
+        <firebase.admin.version>9.3.0</firebase.admin.version>
+        <hibernate.spatial.version>7.0.0.Alpha3</hibernate.spatial.version>
         <spring-cloud.version>2023.0.3</spring-cloud.version>
         <spring-retry.version>2.0.8</spring-retry.version>
+
 
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
@@ -75,7 +78,24 @@
                 <artifactId>spring-retry</artifactId>
                 <version>${spring-retry.version}</version>
             </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.google.firebase/firebase-admin -->
+            <dependency>
+                <groupId>com.google.firebase</groupId>
+                <artifactId>firebase-admin</artifactId>
+                <version>${firebase.admin.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-spatial -->
+            <dependency>
+                <groupId>org.hibernate.orm</groupId>
+                <artifactId>hibernate-spatial</artifactId>
+                <version>${hibernate.spatial.version}</version>
+            </dependency>
+
         </dependencies>
+
+
     </dependencyManagement>
 
     <build>

@@ -33,6 +33,9 @@ public class DeliveryDrivers {
     @NonNull
     private Long ratings;
 
+    @OneToOne(mappedBy = "driverID")
+    private AvailableDrivers driver;
+
 
     @Override
     public boolean equals(Object o) {
