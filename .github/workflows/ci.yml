@@ -32,13 +32,13 @@ jobs:
             deliveries:
               - 'deliveries/**'
               - 'pom.xml' #root POM affects all services
-            restaurants
+            restaurants:
               - 'restaurants/**'
               - 'pom.xml' #root POM affects all services
-            sharedDTO
+            sharedDTO:
               - 'sharedDTO/**'
               - 'pom.xml' #root POM affects all services
-            userManagement
+            userManagement:
               - 'userManagement/**'
               - 'pom.xml' #root POM affects all services
 
