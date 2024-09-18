@@ -85,5 +85,5 @@ jobs:
     if: ${{ needs.determine-changes.outputs.userManagement-changed == 'true' }}
     uses: ./.github/workflows/build-service.yml
     with:
-      service-name: 'sharedDTO'
+      service-name: 'userManagement'
 

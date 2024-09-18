@@ -24,5 +24,4 @@
         <module>keycloakCustom</module>
         <module>users</module>
     </modules>
-
 </project>
