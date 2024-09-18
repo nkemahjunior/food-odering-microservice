@@ -1,0 +1,124 @@
+name: zeco-eats CI
+
+on:
+  push:
+    branches: [ master]
+  pull_request:
+    branches: [ master]
+
+
+jobs:
+  determine-changes:
+    name: Determine Changed Services
+    runs-on: ubuntu-latest
+    outputs:
+      configServer-changed: ${{ steps.filter.outputs.configServer }}
+      deliveries-changed: ${{ steps.filter.outputs.deliveries }}
+      restaurants-changed: ${{ steps.filter.outputs.restaurants }}
+      sharedDTO-changed: ${{ steps.filter.outputs.sharedDTO }}
+      userManagement-changed: ${{ steps.filter.outputs.userManagement }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Paths Changes Filter
+        uses: dorny/paths-filter@v3.0.2
+        id: filter
+        with:
+          filters: |
+            configServer:
+              - 'configServer/**'
+              - 'pom.xml' #root POM affects all services
+            deliveries:
+              - 'deliveries/**'
+              - 'pom.xml' #root POM affects all services
+            restaurants
+              - 'restaurants/**'
+              - 'pom.xml' #root POM affects all services
+            sharedDTO
+              - 'sharedDTO/**'
+              - 'pom.xml' #root POM affects all services
+            userManagement
+              - 'userManagement/**'
+              - 'pom.xml' #root POM affects all services
+
+    # JOB to build config server service
+  build-configServer:
+    needs: determine-changes
+    if: ${{ needs.determine-changes.outputs.configServer-changed == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+            java-version: '21'
+            distribution: 'temurin'
+            cache: maven
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+
+  # JOB to build deliveries service
+  build-deliveries:
+    needs: determine-changes
+    if: ${{ needs.determine-changes.outputs.deliveries-changed == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+
+  # JOB to build deliveries service
+  build-restaurants:
+    needs: determine-changes
+    if: ${{ needs.determine-changes.outputs.restaurants-changed == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+
+  # JOB to build sharedDTO service
+  build-sharedDTO:
+    needs: determine-changes
+    if: ${{ needs.determine-changes.outputs.sharedDTO-changed == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+
+
+  # JOB to build deliveries service
+  build-userManagement:
+    needs: determine-changes
+    if: ${{ needs.determine-changes.outputs.userManagement-changed == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml

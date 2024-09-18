@@ -27,6 +27,7 @@ public interface AvailableDriversRepository extends JpaRepository<AvailableDrive
                         ST_SetSRID( ST_MakePoint(?1, ?2), 4326)::geography,
                        4000  -- Radius in meters
                 )
+                And online = false
             )
 
             SELECT  * , ST_Distance(coordinates, ST_SetSRID(ST_MakePoint(?1, ?2), 4326)::geography) AS distance
