@@ -46,79 +46,44 @@ jobs:
   build-configServer:
     needs: determine-changes
     if: ${{ needs.determine-changes.outputs.configServer-changed == 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
-        with:
-            java-version: '21'
-            distribution: 'temurin'
-            cache: maven
-      - name: Build with Maven
-        run: mvn -B package -pl configServer #build only this package
+    uses: ./.github/workflows/build-service.yml
+    with:
+      service-name: 'configServer'
+
 
   # JOB to build deliveries service
   build-deliveries:
     needs: determine-changes
     if: ${{ needs.determine-changes.outputs.deliveries-changed == 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
-        with:
-          java-version: '21'
-          distribution: 'temurin'
-          cache: maven
-      - name: Build with Maven
-        run: mvn -B package -pl deliveries
+    uses: ./.github/workflows/build-service.yml
+    with:
+      service-name: 'deliveries'
+      also-build-its-dependencies: '-am'
 
-  # JOB to build deliveries service
+  # JOB to build restaurant service
   build-restaurants:
     needs: determine-changes
     if: ${{ needs.determine-changes.outputs.restaurants-changed == 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
-        with:
-          java-version: '21'
-          distribution: 'temurin'
-          cache: maven
-      - name: Build with Maven
-        run: mvn -B package -pl restaurants
+    uses: ./.github/workflows/build-service.yml
+    with:
+      service-name: 'restaurants'
+      also-build-its-dependencies: '-am'
 
   # JOB to build sharedDTO service
   build-sharedDTO:
     needs: determine-changes
     if: ${{ needs.determine-changes.outputs.sharedDTO-changed == 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
-        with:
-          java-version: '21'
-          distribution: 'temurin'
-          cache: maven
-      - name: Build with Maven
-        run: mvn -B package -pl sharedDTO -amd #build this module and all the other modules which use it as a dependency
+    uses: ./.github/workflows/build-service.yml
+    with:
+      service-name: 'sharedDTO'
+      also-build-its-dependencies: '-amd'
 
 
   # JOB to build deliveries service
   build-userManagement:
     needs: determine-changes
     if: ${{ needs.determine-changes.outputs.userManagement-changed == 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
-        with:
-          java-version: '21'
-          distribution: 'temurin'
-          cache: maven
-      - name: Build with Maven
-        run: mvn -B package -pl userManagement
+    uses: ./.github/workflows/build-service.yml
+    with:
+      service-name: 'sharedDTO'
+
