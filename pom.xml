@@ -33,6 +33,7 @@
         <aws-crt.version>0.30.11</aws-crt.version>
         <firebase.admin.version>9.3.0</firebase.admin.version>
         <hibernate.spatial.version>7.0.0.Alpha3</hibernate.spatial.version>
+        <shared.version>1.0-SNAPSHOT</shared.version> <!--installed in your local repository-->
         <spring-cloud.version>2023.0.3</spring-cloud.version>
         <spring-retry.version>2.0.8</spring-retry.version>
 
@@ -72,12 +73,21 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <dependency>
+                <groupId>com.zeco.shared</groupId>
+                <artifactId>sharedDTO</artifactId>
+                <version>${shared.version}</version>
+            </dependency>
+
             <!-- https://mvnrepository.com/artifact/org.springframework.retry/spring-retry -->
             <dependency>
                 <groupId>org.springframework.retry</groupId>
                 <artifactId>spring-retry</artifactId>
                 <version>${spring-retry.version}</version>
             </dependency>
+
+
 
             <!-- https://mvnrepository.com/artifact/com.google.firebase/firebase-admin -->
             <dependency>
@@ -98,22 +108,7 @@
 
     </dependencyManagement>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+
 
 
 </project>
