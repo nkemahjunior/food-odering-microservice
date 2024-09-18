@@ -56,7 +56,7 @@ jobs:
             distribution: 'temurin'
             cache: maven
       - name: Build with Maven
-        run: mvn -B package
+        run: mvn -B package -pl configServer
 
   # JOB to build deliveries service
   build-deliveries:
