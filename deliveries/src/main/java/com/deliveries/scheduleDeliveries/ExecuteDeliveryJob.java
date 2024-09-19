@@ -1,5 +1,7 @@
 package com.deliveries.scheduleDeliveries;
 
+import com.deliveries.model.OrdersReadyForDelivery;
+import com.deliveries.repository.OrdersReadyForDeliveryRepository;
 import com.deliveries.service.DeliveryDriversService;
 import com.zeco.shared.NewOrderShared;
 import lombok.extern.slf4j.Slf4j;
@@ -21,13 +23,18 @@ public class ExecuteDeliveryJob extends QuartzJobBean {
     @Autowired
     private DeliveryDriversService deliveryDriversService;
 
+    @Autowired
+    private OrdersReadyForDeliveryRepository ordersReadyForDeliveryRepository;
 
 
+    /**
+     * executes each time the estimated time to prepare an order expires
+     */
     @Override
-    protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
+    protected void executeInternal(JobExecutionContext context)  {
         try{
 
-            NewOrderShared order = extractAndBuild(context.getMergedJobDataMap());
+            NewOrderShared order = extractAndBuildAndSave(context.getMergedJobDataMap());
             deliveryDriversService.getDeliveryDriver(order);
 
         }catch (Exception ex){
@@ -37,7 +44,12 @@ public class ExecuteDeliveryJob extends QuartzJobBean {
     }
 
 
-    private NewOrderShared extractAndBuild(JobDataMap jobDataMap){
+    /**
+     *Extracts the properties from the jobDataMap
+     * creates an ordersReadyForDelivery object with the properties and save to the database, and once we get a delivery driver, the driver will be assigned to this order
+     * creates and return a NewOrderShared object with the properties
+     */
+    private NewOrderShared extractAndBuildAndSave(JobDataMap jobDataMap){
         // Extracting values from JobDataMap
         long orderId = jobDataMap.getLong("order_id");
         UUID restaurantId = UUID.fromString(jobDataMap.getString("restaurant_id"));
@@ -52,6 +64,22 @@ public class ExecuteDeliveryJob extends QuartzJobBean {
         float deliveryLongitude = jobDataMap.getFloat("delivery_longitude");
         float restaurantLatitude = jobDataMap.getFloat("restaurant_latitude");
         float restaurantLongitude = jobDataMap.getFloat("restaurant_longitude");
+
+        OrdersReadyForDelivery ordersReadyForDelivery = new OrdersReadyForDelivery();
+        ordersReadyForDelivery.setOrderID(orderId); // Assuming this setter exists
+        ordersReadyForDelivery.setRestaurantID(restaurantId);
+        ordersReadyForDelivery.setUserID(userId);
+        ordersReadyForDelivery.setOrderTime(ZonedDateTime.from(orderTime));
+        ordersReadyForDelivery.setOrderComplete(orderComplete);
+        ordersReadyForDelivery.setDeliveryAddress(deliveryAddress);
+        ordersReadyForDelivery.setDeliveryInstructions(deliveryInstructions);
+        ordersReadyForDelivery.setDeliveryLatitude(deliveryLatitude);
+        ordersReadyForDelivery.setDeliveryLongitude(deliveryLongitude);
+
+        //save order, a driver will be assigned to this order, so they can deliver it to its location
+        ordersReadyForDeliveryRepository.save(ordersReadyForDelivery);
+
+
 
         return NewOrderShared.builder()
                 .orderID(orderId).

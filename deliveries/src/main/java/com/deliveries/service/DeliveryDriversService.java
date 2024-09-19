@@ -1,15 +1,17 @@
 package com.deliveries.service;
 
-import com.deliveries.dtos.AddAvailableDriverDTO;
-import com.deliveries.dtos.CreateDeliveryDriverDto;
-import com.deliveries.dtos.GetUserResponseDTO;
-import com.deliveries.dtos.NearbyDriversDTO;
+import com.deliveries.dtos.*;
 import com.deliveries.httpCall.UserServiceClient;
 import com.deliveries.model.AvailableDrivers;
 import com.deliveries.model.DeliveryDrivers;
+import com.deliveries.model.OrdersReadyForDelivery;
 import com.deliveries.model.UpdateDriverLocationDTO;
 import com.deliveries.repository.AvailableDriversRepository;
 import com.deliveries.repository.DeliveryDriversRepository;
+import com.deliveries.repository.OrdersReadyForDeliveryRepository;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingException;
+import com.google.firebase.messaging.Message;
 import com.zeco.shared.NewOrderShared;
 import lombok.extern.slf4j.Slf4j;
 import org.locationtech.jts.geom.Coordinate;
@@ -35,6 +37,11 @@ public class DeliveryDriversService {
 
     @Autowired
     private AvailableDriversRepository availableDriversRepository;
+
+    @Autowired
+    private OrdersReadyForDeliveryRepository ordersReadyForDeliveryRepository;
+
+    @Autowired DeliveryDrivers deliveryDrivers;
 
 
     private final GeometryFactory geometryFactory = new GeometryFactory();
@@ -98,8 +105,6 @@ public class DeliveryDriversService {
             log.info("**** saved coordinates for driver - {}", addAvailableDriverDTO.driverID());
         } );
 
-
-
     }
 
 
@@ -133,6 +138,53 @@ public class DeliveryDriversService {
 
     public void getDeliveryDriver(NewOrderShared order){
         List<NearbyDriversDTO> test = availableDriversRepository.findDriversCloseToRestaurant(order.getRestaurantLongitude(), order.getRestaurantLatitude());
+
+
+
+    }
+
+
+
+    //TODO finish this method, its incomplete, you need to send the write messages in "putData"
+    private void notifyDriver(){
+        try {
+
+            // See documentation on defining a message payload.
+            Message message = Message.builder()
+
+                    .putData("score", "850")
+                    .putData("time", "2:45")
+                    .setToken("registrationToken") //TODO drivers registration token
+                    .build();
+
+
+            String response = FirebaseMessaging.getInstance().send(message);
+            System.out.println("Successfully sent message: " + response);
+
+
+        }catch (FirebaseMessagingException firebaseEx){
+            log.error("**** firebase exception ****");
+            log.error(firebaseEx.getMessage());
+        }catch (Exception ex){
+            log.error("**** error sending push notification to driver - ****");
+            log.error(ex.getMessage());
+        }
+    }
+
+
+    /**
+     *Assigns a driver to an order when they accept to deliver it
+     * The order was already saved in the database when the estimated time to prepare the order expired, and it was executed by the scheduler, so now we just assign a driver to the order
+     */
+    public void acceptToDeliverOrder(AcceptDeliveryDTO acceptDeliveryDTO){
+        OrdersReadyForDelivery order = ordersReadyForDeliveryRepository.findById(acceptDeliveryDTO.orderID()).orElseThrow(() -> new NoSuchElementException(" order not found"));
+        DeliveryDrivers driver = deliveryDriversRepository.findById(acceptDeliveryDTO.driverID()).orElseThrow(() -> new NoSuchElementException(" driver  not found"));
+
+        order.setDeliveryDriver(driver);
+        ordersReadyForDeliveryRepository.save(order);
+    }
+
+    public void declineOrder(AcceptDeliveryDTO){
 
     }
 }

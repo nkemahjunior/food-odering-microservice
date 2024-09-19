@@ -35,9 +35,9 @@ public class DeliveryDriverController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/test")
+  /*  @GetMapping("/test")
     public void test(){
         deliveryDriversService.getDeliveryDriver();
-    }
+    }*/
 
 }
