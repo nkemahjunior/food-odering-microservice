@@ -21,6 +21,9 @@ public class NewOrderShared {
     String deliveryInstructions;
     Float deliveryLatitude;
     Float deliveryLongitude;
+    Float restaurantLatitude;
+    Float restaurantLongitude;
+
 
     // Method to check if none of the fields are null
     public boolean areFieldsNonNull() {

@@ -118,6 +118,8 @@ public class OrdersService {
                     deliveryInstructions(savedOrder.getDeliveryInstructions()).
                     deliveryLatitude(savedOrder.getDeliveryLatitude()).
                     deliveryLongitude(savedOrder.getDeliveryLongitude()).
+                    restaurantLongitude(restaurant.getLongitude()).
+                    restaurantLatitude(restaurant.getLatitude()).
                     build();
 
             sendOrder(newOrderShared, key);

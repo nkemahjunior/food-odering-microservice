@@ -36,6 +36,9 @@ public class ScheduleOrderDelivery {
                     .usingJobData("delivery_instructions",order.getDeliveryInstructions())
                     .usingJobData("delivery_latitude",order.getDeliveryLatitude())
                     .usingJobData("delivery_longitude", order.getDeliveryLongitude())
+                    .usingJobData("restaurant_latitude",order.getRestaurantLatitude())
+                    .usingJobData("restaurant_longitude", order.getRestaurantLongitude())
+
                     .build();
 
             log.info("**** Created a new job detail for order - {} ****", order.getOrderID());

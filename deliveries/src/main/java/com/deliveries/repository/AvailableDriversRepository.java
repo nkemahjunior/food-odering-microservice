@@ -33,7 +33,7 @@ public interface AvailableDriversRepository extends JpaRepository<AvailableDrive
             SELECT  * , ST_Distance(coordinates, ST_SetSRID(ST_MakePoint(?1, ?2), 4326)::geography) AS distance
             FROM nearby_drivers
             ORDER BY distance ASC""", nativeQuery = true)
-    List<NearbyDriversDTO> findDriversCloseToRestaurant(double restaurantLong, double restaurantLat);
+    List<NearbyDriversDTO> findDriversCloseToRestaurant(float restaurantLong, float restaurantLat);
 
     Optional<AvailableDrivers> findByDriverID(DeliveryDrivers driver);
 

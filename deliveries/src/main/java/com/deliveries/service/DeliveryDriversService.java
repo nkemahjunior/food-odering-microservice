@@ -10,6 +10,7 @@ import com.deliveries.model.DeliveryDrivers;
 import com.deliveries.model.UpdateDriverLocationDTO;
 import com.deliveries.repository.AvailableDriversRepository;
 import com.deliveries.repository.DeliveryDriversRepository;
+import com.zeco.shared.NewOrderShared;
 import lombok.extern.slf4j.Slf4j;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -130,14 +131,8 @@ public class DeliveryDriversService {
 
 
 
-    public void getDeliveryDriver(){
-        List<NearbyDriversDTO> test = availableDriversRepository.findDriversCloseToRestaurant(9.299836, 4.151807);
-        test.forEach( el ->{
-            log.info("--------------------------------------------------------------------------------------");
-            log.info("--------------------------------------------------------------------------------------");
-            log.info(el.toStringCustom());
-            log.info("--------------------------------------------------------------------------------------");
-            log.info("--------------------------------------------------------------------------------------");
-        });
+    public void getDeliveryDriver(NewOrderShared order){
+        List<NearbyDriversDTO> test = availableDriversRepository.findDriversCloseToRestaurant(order.getRestaurantLongitude(), order.getRestaurantLatitude());
+
     }
 }
