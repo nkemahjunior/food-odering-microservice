@@ -35,7 +35,7 @@ public class ExecuteDeliveryJob extends QuartzJobBean {
         try{
 
             NewOrderShared order = extractAndBuildAndSave(context.getMergedJobDataMap());
-            deliveryDriversService.getDeliveryDriver(order);
+            deliveryDriversService.assignDeliveryDriverToOrder(order);
 
         }catch (Exception ex){
             log.error("**** error Triggering order for delivery ****");

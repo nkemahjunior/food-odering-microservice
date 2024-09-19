@@ -2,12 +2,10 @@ package com.deliveries.service;
 
 import com.deliveries.dtos.*;
 import com.deliveries.httpCall.UserServiceClient;
-import com.deliveries.model.AvailableDrivers;
-import com.deliveries.model.DeliveryDrivers;
-import com.deliveries.model.OrdersReadyForDelivery;
-import com.deliveries.model.UpdateDriverLocationDTO;
+import com.deliveries.model.*;
 import com.deliveries.repository.AvailableDriversRepository;
 import com.deliveries.repository.DeliveryDriversRepository;
+import com.deliveries.repository.OrdersDriversBlacklistRepository;
 import com.deliveries.repository.OrdersReadyForDeliveryRepository;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
@@ -21,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -41,8 +38,8 @@ public class DeliveryDriversService {
     @Autowired
     private OrdersReadyForDeliveryRepository ordersReadyForDeliveryRepository;
 
-    @Autowired DeliveryDrivers deliveryDrivers;
-
+    @Autowired
+    private OrdersDriversBlacklistRepository ordersDriversBlacklistRepository;
 
     private final GeometryFactory geometryFactory = new GeometryFactory();
 
@@ -54,7 +51,6 @@ public class DeliveryDriversService {
         log.info("**** verifying the user's id - {} ****", createDeliveryDriverDto.userID());
         GetUserResponseDTO user =  userServiceClient.getUser(createDeliveryDriverDto.userID());
         log.info("**** valid user id - {} ****", createDeliveryDriverDto.userID());
-
 
         DeliveryDrivers drivers = new DeliveryDrivers();
         drivers.setUserID(user.getUserID());
@@ -135,19 +131,36 @@ public class DeliveryDriversService {
     }
 
 
+    /**
+     *
+     * @param order - the order whose estimated time to prepare has expired. the ExecuteDeliveryJob calls this method when necessary
+     * The ExecuteDeliveryJob- (scheduleDeliveries package) calls this method for each order when their estimated time to prepare expires
+     *
+     * This method assigns the closest driver to the restaurant( restaurant preparing the order)
+     *  if the driver accepts the order, then fine
+     * if the driver declines the order, this method is called again, but the driver who declined the order will not more be included in the
+     * search for new drivers to deliver the order
+     */
+    public void assignDeliveryDriverToOrder(NewOrderShared order){
 
-    public void getDeliveryDriver(NewOrderShared order){
-        List<NearbyDriversDTO> test = availableDriversRepository.findDriversCloseToRestaurant(order.getRestaurantLongitude(), order.getRestaurantLatitude());
+        //get drivers who decline to deliver this order
+       List<Long> blacklistedDrivers = ordersDriversBlacklistRepository.findAllBlacklistedDriverIdsForThisOrder(order.getOrderID());
 
+       //don't add the blacklisted drivers when searching for different drivers who can deliver the order
+       List<NearbyDriversDTO> driversCloseToRestaurant = availableDriversRepository.findDriversCloseToRestaurant(order.getRestaurantLongitude(), order.getRestaurantLatitude(), blacklistedDrivers);
 
-
+       //send a push notification to the closest driver
+        notifyDriver(driversCloseToRestaurant.get(0));
     }
 
 
 
     //TODO finish this method, its incomplete, you need to send the write messages in "putData"
-    private void notifyDriver(){
+    private void notifyDriver(NearbyDriversDTO nearbyDriver){
         try {
+
+
+
 
             // See documentation on defining a message payload.
             Message message = Message.builder()
@@ -172,11 +185,13 @@ public class DeliveryDriversService {
     }
 
 
+
+
     /**
      *Assigns a driver to an order when they accept to deliver it
      * The order was already saved in the database when the estimated time to prepare the order expired, and it was executed by the scheduler, so now we just assign a driver to the order
      */
-    public void acceptToDeliverOrder(AcceptDeliveryDTO acceptDeliveryDTO){
+    public void acceptToDeliverOrder(AcceptOrDeclineDeliveryDTO acceptDeliveryDTO){
         OrdersReadyForDelivery order = ordersReadyForDeliveryRepository.findById(acceptDeliveryDTO.orderID()).orElseThrow(() -> new NoSuchElementException(" order not found"));
         DeliveryDrivers driver = deliveryDriversRepository.findById(acceptDeliveryDTO.driverID()).orElseThrow(() -> new NoSuchElementException(" driver  not found"));
 
@@ -184,7 +199,27 @@ public class DeliveryDriversService {
         ordersReadyForDeliveryRepository.save(order);
     }
 
-    public void declineOrder(AcceptDeliveryDTO){
+
+    /**
+     * when a driver declines an order, they are blacklisted against that particular order so,
+     * they will not be included in the next list of drivers that we are trying to assign to that order
+     * @Example
+     * if we see 5 drivers close to a restaurant, i first assign the closest driver to the order, if the driver declines they are blacklisted against that order,
+     * then we take the next closest driver and so on
+     *
+     */
+    public void declineToDeliverOrder(AcceptOrDeclineDeliveryDTO declineDeliveryDTO){
+        OrdersReadyForDelivery order = ordersReadyForDeliveryRepository.findById(declineDeliveryDTO.orderID()).orElseThrow(() -> new NoSuchElementException(" order not found"));
+        DeliveryDrivers driver = deliveryDriversRepository.findById(declineDeliveryDTO.driverID()).orElseThrow(() -> new NoSuchElementException(" driver  not found"));
+
+        OrdersDriverBlackList odB = new OrdersDriverBlackList();
+        odB.setDriverID(driver);
+        odB.setOrderID(order);
+        ordersDriversBlacklistRepository.save(odB);
+
+        //TODO notify another driver/ assign order
+        //notifyDriver();
+
 
     }
 }

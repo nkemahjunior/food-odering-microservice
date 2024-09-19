@@ -1,6 +1,6 @@
 package com.deliveries.dtos;
 
-public record AcceptDeliveryDTO(
+public record AcceptOrDeclineDeliveryDTO(
         long orderID,
         long driverID
 ) {

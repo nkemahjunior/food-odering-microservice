@@ -28,12 +28,13 @@ public interface AvailableDriversRepository extends JpaRepository<AvailableDrive
                        4000  -- Radius in meters
                 )
                 And online = false
+                AND driver_id NOT IN (?3)
             )
 
             SELECT  * , ST_Distance(coordinates, ST_SetSRID(ST_MakePoint(?1, ?2), 4326)::geography) AS distance
             FROM nearby_drivers
             ORDER BY distance ASC""", nativeQuery = true)
-    List<NearbyDriversDTO> findDriversCloseToRestaurant(float restaurantLong, float restaurantLat);
+    List<NearbyDriversDTO> findDriversCloseToRestaurant(float restaurantLong, float restaurantLat, List<Long> blacklistedDriversForThisOrder);
 
     Optional<AvailableDrivers> findByDriverID(DeliveryDrivers driver);
 
