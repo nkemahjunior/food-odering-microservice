@@ -21,7 +21,7 @@ public class GetRestaurantsDTO {
     String branding;
     String restaurantType;
     String restaurantName;
-    Float longitude;
-    Float latitude;
+    double longitude;
+    double latitude;
     List<GetDishesDTO> dishes;
 }

@@ -28,8 +28,8 @@ public class CreateRestaurantDTO {
     private List<RestaurantOperationalTimes> operationalTimes;
     private List<Cuisines> cuisines;
     private String restaurantName;
-    private Float longitude;
-    private Float latitude;
+    private double longitude;
+    private double latitude;
     private BigDecimal minPricePerOrder;
     private BigDecimal maxPricePerOrder;
 

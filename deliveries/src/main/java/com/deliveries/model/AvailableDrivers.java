@@ -21,7 +21,7 @@ public class AvailableDrivers {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long avlDriverID;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "driver_id", referencedColumnName = "driver_id")
     private DeliveryDrivers driverID;
 
@@ -42,7 +42,7 @@ public class AvailableDrivers {
     private String fcmRegistrationToken;
 
     //@Column(name = "distance")
-    private Double distance;
+    private Double distance; //this column will be added to the table if you run a query containing stDistance()
 
 
     @Override

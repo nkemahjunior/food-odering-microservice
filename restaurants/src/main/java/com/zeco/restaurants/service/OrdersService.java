@@ -60,12 +60,12 @@ public class OrdersService {
 
 
         UUID key = UUID.randomUUID();
+        //call to the users-service
+        GetUserResponseDTO user = userServiceClient.getUser(placeOrderDTO.get(0).user_id());// no matter the number of orders, It's still the same user, so take the user id from one of the orders
+        if(user == null) throw new RuntimeException(" user not found");
 
         for (PlaceOrderDTO order: placeOrderDTO){
-            //call to the users-service
-            GetUserResponseDTO user = userServiceClient.getUser(order.user_id());
-            if(user == null) throw new RuntimeException(" user not found");
-            
+
             Restaurant restaurant = restaurantRepository.findById(order.restaurantID()).orElseThrow(() -> new NoSuchElementException("restaurant not found, can not place order"));
 
             Orders orderObj = new Orders();

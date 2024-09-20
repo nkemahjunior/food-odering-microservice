@@ -46,10 +46,10 @@ public class Users {
     private String address;
 
     @Column(name = "longitude")
-    private Float longitude;
+    private Double longitude;
 
     @Column(name = "latitude")
-    private Float latitude;
+    private Double latitude;
 
     @Override
     public boolean equals(Object o) {

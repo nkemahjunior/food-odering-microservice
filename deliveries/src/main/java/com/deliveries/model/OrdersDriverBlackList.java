@@ -19,11 +19,13 @@ public class OrdersDriverBlackList {
 
 
 
-    @Column(name = "order_id")
-    private OrdersReadyForDelivery orderID;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
+    private OrdersReadyForDelivery order;
 
 
-    @Column(name = "driver_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "driver_id", referencedColumnName = "driver_id")
     private DeliveryDrivers driverID;
 
 
@@ -31,11 +33,11 @@ public class OrdersDriverBlackList {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof OrdersDriverBlackList that)) return false;
-        return Objects.equals(getOrderID(), that.getOrderID()) && Objects.equals(getDriverID(), that.getDriverID());
+        return Objects.equals(getOrder(), that.getOrder()) && Objects.equals(getDriverID(), that.getDriverID());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getOrderID(), getDriverID());
+        return Objects.hash(getOrder(), getDriverID());
     }
 }

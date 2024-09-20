@@ -45,13 +45,13 @@ public class OrdersReadyForDelivery {
 
     @Column(name = "delivery_latitude")
     @NonNull
-    private Float deliveryLatitude;
+    private Double deliveryLatitude;
 
     @Column(name = "delivery_longitude")
     @NonNull
-    private Float deliveryLongitude;
+    private Double deliveryLongitude;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "delivery_driver_id", referencedColumnName = "driver_id")
     private DeliveryDrivers deliveryDriver;
 

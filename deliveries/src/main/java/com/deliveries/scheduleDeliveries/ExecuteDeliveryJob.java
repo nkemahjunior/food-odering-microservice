@@ -13,6 +13,7 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
@@ -53,23 +54,23 @@ public class ExecuteDeliveryJob extends QuartzJobBean {
         // Extracting values from JobDataMap
         long orderId = jobDataMap.getLong("order_id");
         UUID restaurantId = UUID.fromString(jobDataMap.getString("restaurant_id"));
-        UUID userId = UUID.fromString("user_id");
-        long estimatedTimeToFinish = jobDataMap.getInt("estimated_time_to_finish");
+        UUID userId = UUID.fromString(jobDataMap.getString("user_id"));
+        long estimatedTimeToFinish = jobDataMap.getLong("estimated_time_to_finish");
         long orderTimeEpoch = jobDataMap.getLong("order_time");
         Instant orderTime = Instant.ofEpochSecond(orderTimeEpoch);
         boolean orderComplete = jobDataMap.getBoolean("order_complete");
         String deliveryAddress = jobDataMap.getString("delivery_address");
         String deliveryInstructions = jobDataMap.getString("delivery_instructions");
-        float deliveryLatitude = jobDataMap.getFloat("delivery_latitude");
-        float deliveryLongitude = jobDataMap.getFloat("delivery_longitude");
-        float restaurantLatitude = jobDataMap.getFloat("restaurant_latitude");
-        float restaurantLongitude = jobDataMap.getFloat("restaurant_longitude");
+        double deliveryLatitude = jobDataMap.getDouble("delivery_latitude");
+        double deliveryLongitude = jobDataMap.getDouble("delivery_longitude");
+        double restaurantLatitude = jobDataMap.getDouble("restaurant_latitude");
+        double restaurantLongitude = jobDataMap.getDouble("restaurant_longitude");
 
         OrdersReadyForDelivery ordersReadyForDelivery = new OrdersReadyForDelivery();
         ordersReadyForDelivery.setOrderID(orderId); // Assuming this setter exists
         ordersReadyForDelivery.setRestaurantID(restaurantId);
         ordersReadyForDelivery.setUserID(userId);
-        ordersReadyForDelivery.setOrderTime(ZonedDateTime.from(orderTime));
+        ordersReadyForDelivery.setOrderTime(ZonedDateTime.ofInstant(orderTime, ZoneId.systemDefault()));//TODO make an handle this time Zones well'
         ordersReadyForDelivery.setOrderComplete(orderComplete);
         ordersReadyForDelivery.setDeliveryAddress(deliveryAddress);
         ordersReadyForDelivery.setDeliveryInstructions(deliveryInstructions);
@@ -86,7 +87,7 @@ public class ExecuteDeliveryJob extends QuartzJobBean {
                 restaurantID(restaurantId).
                 userID(userId).
                 estimatedTimeToFinish(estimatedTimeToFinish).
-                orderTime(ZonedDateTime.from(orderTime)).
+                orderTime(ZonedDateTime.ofInstant(orderTime, ZoneId.systemDefault())). //TODO make an handle this time Zones well'
                 orderComplete(orderComplete).
                 deliveryAddress(deliveryAddress).
                 deliveryInstructions(deliveryInstructions).

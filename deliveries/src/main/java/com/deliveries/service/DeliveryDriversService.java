@@ -7,8 +7,6 @@ import com.deliveries.repository.AvailableDriversRepository;
 import com.deliveries.repository.DeliveryDriversRepository;
 import com.deliveries.repository.OrdersDriversBlacklistRepository;
 import com.deliveries.repository.OrdersReadyForDeliveryRepository;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.zeco.shared.NewOrderShared;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -142,12 +141,22 @@ public class DeliveryDriversService {
      * search for new drivers to deliver the order
      */
     public void assignDeliveryDriverToOrder(NewOrderShared order){
+        log.info("**** getting all blacklisted drivers for order - {} ****", order.getOrderID());
 
+        List<Long> blacklistedDrivers = null;
         //get drivers who decline to deliver this order
-       List<Long> blacklistedDrivers = ordersDriversBlacklistRepository.findAllBlacklistedDriverIdsForThisOrder(order.getOrderID());
+       blacklistedDrivers = ordersDriversBlacklistRepository.findAllBlacklistedDriverIdsForThisOrder(order.getOrderID());
+
+        log.info("**** got all blacklisted drivers for order - {} ****", order.getOrderID());
+        log.info("**** looking for the closest driver to the restaurant - {} preparing the order  ****", order.getRestaurantID());
+
+        if(blacklistedDrivers.isEmpty()) blacklistedDrivers = List.of(0L);
 
        //don't add the blacklisted drivers when searching for different drivers who can deliver the order
        List<NearbyDriversDTO> driversCloseToRestaurant = availableDriversRepository.findDriversCloseToRestaurant(order.getRestaurantLongitude(), order.getRestaurantLatitude(), blacklistedDrivers);
+
+        log.info("**** selected list of closest drivers to restaurant -{}  ****", order.getRestaurantID());
+        log.info("**** selected list of closest drivers to restaurant -{}  ****", order.getRestaurantID());
 
        //send a push notification to the closest driver
         notifyDriver(driversCloseToRestaurant.get(0));
@@ -158,26 +167,22 @@ public class DeliveryDriversService {
     //TODO finish this method, its incomplete, you need to send the write messages in "putData"
     private void notifyDriver(NearbyDriversDTO nearbyDriver){
         try {
-
-
-
-
+            log.info("**** sending push notification to driver -{} to deliver order", nearbyDriver.getDriverId());
             // See documentation on defining a message payload.
             Message message = Message.builder()
 
-                    .putData("score", "850")
-                    .putData("time", "2:45")
+                    .putData("delivery fee", "test - 850")
                     .setToken("registrationToken") //TODO drivers registration token
                     .build();
 
 
-            String response = FirebaseMessaging.getInstance().send(message);
-            System.out.println("Successfully sent message: " + response);
+            //String response = FirebaseMessaging.getInstance().send(message);
+           // System.out.println("Successfully sent message: " + response);
 
 
-        }catch (FirebaseMessagingException firebaseEx){
+       /* }catch (FirebaseMessagingException firebaseEx){
             log.error("**** firebase exception ****");
-            log.error(firebaseEx.getMessage());
+            log.error(firebaseEx.getMessage());*/
         }catch (Exception ex){
             log.error("**** error sending push notification to driver - ****");
             log.error(ex.getMessage());
@@ -214,12 +219,23 @@ public class DeliveryDriversService {
 
         OrdersDriverBlackList odB = new OrdersDriverBlackList();
         odB.setDriverID(driver);
-        odB.setOrderID(order);
+        odB.setOrder(order);
         ordersDriversBlacklistRepository.save(odB);
 
         //TODO notify another driver/ assign order
         //notifyDriver();
-
-
     }
+
+//    public void test(){
+//        List<Long> blacklistedDrivers = ordersDriversBlacklistRepository.findAllBlacklistedDriverIdsForThisOrder(76L);
+//
+//
+//
+//        //don't add the blacklisted drivers when searching for different drivers who can deliver the order
+//        List<NearbyDriversDTO> driversCloseToRestaurant = availableDriversRepository.findDriversCloseToRestaurant(9.299836F, 4.151807F, List.of(0L));
+//        driversCloseToRestaurant.forEach(el -> System.out.println(el.getDriverId()));
+//
+//        System.out.println("****************************************************************************************************************");
+//        System.out.println("***************************************************************************************************************");
+//    }
 }

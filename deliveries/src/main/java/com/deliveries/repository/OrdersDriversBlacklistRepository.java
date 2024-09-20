@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface OrdersDriversBlacklistRepository extends JpaRepository<OrdersDriverBlackList, Long> {
 
-    @Query("SELECT o.driverID FROM OrdersDriverBlackList o WHERE o.orderID = ?1")
+    @Query("SELECT o.driverID FROM OrdersDriverBlackList o WHERE o.order.orderID = ?1")
     List<Long> findAllBlacklistedDriverIdsForThisOrder(Long orderID);
 }
