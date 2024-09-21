@@ -1,4 +1,4 @@
-package com.deliveries.model;
+package com.deliveries.dtos;
 
 public record UpdateDriverLocationDTO(
         long avlDriverID,

@@ -33,7 +33,7 @@ public class DeliveryDrivers {
     @NonNull
     private Long ratings;
 
-    @OneToOne(mappedBy = "driverID")
+    @OneToOne(mappedBy = "driverID", fetch = FetchType.LAZY)
     private AvailableDrivers driver;
 
 

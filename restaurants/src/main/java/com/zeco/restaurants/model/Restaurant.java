@@ -55,11 +55,11 @@ public class Restaurant {
 
     @Column(name = "longitude")
     @NonNull
-    private Float longitude;
+    private Double longitude;
 
     @Column(name = "latitude")
     @NonNull
-    private Float latitude;
+    private Double latitude;
 
     @Column(name = "min_price_per_order")
     private BigDecimal minPricePerOrder;

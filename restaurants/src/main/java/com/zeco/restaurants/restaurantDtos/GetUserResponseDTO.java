@@ -16,7 +16,7 @@ public class GetUserResponseDTO {
      Boolean online;
      String phone;
      String address;
-     Float longitude;
-    Float latitude;
+     Double longitude;
+    Double latitude;
 
 }

@@ -19,20 +19,9 @@ public class NewOrderShared {
     Boolean orderComplete;
     String deliveryAddress;
     String deliveryInstructions;
-    Float deliveryLatitude;
-    Float deliveryLongitude;
+    double deliveryLatitude;
+    double deliveryLongitude;
+    double restaurantLatitude;
+    double restaurantLongitude;
 
-    // Method to check if none of the fields are null
-    public boolean areFieldsNonNull() {
-        return orderID != null &&
-                restaurantID != null &&
-                userID != null &&
-                estimatedTimeToFinish != null &&
-                orderTime != null &&
-                orderComplete != null &&
-                deliveryAddress != null &&
-                deliveryInstructions != null &&
-                deliveryLatitude != null &&
-                deliveryLongitude != null;
-    }
 }
