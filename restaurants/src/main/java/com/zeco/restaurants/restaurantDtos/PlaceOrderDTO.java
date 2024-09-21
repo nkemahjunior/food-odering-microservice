@@ -19,7 +19,7 @@ public record PlaceOrderDTO(
     Boolean orderComplete,
     String deliveryAddress,
     String deliveryInstructions,
-    Float deliveryLatitude,
-    Float deliveryLongitude
+    Double deliveryLatitude,
+    Double deliveryLongitude
 ) {
 }

@@ -1,9 +1,10 @@
 package com.deliveries.controller;
 
 
+import com.deliveries.dtos.AcceptOrDeclineDeliveryDTO;
 import com.deliveries.dtos.AddAvailableDriverDTO;
 import com.deliveries.dtos.CreateDeliveryDriverDto;
-import com.deliveries.model.UpdateDriverLocationDTO;
+import com.deliveries.dtos.UpdateDriverLocationDTO;
 import com.deliveries.service.DeliveryDriversService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,9 +36,22 @@ public class DeliveryDriverController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/test")
-    public void test(){
-        deliveryDriversService.getDeliveryDriver();
+    @PostMapping("/driver/acceptDelivery")
+    public ResponseEntity<Void> acceptToDeliverOrderEndpoint(@RequestBody AcceptOrDeclineDeliveryDTO acceptDeliveryDTO){
+        deliveryDriversService.acceptToDeliverOrder(acceptDeliveryDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PostMapping("/driver/declineDelivery")
+    public ResponseEntity<Void> declineToDeliverOrderEndpoint(@RequestBody AcceptOrDeclineDeliveryDTO denyDeliveryDTO){
+        deliveryDriversService.declineToDeliverOrder(denyDeliveryDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+  /*  @GetMapping("/test")
+    public void test(){
+        deliveryDriversService.test();
+    }
+
+*/
 }

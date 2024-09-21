@@ -51,10 +51,10 @@ public class Orders {
     private String deliveryInstructions;
 
     @Column(name = "delivery_latitude")
-    private Float deliveryLatitude;
+    private Double deliveryLatitude;
 
     @Column(name = "delivery_longitude")
-    private Float deliveryLongitude;
+    private Double deliveryLongitude;
 
     @OneToMany(mappedBy = "orderID", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<OrderDishes> orderDishesList = new ArrayList<>();
