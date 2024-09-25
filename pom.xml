@@ -33,7 +33,6 @@
         <aws-crt.version>0.30.11</aws-crt.version>
         <firebase.admin.version>9.3.0</firebase.admin.version>
         <hibernate.spatial.version>7.0.0.Alpha3</hibernate.spatial.version>
-        <lettuce-core.version>6.4.0.RELEASE</lettuce-core.version>
         <shared.version>1.0-SNAPSHOT</shared.version> <!--installed in your local repository-->
         <spring-cloud.version>2023.0.3</spring-cloud.version>
         <spring-retry.version>2.0.8</spring-retry.version>
@@ -102,13 +101,6 @@
                 <groupId>org.hibernate.orm</groupId>
                 <artifactId>hibernate-spatial</artifactId>
                 <version>${hibernate.spatial.version}</version>
-            </dependency>
-
-            <!-- https://mvnrepository.com/artifact/io.lettuce/lettuce-core -->
-            <dependency>
-                <groupId>io.lettuce</groupId>
-                <artifactId>lettuce-core</artifactId>
-                <version>${lettuce-core.version}</version>
             </dependency>
 
         </dependencies>
