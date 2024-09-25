@@ -7,5 +7,3 @@ spring:
     import: optional:configserver:http://localhost:8888
   application:
     name: users-service
-
-  r
