@@ -1,4 +1,4 @@
-package com.deliveries.kafkaTopicsConfig;
+package com.deliveries.topicsConfig;
 
 
 import org.springframework.beans.factory.annotation.Value;
@@ -12,7 +12,7 @@ import org.springframework.kafka.retrytopic.RetryTopicConfigurationBuilder;
 import java.util.List;
 
 @Configuration
-public class KafkaTopicsConfig {
+public class TopicsConfig {
 
     @Value("${topics.new-order}")
     private String newOrderTopic;

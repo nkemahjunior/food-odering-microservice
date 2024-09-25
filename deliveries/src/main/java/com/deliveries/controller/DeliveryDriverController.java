@@ -7,7 +7,6 @@ import com.deliveries.dtos.CreateDeliveryDriverDto;
 import com.deliveries.dtos.UpdateDriverLocationDTO;
 import com.deliveries.service.DeliveryDriversService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/deliveries")
 public class DeliveryDriverController {
-
-    @Autowired
-    RedisTemplate<String, String> redisTemplate;
 
     @Autowired
     private DeliveryDriversService deliveryDriversService;
@@ -58,15 +54,4 @@ public class DeliveryDriverController {
     }
 
 */
-
-
-    @GetMapping("/test-put/{key}/{data}")
-    public void testPut(@PathVariable String key,@PathVariable String data){
-        redisTemplate.opsForValue().set(key, data);
-    }
-
-    @GetMapping("/test-get/{key}")
-    public String testGet(@PathVariable String key){
-        return redisTemplate.opsForValue().get(key);
-    }
 }
