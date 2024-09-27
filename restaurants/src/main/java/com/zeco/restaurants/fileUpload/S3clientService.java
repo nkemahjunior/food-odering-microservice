@@ -1,4 +1,5 @@
 package com.zeco.restaurants.fileUpload;
+import com.zeco.restaurants.restaurantDtos.CreateDishDTO;
 import com.zeco.restaurants.service.RestaurantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class S3clientService {
 
 
     @Retryable(maxAttempts = 5, backoff = @Backoff(delay = 2000, multiplier = 2000))
-    public void uploadDishPicture( MultipartFile picture, Long dishID)  {
+    public CreateDishDTO uploadDishPicture(MultipartFile picture, Long dishID)  {
         try{
             log.info("**** Starting to upload photo for dish -{}****",dishID);
 
@@ -41,14 +42,15 @@ public class S3clientService {
                    .join();
 
             // Save the URL in the database after successful upload
-            restaurantService.saveDishImageUrl(key,dishID);
-
             log.info("**** Successfully uploaded photo for dishID {} ****", dishID);
+           return  restaurantService.saveDishImageUrl(key,dishID);
+
+
         }catch (Exception ex){
             log.error("**** failed to upload picture for dish -{}****",dishID);
             log.error(ex.getMessage());
         }
-
+        return null;
     }
 
 

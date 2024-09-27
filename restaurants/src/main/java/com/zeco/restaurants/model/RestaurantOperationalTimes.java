@@ -1,10 +1,12 @@
 package com.zeco.restaurants.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
@@ -25,16 +27,17 @@ public class RestaurantOperationalTimes {
     private String openingDay;
 
     @Column(name = "opening_time")
-    private ZonedDateTime openingTime;
+    private LocalTime openingTime;
 
     @Column(name = "closing_day")
     private String closingDay;
 
     @Column(name = "closing_time")
-    private ZonedDateTime closingTime;
+    private LocalTime closingTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id")
+    @JsonIgnore
     private Restaurant restaurantID;
 
     @Override

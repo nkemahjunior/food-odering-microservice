@@ -14,6 +14,7 @@ import java.util.UUID;
 @Builder
 public class GetRestaurantsDTO {
     //UUID userID;
+    UUID restaurantID;
     String postCode;
     String location;
     String address;

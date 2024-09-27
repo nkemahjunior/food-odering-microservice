@@ -9,6 +9,7 @@ import com.deliveries.repository.OrdersDriversBlacklistRepository;
 import com.deliveries.repository.OrdersReadyForDeliveryRepository;
 import com.google.firebase.messaging.Message;
 import com.zeco.shared.NewOrderShared;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.extern.slf4j.Slf4j;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -40,23 +42,35 @@ public class DeliveryDriversService {
     @Autowired
     private OrdersDriversBlacklistRepository ordersDriversBlacklistRepository;
 
+
     private final GeometryFactory geometryFactory = new GeometryFactory();
+
+    /*@CircuitBreaker(name = "user-service", fallbackMethod = "errorGettingUser")*/
+    public GetUserResponseDTO getUser(UUID userID){
+        return userServiceClient.getUser(userID);
+    }
+
 
     /**
      *
      * register a new delivery driver, only if they already have a user account( by signing up)
      */
-    public void saveNewDeliveryDriver(CreateDeliveryDriverDto createDeliveryDriverDto){
+    public CreateDeliveryDriverDto saveNewDeliveryDriver(CreateDeliveryDriverDto createDeliveryDriverDto){
         log.info("**** verifying the user's id - {} ****", createDeliveryDriverDto.userID());
-        GetUserResponseDTO user =  userServiceClient.getUser(createDeliveryDriverDto.userID());
+        GetUserResponseDTO user = getUser(createDeliveryDriverDto.userID());
+        if(user.getUserID() == null) throw new  NoSuchElementException("user not found");
+
         log.info("**** valid user id - {} ****", createDeliveryDriverDto.userID());
 
         DeliveryDrivers drivers = new DeliveryDrivers();
         drivers.setUserID(user.getUserID());
         drivers.setVehicleType(createDeliveryDriverDto.vehicleType());
 
-        deliveryDriversRepository.save(drivers);
+        DeliveryDrivers saveDd = deliveryDriversRepository.save(drivers);
         log.info("**** saved the user's id - {} ****", createDeliveryDriverDto.userID());
+
+        return new CreateDeliveryDriverDto(saveDd.getUserID(), saveDd.getVehicleType());
+
     }
 
 
@@ -72,34 +86,37 @@ public class DeliveryDriversService {
         DeliveryDrivers driver = deliveryDriversRepository.findById(addAvailableDriverDTO.driverID()).orElseThrow(() -> new NoSuchElementException("driver not found"));
         log.info("**** verified driver's id - {}", addAvailableDriverDTO.driverID());
 
-
-        availableDriversRepository.findByDriverID(driver).ifPresentOrElse((driverFound) -> {
-            log.info("**** Driver already exist - {}, updating driver's properties ", addAvailableDriverDTO.driverID());
-            driverFound.setOnline(true);
-            driverFound.setDriverCoordinates(geometryFactory.createPoint(new Coordinate(addAvailableDriverDTO.longitude(), addAvailableDriverDTO.latitude())));
-            driverFound.setFcmRegistrationToken(addAvailableDriverDTO.fcmRegistrationToken());
-            availableDriversRepository.save(driverFound);
-            log.info("**** Driver  - {} properties updated", addAvailableDriverDTO.driverID());
-
-
+        availableDriversRepository.findByDriverID(driver).ifPresentOrElse((availableDriver) -> {
+            oldAvailableDriver(availableDriver,addAvailableDriverDTO.longitude(), addAvailableDriverDTO.latitude(), addAvailableDriverDTO.fcmRegistrationToken());
         }, () -> {
-            log.info("**** Driver does not exist - {}, creating new driver available for work ", addAvailableDriverDTO.driverID());
-            AvailableDrivers availableDriver = new AvailableDrivers();
-            availableDriver.setDriverID(driver);
-            availableDriver.setFcmRegistrationToken(addAvailableDriverDTO.fcmRegistrationToken());
+            firstTimeAvailableDriver(driver, addAvailableDriverDTO.longitude(), addAvailableDriverDTO.latitude(), addAvailableDriverDTO.fcmRegistrationToken());
 
-            log.info("**** creating coordinates for driver - {}", addAvailableDriverDTO.driverID());
-            //GeometryFactory geometryFactory = new GeometryFactory();
-            Point point = geometryFactory.createPoint(new Coordinate( addAvailableDriverDTO.longitude(), addAvailableDriverDTO.latitude()));
-
-            log.info("**** saving coordinates for driver - {}", addAvailableDriverDTO.driverID());
-            availableDriver.setDriverCoordinates(point);
-            availableDriver.setHeartBeat(LocalDateTime.now());
-
-            availableDriversRepository.save(availableDriver);
-            log.info("**** saved coordinates for driver - {}", addAvailableDriverDTO.driverID());
         } );
 
+    }
+
+    public void oldAvailableDriver(AvailableDrivers driver, double longitude, double latitude, String fcmRegistrationToken){
+        log.info("**** Driver already exist - {}, updating driver's properties ", driver.getDriverID());
+        driver.setOnline(true);
+        driver.setDriverCoordinates(geometryFactory.createPoint(new Coordinate(longitude, latitude)));
+        driver.setFcmRegistrationToken(fcmRegistrationToken);
+        availableDriversRepository.save(driver);
+        log.info("**** Driver  - {} properties updated", driver.getDriverID());
+    }
+
+    public void firstTimeAvailableDriver( DeliveryDrivers driver, double longitude, double latitude, String fcmRegistrationToken){
+        log.info("**** Driver does not exist - {}, creating new driver available for work ", driver.getDriverID());
+        AvailableDrivers availableDriver = new AvailableDrivers();
+        availableDriver.setDriverID(driver);
+        availableDriver.setFcmRegistrationToken(fcmRegistrationToken);
+
+        //GeometryFactory geometryFactory = new GeometryFactory();
+        Point point = geometryFactory.createPoint(new Coordinate(longitude, latitude));
+        availableDriver.setDriverCoordinates(point);
+        availableDriver.setHeartBeat(LocalDateTime.now());
+
+        availableDriversRepository.save(availableDriver);
+        log.info("**** saved new driver available for work - {}", driver.getDriverID());
     }
 
 
@@ -156,7 +173,6 @@ public class DeliveryDriversService {
        List<NearbyDriversDTO> driversCloseToRestaurant = availableDriversRepository.findDriversCloseToRestaurant(order.getRestaurantLongitude(), order.getRestaurantLatitude(), blacklistedDrivers);
 
         log.info("**** selected list of closest drivers to restaurant -{}  ****", order.getRestaurantID());
-        log.info("**** selected list of closest drivers to restaurant -{}  ****", order.getRestaurantID());
 
        //send a push notification to the closest driver
         notifyDriver(driversCloseToRestaurant.get(0));
@@ -164,7 +180,7 @@ public class DeliveryDriversService {
 
 
 
-    //TODO finish this method, its incomplete, you need to send the write messages in "putData"
+    //TODO finish this method, its incomplete, you need to send the right messages in "putData"
     private void notifyDriver(NearbyDriversDTO nearbyDriver){
         try {
             log.info("**** sending push notification to driver -{} to deliver order", nearbyDriver.getDriverId());
@@ -226,16 +242,4 @@ public class DeliveryDriversService {
         //notifyDriver();
     }
 
-//    public void test(){
-//        List<Long> blacklistedDrivers = ordersDriversBlacklistRepository.findAllBlacklistedDriverIdsForThisOrder(76L);
-//
-//
-//
-//        //don't add the blacklisted drivers when searching for different drivers who can deliver the order
-//        List<NearbyDriversDTO> driversCloseToRestaurant = availableDriversRepository.findDriversCloseToRestaurant(9.299836F, 4.151807F, List.of(0L));
-//        driversCloseToRestaurant.forEach(el -> System.out.println(el.getDriverId()));
-//
-//        System.out.println("****************************************************************************************************************");
-//        System.out.println("***************************************************************************************************************");
-//    }
 }

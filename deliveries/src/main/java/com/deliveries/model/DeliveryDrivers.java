@@ -1,6 +1,7 @@
 package com.deliveries.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NonNull;
@@ -34,6 +35,7 @@ public class DeliveryDrivers {
     private Long ratings;
 
     @OneToOne(mappedBy = "driverID", fetch = FetchType.LAZY)
+    @JsonIgnore
     private AvailableDrivers driver;
 
 

@@ -1,5 +1,6 @@
 package com.zeco.restaurants.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -29,10 +30,12 @@ public class Spices {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dish_id", referencedColumnName = "dish_id")
     @NonNull
+    @JsonIgnore
     private Dishes dish;
 
     @Column(name = "spice_price")
     @NonNull
+    @JsonIgnore
     private BigDecimal spicePrice;
 
 

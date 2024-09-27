@@ -1,5 +1,6 @@
 package com.zeco.restaurants.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Array;
@@ -29,6 +30,7 @@ public class Cuisines {
     private String name;
 
     @ManyToMany(mappedBy = "cuisinesSet")
+    @JsonIgnore
     private Set<Restaurant> restaurantsSet = new HashSet<>();
 
 
