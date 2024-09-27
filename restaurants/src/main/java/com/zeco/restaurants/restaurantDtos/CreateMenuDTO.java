@@ -4,5 +4,6 @@ package com.zeco.restaurants.restaurantDtos;
 
 import java.util.UUID;
 
-public record CreateMenuDTO(UUID restaurant, String menuName) {
+//use menuID only when returning results
+public record CreateMenuDTO(long menuID, UUID restaurant, String menuName) {
 }

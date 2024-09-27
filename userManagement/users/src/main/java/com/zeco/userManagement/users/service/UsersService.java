@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -18,8 +19,11 @@ public class UsersService {
 
 
     public GetUserResponseDTO getUser(UUID userID){
-        Users user = usersRepository.findById(userID).orElseThrow(() -> new NoSuchElementException("user not found"));
+        Optional<Users> userOptional = usersRepository.findById(userID);
 
+        if(userOptional.isEmpty()) return GetUserResponseDTO.builder().build();
+
+        Users user = userOptional.get();
         return GetUserResponseDTO.builder()
                 .userID(user.getUserID())
                 .firstName(user.getFirstName())

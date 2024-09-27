@@ -1,5 +1,6 @@
 package com.zeco.restaurants.service;
 
+import com.zeco.restaurants.model.Cuisines;
 import com.zeco.restaurants.model.Dishes;
 import com.zeco.restaurants.model.Menus;
 import com.zeco.restaurants.model.Restaurant;
@@ -38,12 +39,36 @@ public class RestaurantService {
      * creates a restaurant
      */
     //TODO check the minPricePerOder and max when creating a restaurant
-    public void createRestaurant(CreateRestaurantDTO createRestauReq)  {
+    public CreateRestaurantDTO createRestaurant(CreateRestaurantDTO createRestauReq)  {
         log.info("****creating restaurant object****");
+        Restaurant restaurant = setRestaurantValues(createRestauReq);
 
+        Restaurant savedRes = restaurantRepository.save(restaurant);
+        log.info("****saved restaurant object****");
+
+        return CreateRestaurantDTO.builder()
+                .restaurantID(savedRes.getRestaurantID())
+                .userID(savedRes.getUserID())
+                .postCode(savedRes.getPostCode())
+                .location(savedRes.getLocation())
+                .address(savedRes.getAddress())
+                .description(savedRes.getDescription())
+                .branding(savedRes.getBranding())
+                .restaurantType(savedRes.getRestaurantType())
+                .operationalTimes(savedRes.getOperationalTimes())
+                .cuisines(new ArrayList<>(savedRes.getCuisinesSet()))
+                .restaurantName(savedRes.getRestaurantName())
+                .longitude(savedRes.getLongitude())
+                .latitude(savedRes.getLatitude())
+                .minPricePerOrder(savedRes.getMinPricePerOrder())
+                .maxPricePerOrder(savedRes.getMaxPricePerOrder())
+                .build();
+    }
+
+    public Restaurant setRestaurantValues(CreateRestaurantDTO createRestauReq){
         Restaurant restaurant = new Restaurant();
-        restaurant.setRestaurantID(UUID.randomUUID());
-        restaurant.setUserID(UUID.randomUUID());
+        restaurant.setRestaurantID(createRestauReq.getRestaurantID());
+        restaurant.setUserID(createRestauReq.getUserID());
         restaurant.setPostCode(createRestauReq.getPostCode());
         restaurant.setLocation(createRestauReq.getLocation());
         restaurant.setAddress(createRestauReq.getAddress());
@@ -52,6 +77,8 @@ public class RestaurantService {
         restaurant.setRestaurantName(createRestauReq.getRestaurantName());
         restaurant.setLatitude(createRestauReq.getLatitude());
         restaurant.setLongitude(createRestauReq.getLongitude());
+        restaurant.setMinPricePerOrder(createRestauReq.getMinPricePerOrder());
+        restaurant.setMaxPricePerOrder(createRestauReq.getMaxPricePerOrder());
 
         createRestauReq.getOperationalTimes().forEach(restaurant::addOperationalTimes);
 
@@ -59,15 +86,14 @@ public class RestaurantService {
             cuisineRepository.findById(el.getCuisineID()).ifPresent(restaurant::addCousines);
         });
 
-        restaurantRepository.save(restaurant);
-        log.info("****saved restaurant object****");
+        return restaurant;
     }
 
     /**
      *
      * creates a new menu
      */
-    public void createMenu(CreateMenuDTO createMenuDTO){
+    public CreateMenuDTO createMenu(CreateMenuDTO createMenuDTO){
         log.info("**** creating menu - ****");
         Restaurant restaurant = restaurantRepository.findById(createMenuDTO.restaurant()).orElseThrow(() -> new NoSuchElementException("restaurant not found"));
 
@@ -75,8 +101,10 @@ public class RestaurantService {
         menu.setRestaurantID(restaurant);
         menu.setMenuName(createMenuDTO.menuName());
 
-        menusRepository.save(menu);
+        Menus savedMenu = menusRepository.save(menu);
         log.info("**** finished creating menu - ****");
+
+        return new CreateMenuDTO(savedMenu.getMenuID(),savedMenu.getRestaurantID().getRestaurantID(), savedMenu.getMenuName());
     }
 
 
@@ -84,10 +112,10 @@ public class RestaurantService {
      *
      * create new dish and its spices
      */
-    public void createDish(CreateDishDTO createDishDTO){
+    public CreateDishDTO createDish(CreateDishDTO createDishDTO){
         log.info("**** creating dish - ****");
         Menus menu = menusRepository.findById(createDishDTO.menuID()).orElseThrow(() -> new NoSuchElementException("Menu not found"));
-        Restaurant restaurant = restaurantRepository.findById(createDishDTO.restaurantID()).orElseThrow(() -> new NoSuchElementException("Menu not found"));
+        Restaurant restaurant = restaurantRepository.findById(createDishDTO.restaurantID()).orElseThrow(() -> new NoSuchElementException("Restaurant not found"));
 
         Dishes dish = new Dishes();
         dish.setRestaurant(restaurant);
@@ -100,22 +128,30 @@ public class RestaurantService {
         dish.setLikes(createDishDTO.likes());
 
         createDishDTO.spice().forEach(dish::addSpices);
-        dishesRepository.save(dish);
+        Dishes sd = dishesRepository.save(dish);
 
         log.info("**** finished creating dish - ****");
+
+        return new CreateDishDTO(sd.getDishID(),sd.getRestaurant().getRestaurantID(),sd.getMenu().getMenuID(), sd.getCookingTime(),
+                sd.getDescription(), sd.getPrice(), sd.getDiscount(), sd.getDiscountPrice(), sd.getLikes(),
+                sd.getImageUrl(), sd.getSpicesList());
     }
 
 
     /**
      * save the image url of a dish to the database after uploading it to s3
      */
-    public void saveDishImageUrl(String key, Long dishID){
+    public CreateDishDTO saveDishImageUrl(String key, Long dishID){
 
         log.info("**** adding dish image url to database- ****");
         Dishes dish = dishesRepository.findById(dishID).orElseThrow(() -> new NoSuchElementException("Dish not found"));
         dish.setImageUrl("https://zeco-eats.s3.us-west-2.amazonaws.com/"+key);
-        dishesRepository.save(dish);
+        Dishes sd = dishesRepository.save(dish);
         log.info("**** saved image of dish url in database- ****");
+
+        return new CreateDishDTO(sd.getDishID(),sd.getRestaurant().getRestaurantID(),sd.getMenu().getMenuID(), sd.getCookingTime(),
+                sd.getDescription(), sd.getPrice(), sd.getDiscount(), sd.getDiscountPrice(), sd.getLikes(),
+                sd.getImageUrl(), sd.getSpicesList());
     }
 
 
@@ -139,6 +175,7 @@ public class RestaurantService {
        List<GetRestaurantsDTO> restaurantsDTOS = restaurants.stream().map((el -> {
            log.info("**** mapping restaurants to dto ****");
             GetRestaurantsDTO gr = GetRestaurantsDTO.builder()
+                            .restaurantID(el.getRestaurantID())
                             .postCode(el.getPostCode())
                             .address(el.getAddress())
                             .description(el.getDescription())

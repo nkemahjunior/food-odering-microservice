@@ -35,28 +35,24 @@ public class RestaurantController {
 
 
     @PostMapping("/new")
-    public ResponseEntity<Void> createRestaurantEndpoint(@RequestBody CreateRestaurantDTO createRestaurantDTO) {
-        restaurantService.createRestaurant(createRestaurantDTO);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<CreateRestaurantDTO> createRestaurantEndpoint(@RequestBody CreateRestaurantDTO createRestaurantDTO) {
+        return ResponseEntity.ok(restaurantService.createRestaurant(createRestaurantDTO));
     }
 
     @PostMapping("/menu")
-    public ResponseEntity<Void> createRestaurantMenuEndpoint(@RequestBody CreateMenuDTO createMenuDTO) {
-        restaurantService.createMenu(createMenuDTO);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<CreateMenuDTO> createRestaurantMenuEndpoint(@RequestBody CreateMenuDTO createMenuDTO) {
+        return ResponseEntity.ok(restaurantService.createMenu(createMenuDTO));
     }
 
     @PostMapping("/menu/dish")
-    public ResponseEntity<Void> createRestaurantDishEndpoint(@RequestBody CreateDishDTO createDishDTO) {
-        restaurantService.createDish(createDishDTO);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<CreateDishDTO> createRestaurantDishEndpoint(@RequestBody CreateDishDTO createDishDTO) {
+        return ResponseEntity.ok(restaurantService.createDish(createDishDTO));
     }
 
 
     @PostMapping(value = "/menu/dish/picture/{dishID}", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-    public ResponseEntity<Void> uploadDishPictureEndpoint(@RequestPart("incomingFile") MultipartFile incomingFile, @PathVariable("dishID") Long dishID){
-        s3clientService.uploadDishPicture(incomingFile, dishID);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<CreateDishDTO> uploadDishPictureEndpoint(@RequestPart("incomingFile") MultipartFile incomingFile, @PathVariable("dishID") Long dishID){
+        return ResponseEntity.ok( s3clientService.uploadDishPicture(incomingFile, dishID));
     }
 
 /*    @GetMapping(value = "/{location}" )//?page=0&size=5
