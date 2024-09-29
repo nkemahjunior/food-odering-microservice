@@ -1,4 +1,4 @@
-package com.zeco.restaurants.service;
+package com.zeco.restaurants.service.placeOrderTemplate;
 
 import com.zeco.restaurants.model.OrderDishes;
 import com.zeco.restaurants.model.Orders;

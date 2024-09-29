@@ -1,29 +1,15 @@
 package com.zeco.restaurants.service;
 
 
-import com.zeco.restaurants.Exceptions.DistanceTooFar;
-import com.zeco.restaurants.httpCalls.UserServiceClient;
-import com.zeco.restaurants.model.*;
-import com.zeco.restaurants.repository.DishesRepository;
 import com.zeco.restaurants.repository.OrdersRepository;
-import com.zeco.restaurants.repository.RestaurantRepository;
-import com.zeco.restaurants.repository.SpicesRepository;
 import com.zeco.restaurants.restaurantDtos.*;
-import com.zeco.shared.NewOrderShared;
+import com.zeco.restaurants.service.deliveryFeeStrategies.DeliveryFeeStrategyFactory;
+import com.zeco.restaurants.service.placeOrderTemplate.PlaceOrderTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.util.UriComponentsBuilder;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
-import java.net.URI;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -36,13 +22,9 @@ public class OrdersService {
     private OrdersRepository ordersRepository;
 
     @Autowired
-    private WebClient webClient;
+    private DeliveryFeeStrategyFactory deliveryFeeStrategyFactory;
 
-    @Value("${mapbox.access-token}")
-    private String accessToken;
 
-    @Value("${topics.new-order}")
-    private String newOrderTopic;
 
 
 
@@ -125,19 +107,20 @@ public class OrdersService {
     }*/
 
 
-
-
 /*    public void sendOrder(NewOrderShared deliveryOrder, UUID key){
         kafkaTemplate.send(newOrderTopic, key.toString(), deliveryOrder);
     }*/
 
+    public GetDeliveryFee calculateDeliveryFee(String customerLongitude, String customerLat, List<String> restaurantCoordinates ){
+        return deliveryFeeStrategyFactory.calculateDeliveryFee(customerLongitude, customerLat, restaurantCoordinates);
+    }
 
 
 
     /**
      *calculate delivery fee based on the distance between the customer and the restaurant(s)
      */
-    public GetDeliveryFee calculateDeliveryFee(String customerLongitude, String customerLat, List<String> restaurantCoordinates ){
+    /*public GetDeliveryFee calculateDeliveryFee(String customerLongitude, String customerLat, List<String> restaurantCoordinates ){
 
         //if only one restaurant coordinate is passed to the url e.g. restaurantCoordinates=4.159513,9.276448  it will automatically be split into two strings at the comma,
         // so the list will contain " 4.159513" and "9.276448", so the first coordinate should not contain a comma
@@ -179,14 +162,14 @@ public class OrdersService {
             return  new GetDeliveryFee(price);
         }
 
-    }
+    }*/
 
     /**
      *
      * @param distance distance in meters
      * @return the price based on the distance
      */
-    public double getFee(double distance){
+   /* public double getFee(double distance){
 
         if( distance >= 0 && distance <= 2700) return  400;
         if( distance > 2700 && distance <= 5400) return  800;
@@ -198,7 +181,7 @@ public class OrdersService {
         if( distance > 18900 && distance <= 21600) return  3200;
 
         return -1;
-    }
+    }*/
 
     /**
      *
@@ -207,7 +190,7 @@ public class OrdersService {
      * @param restaurantCoordinates list of restaurant coordinates( latitude and longitude) for which the customer wants to order from
      * @return list of the distances from the respective restaurants and the customer's location
      */
-    public List<String> fetchMultipleDistances(String customerLongitude,String customerLat,List<String> restaurantCoordinates ){
+    /*public List<String> fetchMultipleDistances(String customerLongitude,String customerLat,List<String> restaurantCoordinates ){
         List<Mono<String>> distanceMonos = restaurantCoordinates.stream().map(coordinates -> {
 
             // longitude, latitude in that order
@@ -221,10 +204,10 @@ public class OrdersService {
         List<String> distances = Flux.merge(distanceMonos).collectList().block();
 
         return distances;
-    }
+    }*/
 
 
-    public Mono<String> fetchDistance(URI uri){
+ /*   public Mono<String> fetchDistance(URI uri){
 
         Mono<String> distance =  webClient
                 .get()
@@ -238,16 +221,16 @@ public class OrdersService {
                 });
 
         return distance;
-    }
+    }*/
 
 
-    public URI createUri( String customerLongitude,String customerLat, String restaurantLongitude, String restaurantLatitude){
+/*    public URI createUri( String customerLongitude,String customerLat, String restaurantLongitude, String restaurantLatitude){
          return  UriComponentsBuilder
                 .fromHttpUrl("https://api.mapbox.com")
                 .path("/directions/v5/mapbox/driving/{long1},{lat1};{long2},{lat2}")
                 .queryParam("access_token",accessToken)
                 .build(customerLongitude,customerLat, restaurantLongitude, restaurantLatitude);
-    }
+    }*/
 
 
 

@@ -1,6 +1,5 @@
 package com.zeco.restaurants.service;
 
-import com.zeco.restaurants.model.Cuisines;
 import com.zeco.restaurants.model.Dishes;
 import com.zeco.restaurants.model.Menus;
 import com.zeco.restaurants.model.Restaurant;
@@ -9,23 +8,16 @@ import com.zeco.restaurants.repository.DishesRepository;
 import com.zeco.restaurants.repository.MenusRepository;
 import com.zeco.restaurants.repository.RestaurantRepository;
 import com.zeco.restaurants.restaurantDtos.*;
-import com.zeco.restaurants.service.searchStrategies.SearchByLocation;
-import com.zeco.restaurants.service.searchStrategies.SearchMethod;
-import lombok.RequiredArgsConstructor;
+import com.zeco.restaurants.service.searchStrategies.SearchFactory;
+import com.zeco.restaurants.service.searchStrategies.SearchType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -44,10 +36,7 @@ public class RestaurantService {
     private DishesRepository dishesRepository;
 
     @Autowired
-    SearchMethod searchMethod;
-
-    @Autowired
-    SearchByLocation searchByLocation;
+    SearchFactory searchFactory;
 
     /**
      *
@@ -156,7 +145,7 @@ public class RestaurantService {
 
 
     public Page<GetRestaurantsDTO> getRestaurantsInALocation(String location, Pageable pageable){
-       return searchMethod.search(searchByLocation, location, pageable);
+        return searchFactory.search(SearchType.LOCATION, location, pageable);
     }
 
 

@@ -1,14 +1,14 @@
-package com.zeco.restaurants.service;
+package com.zeco.restaurants.service.placeOrderTemplate;
 
 import com.zeco.restaurants.httpCalls.UserServiceClient;
 import com.zeco.restaurants.model.*;
 import com.zeco.restaurants.repository.DishesRepository;
-import com.zeco.restaurants.repository.OrdersRepository;
 import com.zeco.restaurants.repository.RestaurantRepository;
 import com.zeco.restaurants.repository.SpicesRepository;
 import com.zeco.restaurants.restaurantDtos.GetUserResponseDTO;
 import com.zeco.restaurants.restaurantDtos.OrderDishAndSpice;
 import com.zeco.restaurants.restaurantDtos.PlaceOrderDTO;
+import com.zeco.restaurants.service.placeOrderTemplate.PlaceOrderTemplate;
 import com.zeco.shared.NewOrderShared;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +20,11 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 @Slf4j
 @Component
-public class PlaceOrder extends PlaceOrderTemplate{
+public class PlaceOrder extends PlaceOrderTemplate {
 
     @Autowired
     private KafkaTemplate<String, NewOrderShared> kafkaTemplate;
