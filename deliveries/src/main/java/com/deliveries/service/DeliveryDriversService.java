@@ -13,6 +13,7 @@ import com.deliveries.service.assignDriversToDeliverOrders.ClosestDriverStrategy
 import com.deliveries.service.availableForWork.AvailableDriverForWork;
 import com.deliveries.service.availableForWork.AvailableDriverForWorkFactory;
 import com.deliveries.service.availableForWork.AvailableDriverType;
+
 import com.google.firebase.messaging.Message;
 import com.zeco.shared.NewOrderShared;
 import lombok.extern.slf4j.Slf4j;
@@ -51,6 +52,7 @@ public class DeliveryDriversService {
     @Autowired
     private AvailableDriverForWorkFactory availableDriverForWorkFactory;
 
+
     private final GeometryFactory geometryFactory = new GeometryFactory();
 
 
@@ -84,6 +86,7 @@ public class DeliveryDriversService {
      * OR
      * adds drivers available to work( pick up orders), if they are new
      */
+
     public void addDriverAvailableForWork(AddAvailableDriverDTO addAvleDriverReq){
         DeliveryDrivers driver = deliveryDriversRepository.findById(addAvleDriverReq.driverID()).orElseThrow(() -> new NoSuchElementException("driver not found"));
 

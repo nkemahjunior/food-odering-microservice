@@ -21,8 +21,10 @@ public class OrdersService {
     @Autowired
     private OrdersRepository ordersRepository;
 
+
     @Autowired
     private DeliveryFeeStrategyFactory deliveryFeeStrategyFactory;
+
 
 
 
@@ -105,7 +107,6 @@ public class OrdersService {
         }
 
     }*/
-
 
 /*    public void sendOrder(NewOrderShared deliveryOrder, UUID key){
         kafkaTemplate.send(newOrderTopic, key.toString(), deliveryOrder);

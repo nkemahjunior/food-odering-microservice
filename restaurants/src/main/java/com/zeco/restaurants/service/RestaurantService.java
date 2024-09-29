@@ -8,6 +8,7 @@ import com.zeco.restaurants.repository.DishesRepository;
 import com.zeco.restaurants.repository.MenusRepository;
 import com.zeco.restaurants.repository.RestaurantRepository;
 import com.zeco.restaurants.restaurantDtos.*;
+
 import com.zeco.restaurants.service.searchStrategies.SearchFactory;
 import com.zeco.restaurants.service.searchStrategies.SearchType;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +38,7 @@ public class RestaurantService {
 
     @Autowired
     SearchFactory searchFactory;
+
 
     /**
      *
@@ -112,7 +114,7 @@ public class RestaurantService {
         return DTOFactory.createDishDTO(sd);
     }
 
-
+  
     public Dishes setDishValues(Restaurant restaurant, Menus menu, CreateDishDTO createDishDTO){
         Dishes dish = new Dishes();
         dish.setRestaurant(restaurant);
@@ -146,6 +148,7 @@ public class RestaurantService {
 
     public Page<GetRestaurantsDTO> getRestaurantsInALocation(String location, Pageable pageable){
         return searchFactory.search(SearchType.LOCATION, location, pageable);
+
     }
 
 
