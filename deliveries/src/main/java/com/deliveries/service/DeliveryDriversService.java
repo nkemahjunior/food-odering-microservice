@@ -7,14 +7,18 @@ import com.deliveries.repository.AvailableDriversRepository;
 import com.deliveries.repository.DeliveryDriversRepository;
 import com.deliveries.repository.OrdersDriversBlacklistRepository;
 import com.deliveries.repository.OrdersReadyForDeliveryRepository;
-import com.deliveries.service.assignDriversToDeliverOrders.AssignDriver;
+import com.deliveries.service.assignDriversToDeliverOrders.AssignDriverFactory;
+import com.deliveries.service.assignDriversToDeliverOrders.AssignmentType;
 import com.deliveries.service.assignDriversToDeliverOrders.ClosestDriverStrategy;
+import com.deliveries.service.availableForWork.AvailableDriverForWork;
+import com.deliveries.service.availableForWork.AvailableDriverForWorkFactory;
+import com.deliveries.service.availableForWork.AvailableDriverType;
+
 import com.google.firebase.messaging.Message;
 import com.zeco.shared.NewOrderShared;
 import lombok.extern.slf4j.Slf4j;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.Point;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,10 +47,11 @@ public class DeliveryDriversService {
     private OrdersDriversBlacklistRepository ordersDriversBlacklistRepository;
 
     @Autowired
-    private AssignDriver assignDriver;
+    private AssignDriverFactory assignDriverFactory;
 
     @Autowired
-    private ClosestDriverStrategy closestDriverStrategy;
+    private AvailableDriverForWorkFactory availableDriverForWorkFactory;
+
 
     private final GeometryFactory geometryFactory = new GeometryFactory();
 
@@ -81,15 +86,16 @@ public class DeliveryDriversService {
      * OR
      * adds drivers available to work( pick up orders), if they are new
      */
-    public void addDriverAvailableForWork(AddAvailableDriverDTO addAvailableDriverDTO){
-        DeliveryDrivers driver = deliveryDriversRepository.findById(addAvailableDriverDTO.driverID()).orElseThrow(() -> new NoSuchElementException("driver not found"));
+
+    public void addDriverAvailableForWork(AddAvailableDriverDTO addAvleDriverReq){
+        DeliveryDrivers driver = deliveryDriversRepository.findById(addAvleDriverReq.driverID()).orElseThrow(() -> new NoSuchElementException("driver not found"));
 
         availableDriversRepository.findByDriverID(driver).ifPresentOrElse((availableDriver) -> {
-            AvailableDriverForWork<AvailableDrivers> existingAvlDriver =  AvailableDriverForWorkFactory.getAvailableDriver(AvailableDriverForWorkFactory.AvailableDriverType.EXISTING);
-            existingAvlDriver.createAvailableDriverForWork(availableDriver,addAvailableDriverDTO.longitude(), addAvailableDriverDTO.latitude(), addAvailableDriverDTO.fcmRegistrationToken() );
+            AvailableDriverForWork<AvailableDrivers> existingAvlDriver =  AvailableDriverForWorkFactory.getAvailableDriver(AvailableDriverType.EXISTING);
+            existingAvlDriver.createAvailableDriverForWork(availableDriver,addAvleDriverReq.longitude(), addAvleDriverReq.latitude(), addAvleDriverReq.fcmRegistrationToken() );
         }, () -> {
-            AvailableDriverForWork<DeliveryDrivers> newAvlDriver =  AvailableDriverForWorkFactory.getAvailableDriver(AvailableDriverForWorkFactory.AvailableDriverType.NEW);
-            newAvlDriver.createAvailableDriverForWork(driver,addAvailableDriverDTO.longitude(), addAvailableDriverDTO.latitude(), addAvailableDriverDTO.fcmRegistrationToken() );
+            AvailableDriverForWork<DeliveryDrivers> newAvlDriver =  AvailableDriverForWorkFactory.getAvailableDriver(AvailableDriverType.NEW);
+            newAvlDriver.createAvailableDriverForWork(driver,addAvleDriverReq.longitude(), addAvleDriverReq.latitude(), addAvleDriverReq.fcmRegistrationToken() );
         } );
     }
 
@@ -124,7 +130,7 @@ public class DeliveryDriversService {
 
     public void assignDeliveryDriverToOrder(NewOrderShared order){
         List<Long> blacklistedDrivers = ordersDriversBlacklistRepository.findAllBlacklistedDriverIdsForThisOrder(order.getOrderID());
-        NearbyDriversDTO nearbyDriver = assignDriver.assignDriver(closestDriverStrategy, order, blacklistedDrivers);
+        NearbyDriversDTO nearbyDriver = assignDriverFactory.assignDriver(AssignmentType.CLOSEST_DRIVER, order, blacklistedDrivers);
         notifyDriver(nearbyDriver);
     }
 
