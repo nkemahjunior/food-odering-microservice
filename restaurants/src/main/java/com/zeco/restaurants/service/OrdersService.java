@@ -30,20 +30,8 @@ import java.util.stream.Collectors;
 public class OrdersService {
 
     @Autowired
-    private KafkaTemplate<String, NewOrderShared> kafkaTemplate;
+    PlaceOrderTemplate placeOrderTemplate;
 
-    @Autowired
-    private UserServiceClient userServiceClient;
-
-    @Autowired
-    private RestaurantRepository restaurantRepository;
-
-    @Autowired
-    private DishesRepository dishesRepository;
-
-    @Autowired
-    private SpicesRepository spicesRepository;
-    
     @Autowired
     private OrdersRepository ordersRepository;
 
@@ -56,7 +44,13 @@ public class OrdersService {
     @Value("${topics.new-order}")
     private String newOrderTopic;
 
+
+
     public void  placeOrder(List<PlaceOrderDTO > placeOrderDTO){
+        placeOrderTemplate.placeOrder(placeOrderDTO, ordersRepository);
+    }
+
+   /* public void  placeOrder(List<PlaceOrderDTO > placeOrderDTO){
 
 
         UUID key = UUID.randomUUID();
@@ -83,14 +77,16 @@ public class OrdersService {
 
             // user might order more than one DISH from the same restaurant
             order.dishAndSpices().forEach( dishAndSpice -> {
+
                        OrderDishes orderDish = new OrderDishes();
                        Dishes dish = dishesRepository.findById(dishAndSpice.getDishID()).orElseThrow(() -> new NoSuchElementException("dish not found - "));
                        //setting only the dishID field of orderDish, the  orderObj.addDishesForOrder(orderDish); will take care of setting the orderID field
                        orderDish.setDishID(dish);
 
                        // a user might request for multiple SPICES to be added to a particular dish
-                        if(dishAndSpice.getSpiceID() != null){
-                            dishAndSpice.getSpiceID().forEach( spiceForDish -> {
+                        if(dishAndSpice.getSpiceIDs() != null){
+
+                            dishAndSpice.getSpiceIDs().forEach( spiceForDish -> {
                                 OrdersDishSpices ordersDishSpice = new OrdersDishSpices();
 
                                 Spices spice = spicesRepository.findById(spiceForDish).orElseThrow(() -> new NoSuchElementException(" spice requested for dish not found -"));
@@ -126,11 +122,14 @@ public class OrdersService {
 
         }
 
-    }
+    }*/
 
-    public void sendOrder(NewOrderShared deliveryOrder, UUID key){
+
+
+
+/*    public void sendOrder(NewOrderShared deliveryOrder, UUID key){
         kafkaTemplate.send(newOrderTopic, key.toString(), deliveryOrder);
-    }
+    }*/
 
 
 

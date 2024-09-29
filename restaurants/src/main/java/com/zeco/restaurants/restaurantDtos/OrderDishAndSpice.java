@@ -10,5 +10,6 @@ import java.util.List;
 public class OrderDishAndSpice {
 
     private Long dishID;
-    List<Long> spiceID;
+    List<Long> spiceIDs;
+
 }
