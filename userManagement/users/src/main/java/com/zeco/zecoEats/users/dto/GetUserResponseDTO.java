@@ -1,4 +1,4 @@
-package com.zeco.zecoEats.userManagement.users.dto;
+package com.zeco.zecoEats.users.dto;
 
 
 import lombok.Builder;

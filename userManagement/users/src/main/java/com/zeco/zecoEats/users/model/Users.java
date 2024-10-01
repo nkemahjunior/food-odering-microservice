@@ -1,4 +1,4 @@
-package com.zeco.zecoEats.userManagement.users.model;
+package com.zeco.zecoEats.users.model;
 
 
 import jakarta.persistence.Column;

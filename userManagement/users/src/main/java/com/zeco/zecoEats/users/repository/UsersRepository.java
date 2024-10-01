@@ -1,7 +1,7 @@
-package com.zeco.zecoEats.userManagement.users.repository;
+package com.zeco.zecoEats.users.repository;
 
 
-import com.zeco.zecoEats.userManagement.users.model.Users;
+import com.zeco.zecoEats.users.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

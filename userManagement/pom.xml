@@ -16,7 +16,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <groupId>com.zeco.zecoEats.userManagement</groupId>
     <artifactId>userManagement</artifactId>
     <packaging>pom</packaging>
 

@@ -1,9 +1,9 @@
-package com.zeco.zecoEats.userManagement.users.service;
+package com.zeco.zecoEats.users.service;
 
 
-import com.zeco.zecoEats.userManagement.users.repository.UsersRepository;
-import com.zeco.zecoEats.userManagement.users.dto.GetUserResponseDTO;
-import com.zeco.zecoEats.userManagement.users.model.Users;
+import com.zeco.zecoEats.users.repository.UsersRepository;
+import com.zeco.zecoEats.users.dto.GetUserResponseDTO;
+import com.zeco.zecoEats.users.model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

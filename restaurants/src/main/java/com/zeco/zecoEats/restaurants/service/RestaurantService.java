@@ -7,7 +7,6 @@ import com.zeco.zecoEats.restaurants.repository.CuisineRepository;
 import com.zeco.zecoEats.restaurants.repository.DishesRepository;
 import com.zeco.zecoEats.restaurants.repository.MenusRepository;
 import com.zeco.zecoEats.restaurants.repository.RestaurantRepository;
-import com.zeco.restaurants.restaurantDtos.*;
 import com.zeco.zecoEats.restaurants.restaurantDtos.*;
 import com.zeco.zecoEats.restaurants.service.searchStrategies.SearchFactory;
 import com.zeco.zecoEats.restaurants.service.searchStrategies.SearchType;

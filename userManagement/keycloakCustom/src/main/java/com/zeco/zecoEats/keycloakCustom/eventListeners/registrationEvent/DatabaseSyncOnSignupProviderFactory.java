@@ -1,4 +1,4 @@
-package com.zeco.zecoEats.userManagement.keycloakCustom.eventListeners.registrationEvent;
+package com.zeco.zecoEats.keycloakCustom.eventListeners.registrationEvent;
 
 import org.keycloak.Config;
 import org.keycloak.events.EventListenerProvider;

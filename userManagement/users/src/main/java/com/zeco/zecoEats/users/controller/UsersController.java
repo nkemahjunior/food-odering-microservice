@@ -1,7 +1,7 @@
-package com.zeco.zecoEats.userManagement.users.controller;
+package com.zeco.zecoEats.users.controller;
 
-import com.zeco.zecoEats.userManagement.users.dto.GetUserResponseDTO;
-import com.zeco.zecoEats.userManagement.users.service.UsersService;
+import com.zeco.zecoEats.users.dto.GetUserResponseDTO;
+import com.zeco.zecoEats.users.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

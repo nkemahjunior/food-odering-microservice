@@ -1,4 +1,4 @@
-package com.zeco.zecoEats.userManagement.users.Exceptions;
+package com.zeco.zecoEats.users.Exceptions;
 
 import lombok.Builder;
 
