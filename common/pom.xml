@@ -12,7 +12,7 @@
     <version>1.0.0</version>
     <groupId>io.github.nkemahjunior.zecoEats.common</groupId>
     <artifactId>common</artifactId>
-    <description>ZecoEats common: common dto used across services</description>
+    <description>ZecoEats common: common DTOs used across zeco-eats services</description>
     <url>https://github.com/nkemahjunior/zeco-eats/tree/master/common</url>
     <packaging>pom</packaging>
 
