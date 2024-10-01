@@ -33,7 +33,7 @@
                         <artifactId>central-publishing-maven-plugin</artifactId>
                     </plugin>
 
-                    <plugin>
+                    <!--<plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
                     </plugin>
@@ -46,7 +46,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                    </plugin>
+                    </plugin>-->
                 </plugins>
             </build>
         </profile>

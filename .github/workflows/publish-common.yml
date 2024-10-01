@@ -4,7 +4,6 @@ on:
     branches:
       -common
 
-
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -28,9 +27,11 @@ jobs:
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
       - name: Set version
         run: mvn versions:set -DnewVersion=${{ github.event.release.tag_name }}
-      - name: Publish package
-        run: mvn -P release --batch-mode deploy -DskipTests
+      - name: Publish package to Maven Central
+        #run: mvn -P release --batch-mode deploy -DskipTests
+        run: mvn clean deploy -P release -DskipTests --batch-mode
         env:
+          GPG_KEYNAME: ${{ secrets.GPG_KEYNAME }}
           MAVEN_USERNAME: ${{ secrets.CENTRAL_TOKEN_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.CENTRAL_TOKEN_PASSWORD }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_SIGNING_KEY_PASSWORD }}
