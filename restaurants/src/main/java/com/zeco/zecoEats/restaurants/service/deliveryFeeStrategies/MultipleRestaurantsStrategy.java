@@ -1,7 +1,7 @@
-package com.zeco.restaurants.service.deliveryFeeStrategies;
+package com.zeco.zecoEats.restaurants.service.deliveryFeeStrategies;
 
-import com.zeco.restaurants.Exceptions.DistanceTooFar;
-import com.zeco.restaurants.restaurantDtos.GetDeliveryFee;
+import com.zeco.zecoEats.restaurants.Exceptions.DistanceTooFar;
+import com.zeco.zecoEats.restaurants.restaurantDtos.GetDeliveryFee;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

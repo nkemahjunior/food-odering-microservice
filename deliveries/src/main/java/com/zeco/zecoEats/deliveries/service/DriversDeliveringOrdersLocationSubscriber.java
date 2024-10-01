@@ -1,7 +1,7 @@
-package com.deliveries.service;
+package com.zeco.zecoEats.deliveries.service;
 
 
-import com.deliveries.dtos.OrderCurrentLocationDTO;
+import com.zeco.zecoEats.deliveries.dtos.OrderCurrentLocationDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;

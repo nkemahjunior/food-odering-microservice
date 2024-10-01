@@ -1,6 +1,6 @@
-package com.deliveries.repository;
+package com.zeco.zecoEats.deliveries.repository;
 
-import com.deliveries.model.OrdersDriverBlackList;
+import com.zeco.zecoEats.deliveries.model.OrdersDriverBlackList;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

@@ -1,4 +1,4 @@
-package com.deliveries.dtos;
+package com.zeco.zecoEats.deliveries.dtos;
 
 public record UpdateDriverLocationDTO(
         long avlDriverID,

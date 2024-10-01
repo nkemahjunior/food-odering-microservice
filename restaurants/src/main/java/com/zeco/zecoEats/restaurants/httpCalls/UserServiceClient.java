@@ -1,6 +1,6 @@
-package com.zeco.restaurants.httpCalls;
+package com.zeco.zecoEats.restaurants.httpCalls;
 
-import com.zeco.restaurants.restaurantDtos.GetUserResponseDTO;
+import com.zeco.zecoEats.restaurants.restaurantDtos.GetUserResponseDTO;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.service.annotation.GetExchange;
 

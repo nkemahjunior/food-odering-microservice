@@ -1,8 +1,8 @@
-package com.zeco.restaurants.restaurantDtos;
+package com.zeco.zecoEats.restaurants.restaurantDtos;
 
-import com.zeco.restaurants.model.Dishes;
-import com.zeco.restaurants.model.Menus;
-import com.zeco.restaurants.model.Restaurant;
+import com.zeco.zecoEats.restaurants.model.Dishes;
+import com.zeco.zecoEats.restaurants.model.Menus;
+import com.zeco.zecoEats.restaurants.model.Restaurant;
 
 import java.util.ArrayList;
 

@@ -1,8 +1,7 @@
-package com.deliveries.service.availableForWork;
+package com.zeco.zecoEats.deliveries.service.availableForWork;
 
-import com.deliveries.model.AvailableDrivers;
-import com.deliveries.repository.AvailableDriversRepository;
-import com.deliveries.service.availableForWork.AvailableDriverForWork;
+import com.zeco.zecoEats.deliveries.model.AvailableDrivers;
+import com.zeco.zecoEats.deliveries.repository.AvailableDriversRepository;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.springframework.beans.factory.annotation.Autowired;

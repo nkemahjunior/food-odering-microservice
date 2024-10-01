@@ -1,12 +1,10 @@
-package com.zeco.restaurants.restaurantDtos;
+package com.zeco.zecoEats.restaurants.restaurantDtos;
 
-import com.zeco.restaurants.model.Dishes;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 

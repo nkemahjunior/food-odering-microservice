@@ -1,4 +1,4 @@
-package com.deliveries.scheduleDeliveries;
+package com.zeco.zecoEats.deliveries.scheduleDeliveries;
 
 import com.zeco.zecoEats.common.NewOrderShared;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package com.zeco.restaurants.Exceptions;
+package com.zeco.zecoEats.restaurants.Exceptions;
 
 import lombok.Builder;
 

@@ -1,9 +1,8 @@
-package com.deliveries.service.availableForWork;
+package com.zeco.zecoEats.deliveries.service.availableForWork;
 
-import com.deliveries.model.AvailableDrivers;
-import com.deliveries.model.DeliveryDrivers;
-import com.deliveries.repository.AvailableDriversRepository;
-import com.deliveries.service.availableForWork.AvailableDriverForWork;
+import com.zeco.zecoEats.deliveries.model.AvailableDrivers;
+import com.zeco.zecoEats.deliveries.model.DeliveryDrivers;
+import com.zeco.zecoEats.deliveries.repository.AvailableDriversRepository;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 @Component
-public class NewAvailableDriver implements AvailableDriverForWork< DeliveryDrivers > {
+public class NewAvailableDriver implements AvailableDriverForWork<DeliveryDrivers> {
 
     @Autowired
     AvailableDriversRepository availableDriversRepository;

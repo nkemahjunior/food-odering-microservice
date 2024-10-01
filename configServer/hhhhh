@@ -1,0 +1,57 @@
+FROM eclipse-temurin:21.0.4_7-jre-ubi9-minimal as builder
+
+
+WORKDIR /app
+# Copy the parent POM and Maven wrapper
+COPY ../pom.xml /app/
+COPY ../mvnw /app/
+COPY ../.mvn /app/.mvn/
+
+# Copy child module's POM and maven wrapper
+
+COPY ./pom.xml /app/configServer/
+COPY ./mvnw /app/configServer/
+COPY ./.mvn /app/configServer/.mvn/
+
+
+# Download dependencies (utilize Docker cache)
+RUN /app/configServer/mvnw dependency:go-offline -B
+
+# Copy the source code
+COPY ./src /app/configServer/src
+
+# Build the application and package it, skipping tests for faster builds
+RUN  /app/configServer/mvnw  package -DskipTests
+
+# Stage 2: Runtime
+FROM eclipse-temurin:21.0.4_7-jre-ubi9-minimal
+
+# Create a non-root user for security
+#RUN addgroup --system appgroup && adduser --system appuser --ingroup appgroup
+
+# Set working directory
+WORKDIR /application
+
+# Copy the JAR from the builder stage
+COPY --from=builder /app/configServer/target/*.jar  zeco-eats-config-server.jar
+
+# Change ownership to non-root user
+#RUN chown -R appuser:appgroup /application
+
+# Switch to non-root user
+#USER appuser
+
+# Expose the application port
+EXPOSE 8888
+
+# Define environment variables as placeholders
+ENV SPRING_PROFILES_ACTIVE=prod
+ENV PRIVATE_KEY_PATH=
+ENV KNOWN_HOSTS_FILE_PATH=
+
+# Define health check
+#HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+#  CMD curl -f http://localhost:8080/actuator/health || exit 1
+
+# Run the application
+ENTRYPOINT ["java", "org.springframework.boot.loader.launch.JarLauncher"]

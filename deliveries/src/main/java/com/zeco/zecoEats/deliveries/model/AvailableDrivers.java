@@ -1,4 +1,4 @@
-package com.deliveries.model;
+package com.zeco.zecoEats.deliveries.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -7,7 +7,6 @@ import lombok.Setter;
 import org.locationtech.jts.geom.Point;
 
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.Objects;
 
 @Getter

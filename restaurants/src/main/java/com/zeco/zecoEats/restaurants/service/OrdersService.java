@@ -1,10 +1,12 @@
-package com.zeco.restaurants.service;
+package com.zeco.zecoEats.restaurants.service;
 
 
-import com.zeco.restaurants.repository.OrdersRepository;
+import com.zeco.zecoEats.restaurants.repository.OrdersRepository;
 import com.zeco.restaurants.restaurantDtos.*;
-import com.zeco.restaurants.service.deliveryFeeStrategies.DeliveryFeeStrategyFactory;
-import com.zeco.restaurants.service.placeOrderTemplate.PlaceOrderTemplate;
+import com.zeco.zecoEats.restaurants.service.deliveryFeeStrategies.DeliveryFeeStrategyFactory;
+import com.zeco.zecoEats.restaurants.service.placeOrderTemplate.PlaceOrderTemplate;
+import com.zeco.zecoEats.restaurants.restaurantDtos.GetDeliveryFee;
+import com.zeco.zecoEats.restaurants.restaurantDtos.PlaceOrderDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +27,7 @@ public class OrdersService {
     private DeliveryFeeStrategyFactory deliveryFeeStrategyFactory;
 
 
-    public void  placeOrder(List<PlaceOrderDTO > placeOrderDTO){
+    public void  placeOrder(List<PlaceOrderDTO> placeOrderDTO){
         placeOrderTemplate.placeOrder(placeOrderDTO, ordersRepository);
     }
 

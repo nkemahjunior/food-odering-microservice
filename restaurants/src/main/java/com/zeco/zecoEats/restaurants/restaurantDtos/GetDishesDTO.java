@@ -1,8 +1,8 @@
-package com.zeco.restaurants.restaurantDtos;
+package com.zeco.zecoEats.restaurants.restaurantDtos;
 
-import com.zeco.restaurants.model.Menus;
-import com.zeco.restaurants.model.Restaurant;
-import com.zeco.restaurants.model.Spices;
+import com.zeco.zecoEats.restaurants.model.Menus;
+import com.zeco.zecoEats.restaurants.model.Restaurant;
+import com.zeco.zecoEats.restaurants.model.Spices;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;

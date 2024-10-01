@@ -1,15 +1,14 @@
-package com.zeco.restaurants.restaurantDtos;
+package com.zeco.zecoEats.restaurants.restaurantDtos;
 
 
-import com.zeco.restaurants.model.Cuisines;
-import com.zeco.restaurants.model.RestaurantOperationalTimes;
+import com.zeco.zecoEats.restaurants.model.Cuisines;
+import com.zeco.zecoEats.restaurants.model.RestaurantOperationalTimes;
 
 import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 

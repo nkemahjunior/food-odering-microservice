@@ -1,4 +1,4 @@
-package com.deliveries.redisConfig;
+package com.zeco.zecoEats.deliveries.redisConfig;
 
 
 public class CacheConfig {

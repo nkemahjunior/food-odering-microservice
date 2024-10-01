@@ -1,4 +1,4 @@
-package com.zeco.restaurants.fileUpload;
+package com.zeco.zecoEats.restaurants.fileUpload;
 
 
 import org.springframework.context.annotation.Bean;

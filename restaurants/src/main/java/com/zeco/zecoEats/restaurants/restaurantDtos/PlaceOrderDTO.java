@@ -1,4 +1,4 @@
-package com.zeco.restaurants.restaurantDtos;
+package com.zeco.zecoEats.restaurants.restaurantDtos;
 
 import java.time.ZonedDateTime;
 import java.util.List;

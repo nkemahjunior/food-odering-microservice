@@ -1,6 +1,6 @@
-package com.zeco.restaurants.fileUpload;
-import com.zeco.restaurants.restaurantDtos.CreateDishDTO;
-import com.zeco.restaurants.service.RestaurantService;
+package com.zeco.zecoEats.restaurants.fileUpload;
+import com.zeco.zecoEats.restaurants.restaurantDtos.CreateDishDTO;
+import com.zeco.zecoEats.restaurants.service.RestaurantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.retry.annotation.Backoff;
@@ -12,11 +12,7 @@ import software.amazon.awssdk.core.async.AsyncRequestBody;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @Service

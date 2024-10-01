@@ -1,6 +1,6 @@
-package com.zeco.restaurants.service.deliveryFeeStrategies;
+package com.zeco.zecoEats.restaurants.service.deliveryFeeStrategies;
 
-import com.zeco.restaurants.restaurantDtos.GetDeliveryFee;
+import com.zeco.zecoEats.restaurants.restaurantDtos.GetDeliveryFee;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class DeliveryFeeStrategyFactory {
     }
 
 
-    public  GetDeliveryFee calculateDeliveryFee(String customerLongitude, String customerLat, List<String> restaurantCoordinates) {
+    public GetDeliveryFee calculateDeliveryFee(String customerLongitude, String customerLat, List<String> restaurantCoordinates) {
         DeliveryFeeStrategy strategy = DeliveryFeeStrategyFactory.getStrategy(restaurantCoordinates);
         return strategy.calculateDeliveryFee(customerLongitude, customerLat, restaurantCoordinates);
     }

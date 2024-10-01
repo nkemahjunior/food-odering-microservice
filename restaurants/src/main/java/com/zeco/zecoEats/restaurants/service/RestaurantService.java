@@ -1,15 +1,16 @@
-package com.zeco.restaurants.service;
+package com.zeco.zecoEats.restaurants.service;
 
-import com.zeco.restaurants.model.Dishes;
-import com.zeco.restaurants.model.Menus;
-import com.zeco.restaurants.model.Restaurant;
-import com.zeco.restaurants.repository.CuisineRepository;
-import com.zeco.restaurants.repository.DishesRepository;
-import com.zeco.restaurants.repository.MenusRepository;
-import com.zeco.restaurants.repository.RestaurantRepository;
+import com.zeco.zecoEats.restaurants.model.Dishes;
+import com.zeco.zecoEats.restaurants.model.Menus;
+import com.zeco.zecoEats.restaurants.model.Restaurant;
+import com.zeco.zecoEats.restaurants.repository.CuisineRepository;
+import com.zeco.zecoEats.restaurants.repository.DishesRepository;
+import com.zeco.zecoEats.restaurants.repository.MenusRepository;
+import com.zeco.zecoEats.restaurants.repository.RestaurantRepository;
 import com.zeco.restaurants.restaurantDtos.*;
-import com.zeco.restaurants.service.searchStrategies.SearchFactory;
-import com.zeco.restaurants.service.searchStrategies.SearchType;
+import com.zeco.zecoEats.restaurants.restaurantDtos.*;
+import com.zeco.zecoEats.restaurants.service.searchStrategies.SearchFactory;
+import com.zeco.zecoEats.restaurants.service.searchStrategies.SearchType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -1,4 +1,4 @@
-package com.deliveries.model;
+package com.zeco.zecoEats.deliveries.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;

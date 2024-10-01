@@ -1,6 +1,6 @@
-package com.deliveries.periodicChecks;
+package com.zeco.zecoEats.deliveries.periodicChecks;
 
-import com.deliveries.service.DeliveryDriversService;
+import com.zeco.zecoEats.deliveries.service.DeliveryDriversService;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;

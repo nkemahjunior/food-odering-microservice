@@ -1,6 +1,6 @@
-package com.zeco.restaurants.repository;
+package com.zeco.zecoEats.restaurants.repository;
 
-import com.zeco.restaurants.model.Orders;
+import com.zeco.zecoEats.restaurants.model.Orders;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OrdersRepository extends JpaRepository<Orders, Long> {
