@@ -1,4 +1,4 @@
-package com.deliveries.webSocketConfig;
+package com.zeco.zecoEats.deliveries.webSocketConfig;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

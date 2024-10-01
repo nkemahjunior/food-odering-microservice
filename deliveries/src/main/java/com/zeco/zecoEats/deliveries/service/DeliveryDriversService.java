@@ -1,20 +1,23 @@
-package com.deliveries.service;
+package com.zeco.zecoEats.deliveries.service;
 
-import com.deliveries.dtos.*;
-import com.deliveries.httpCall.UserServiceClient;
-import com.deliveries.model.*;
-import com.deliveries.repository.AvailableDriversRepository;
-import com.deliveries.repository.DeliveryDriversRepository;
-import com.deliveries.repository.OrdersDriversBlacklistRepository;
-import com.deliveries.repository.OrdersReadyForDeliveryRepository;
-import com.deliveries.service.assignDriversToDeliverOrders.AssignDriverFactory;
-import com.deliveries.service.assignDriversToDeliverOrders.AssignmentType;
-import com.deliveries.service.assignDriversToDeliverOrders.ClosestDriverStrategy;
-import com.deliveries.service.availableForWork.AvailableDriverForWork;
-import com.deliveries.service.availableForWork.AvailableDriverForWorkFactory;
-import com.deliveries.service.availableForWork.AvailableDriverType;
+
+import com.zeco.zecoEats.deliveries.dtos.*;
+import com.zeco.zecoEats.deliveries.httpCall.UserServiceClient;
+import com.zeco.zecoEats.deliveries.repository.AvailableDriversRepository;
+import com.zeco.zecoEats.deliveries.repository.DeliveryDriversRepository;
+import com.zeco.zecoEats.deliveries.repository.OrdersDriversBlacklistRepository;
+import com.zeco.zecoEats.deliveries.repository.OrdersReadyForDeliveryRepository;
+import com.zeco.zecoEats.deliveries.service.assignDriversToDeliverOrders.AssignDriverFactory;
+import com.zeco.zecoEats.deliveries.service.assignDriversToDeliverOrders.AssignmentType;
+import com.zeco.zecoEats.deliveries.service.availableForWork.AvailableDriverForWork;
+import com.zeco.zecoEats.deliveries.service.availableForWork.AvailableDriverForWorkFactory;
+import com.zeco.zecoEats.deliveries.service.availableForWork.AvailableDriverType;
 import com.google.firebase.messaging.Message;
 import com.zeco.zecoEats.common.NewOrderShared;
+import com.zeco.zecoEats.deliveries.model.AvailableDrivers;
+import com.zeco.zecoEats.deliveries.model.DeliveryDrivers;
+import com.zeco.zecoEats.deliveries.model.OrdersDriverBlackList;
+import com.zeco.zecoEats.deliveries.model.OrdersReadyForDelivery;
 import lombok.extern.slf4j.Slf4j;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;

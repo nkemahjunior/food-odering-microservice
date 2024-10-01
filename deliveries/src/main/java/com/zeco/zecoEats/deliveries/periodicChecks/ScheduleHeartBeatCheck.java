@@ -1,15 +1,11 @@
-package com.deliveries.periodicChecks;
+package com.zeco.zecoEats.deliveries.periodicChecks;
 
 
-import com.deliveries.scheduleDeliveries.ExecuteDeliveryJob;
 import com.zeco.zecoEats.common.NewOrderShared;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.Instant;
-import java.util.Date;
 
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.SimpleScheduleBuilder.simpleSchedule;

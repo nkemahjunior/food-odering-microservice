@@ -1,15 +1,15 @@
-package com.zeco.restaurants.serviceTests;
+package com.zeco.zecoEats.restaurants.serviceTests;
 
 import com.zeco.restaurants.model.*;
-import com.zeco.restaurants.repository.CuisineRepository;
-import com.zeco.restaurants.repository.DishesRepository;
-import com.zeco.restaurants.repository.MenusRepository;
-import com.zeco.restaurants.repository.RestaurantRepository;
-import com.zeco.restaurants.restaurantDtos.CreateDishDTO;
-import com.zeco.restaurants.restaurantDtos.CreateMenuDTO;
-import com.zeco.restaurants.restaurantDtos.CreateRestaurantDTO;
-import com.zeco.restaurants.restaurantDtos.GetRestaurantsDTO;
-import com.zeco.restaurants.service.RestaurantService;
+import com.zeco.zecoEats.restaurants.repository.CuisineRepository;
+import com.zeco.zecoEats.restaurants.repository.DishesRepository;
+import com.zeco.zecoEats.restaurants.repository.MenusRepository;
+import com.zeco.zecoEats.restaurants.repository.RestaurantRepository;
+import com.zeco.zecoEats.restaurants.restaurantDtos.CreateDishDTO;
+import com.zeco.zecoEats.restaurants.restaurantDtos.CreateMenuDTO;
+import com.zeco.zecoEats.restaurants.restaurantDtos.CreateRestaurantDTO;
+import com.zeco.zecoEats.restaurants.service.RestaurantService;
+import com.zeco.zecoEats.restaurants.model.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,10 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
 import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @ExtendWith(MockitoExtension.class)
 public class RestaurantServiceTest {
@@ -45,10 +42,10 @@ public class RestaurantServiceTest {
     private MenusRepository menusRepository;
 
     @Mock
-    private  CuisineRepository cuisineRepository;
+    private CuisineRepository cuisineRepository;
 
     @Mock
-    private  DishesRepository dishesRepository;
+    private DishesRepository dishesRepository;
 
     @InjectMocks// inject the mock dependencies
     private RestaurantService restaurantService;

@@ -1,4 +1,4 @@
-package com.deliveries.exceptions;
+package com.zeco.zecoEats.deliveries.exceptions;
 
 import lombok.Builder;
 

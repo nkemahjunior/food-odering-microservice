@@ -11,19 +11,43 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.zeco</groupId>
+    <groupId>com.zeco.zecoEats</groupId>
     <artifactId>zeco-eats-backend</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>zeco-eats-backend</name>
     <description>ZecoEats: order food from any restaurant and get it delivered to you</description>
+    <url>https://github.com/nkemahjunior/zeco-eats</url>
     <packaging>pom</packaging>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Nkemah Junior</name>
+            <email>nkemahjr@gmail.com</email>
+            <url>https://github.com/nkemahjunior</url>
+        </developer>
+    </developers>
+
+
+    <scm>
+        <connection>scm:git:git://github.com/nkemahjunior/zeco-eats.git</connection>
+        <developerConnection>scm:git:ssh://github.com/nkemahjunior/zeco-eats.git</developerConnection>
+        <url>https://github.com/nkemahjunior/zeco-eats/tree/master</url>
+    </scm>
+
 
     <modules>
         <module>userManagement</module>
         <module>restaurants</module>
         <module>configServer</module>
         <module>deliveries</module>
-        <module>sharedDTO</module>
+        <module>common</module>
     </modules>
 
 
@@ -31,9 +55,13 @@
 
         <awsS3.version>2.27.21</awsS3.version>
         <aws-crt.version>0.30.11</aws-crt.version>
+        <central-publishing-maven-plugin.version>0.6.0</central-publishing-maven-plugin.version>
         <firebase.admin.version>9.3.0</firebase.admin.version>
         <hibernate.spatial.version>7.0.0.Alpha3</hibernate.spatial.version>
-        <shared.version>1.0-SNAPSHOT</shared.version> <!--installed in your local repository-->
+        <maven-gpg-plugin.version>3.2.7</maven-gpg-plugin.version>
+        <maven-javadoc-plugin.version>3.10.0</maven-javadoc-plugin.version>
+        <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
+        <zeco-eats.common.version>1.0.0</zeco-eats.common.version> <!--installed in your local repository-->
         <spring-cloud.version>2023.0.3</spring-cloud.version>
         <spring-retry.version>2.0.8</spring-retry.version>
 
@@ -75,9 +103,9 @@
             </dependency>
 
             <dependency>
-                <groupId>com.zeco.shared</groupId>
-                <artifactId>sharedDTO</artifactId>
-                <version>${shared.version}</version>
+                <groupId>com.zeco.zecoEats.common</groupId>
+                <artifactId>common</artifactId>
+                <version>1.0.0</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/org.springframework.retry/spring-retry -->
@@ -102,6 +130,39 @@
                 <artifactId>hibernate-spatial</artifactId>
                 <version>${hibernate.spatial.version}</version>
             </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
+            <dependency>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugin.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
+            <dependency>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-gpg-plugin -->
+            <dependency>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>${maven-gpg-plugin.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.sonatype.central/central-publishing-maven-plugin -->
+            <dependency>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>${central-publishing-maven-plugin.version}</version>
+            </dependency>
+
+
+
+
+
 
         </dependencies>
 

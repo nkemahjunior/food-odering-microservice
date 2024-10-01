@@ -1,8 +1,8 @@
-package com.deliveries.repository;
+package com.zeco.zecoEats.deliveries.repository;
 
-import com.deliveries.dtos.NearbyDriversDTO;
-import com.deliveries.model.AvailableDrivers;
-import com.deliveries.model.DeliveryDrivers;
+import com.zeco.zecoEats.deliveries.dtos.NearbyDriversDTO;
+import com.zeco.zecoEats.deliveries.model.AvailableDrivers;
+import com.zeco.zecoEats.deliveries.model.DeliveryDrivers;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

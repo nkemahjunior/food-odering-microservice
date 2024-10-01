@@ -1,4 +1,4 @@
-package com.deliveries.exceptions;
+package com.zeco.zecoEats.deliveries.exceptions;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;

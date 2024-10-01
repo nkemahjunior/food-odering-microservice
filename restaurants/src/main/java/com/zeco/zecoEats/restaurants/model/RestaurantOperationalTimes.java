@@ -1,4 +1,4 @@
-package com.zeco.restaurants.model;
+package com.zeco.zecoEats.restaurants.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -7,7 +7,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalTime;
-import java.time.ZonedDateTime;
 import java.util.Objects;
 
 

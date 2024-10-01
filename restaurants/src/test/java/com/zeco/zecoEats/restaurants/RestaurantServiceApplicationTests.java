@@ -1,4 +1,4 @@
-package com.zeco.restaurants;
+package com.zeco.zecoEats.restaurants;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

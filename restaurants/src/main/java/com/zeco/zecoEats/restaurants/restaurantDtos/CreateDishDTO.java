@@ -1,6 +1,6 @@
-package com.zeco.restaurants.restaurantDtos;
+package com.zeco.zecoEats.restaurants.restaurantDtos;
 
-import com.zeco.restaurants.model.Spices;
+import com.zeco.zecoEats.restaurants.model.Spices;
 import lombok.Builder;
 
 import java.math.BigDecimal;

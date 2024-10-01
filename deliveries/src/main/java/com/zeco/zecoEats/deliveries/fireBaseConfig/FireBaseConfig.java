@@ -1,4 +1,4 @@
-package com.deliveries.fireBaseConfig;
+package com.zeco.zecoEats.deliveries.fireBaseConfig;
 
 
 import com.google.auth.oauth2.GoogleCredentials;

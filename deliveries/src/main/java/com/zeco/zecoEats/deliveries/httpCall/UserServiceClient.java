@@ -1,6 +1,6 @@
-package com.deliveries.httpCall;
+package com.zeco.zecoEats.deliveries.httpCall;
 
-import com.deliveries.dtos.GetUserResponseDTO;
+import com.zeco.zecoEats.deliveries.dtos.GetUserResponseDTO;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.service.annotation.GetExchange;
 

@@ -1,4 +1,4 @@
-package com.zeco.restaurants.httpCalls;
+package com.zeco.zecoEats.restaurants.httpCalls;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

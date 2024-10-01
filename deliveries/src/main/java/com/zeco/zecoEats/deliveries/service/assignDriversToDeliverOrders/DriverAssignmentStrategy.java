@@ -1,7 +1,7 @@
-package com.deliveries.service.assignDriversToDeliverOrders;
+package com.zeco.zecoEats.deliveries.service.assignDriversToDeliverOrders;
 
-import com.deliveries.dtos.NearbyDriversDTO;
-import com.zeco.shared.NewOrderShared;
+import com.zeco.zecoEats.deliveries.dtos.NearbyDriversDTO;
+import com.zeco.zecoEats.common.NewOrderShared;
 
 import java.util.List;
 

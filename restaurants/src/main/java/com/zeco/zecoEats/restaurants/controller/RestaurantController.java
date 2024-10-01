@@ -1,11 +1,11 @@
-package com.zeco.restaurants.controller;
+package com.zeco.zecoEats.restaurants.controller;
 
 
-import com.zeco.restaurants.fileUpload.S3clientService;
-import com.zeco.restaurants.model.Restaurant;
+import com.zeco.zecoEats.restaurants.fileUpload.S3clientService;
 import com.zeco.restaurants.restaurantDtos.*;
-import com.zeco.restaurants.service.OrdersService;
-import com.zeco.restaurants.service.RestaurantService;
+import com.zeco.zecoEats.restaurants.service.OrdersService;
+import com.zeco.zecoEats.restaurants.service.RestaurantService;
+import com.zeco.zecoEats.restaurants.restaurantDtos.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @RestController
@@ -80,8 +79,8 @@ public class RestaurantController {
     }*/
 
     @GetMapping("order/deliveryfee")
-    public ResponseEntity<GetDeliveryFee> getDeliveryFeeForOrdersEndpoint( @RequestParam("customerLongitude") String customerLongitude,@RequestParam("customerLat") String customerLat,
-                                                                @RequestParam List<String> restaurantCoordinates){
+    public ResponseEntity<GetDeliveryFee> getDeliveryFeeForOrdersEndpoint(@RequestParam("customerLongitude") String customerLongitude, @RequestParam("customerLat") String customerLat,
+                                                                          @RequestParam List<String> restaurantCoordinates){
 
         return ResponseEntity.ok( ordersService.calculateDeliveryFee(customerLongitude,customerLat,restaurantCoordinates));
     }

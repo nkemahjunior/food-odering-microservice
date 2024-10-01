@@ -1,15 +1,14 @@
-package com.zeco.restaurants.service.placeOrderTemplate;
+package com.zeco.zecoEats.restaurants.service.placeOrderTemplate;
 
-import com.zeco.restaurants.httpCalls.UserServiceClient;
-import com.zeco.restaurants.model.*;
-import com.zeco.restaurants.repository.DishesRepository;
-import com.zeco.restaurants.repository.RestaurantRepository;
-import com.zeco.restaurants.repository.SpicesRepository;
-import com.zeco.restaurants.restaurantDtos.GetUserResponseDTO;
-import com.zeco.restaurants.restaurantDtos.OrderDishAndSpice;
-import com.zeco.restaurants.restaurantDtos.PlaceOrderDTO;
-import com.zeco.restaurants.service.placeOrderTemplate.PlaceOrderTemplate;
-import com.zeco.shared.NewOrderShared;
+import com.zeco.zecoEats.restaurants.httpCalls.UserServiceClient;
+import com.zeco.zecoEats.restaurants.repository.DishesRepository;
+import com.zeco.zecoEats.restaurants.repository.RestaurantRepository;
+import com.zeco.zecoEats.restaurants.repository.SpicesRepository;
+import com.zeco.zecoEats.restaurants.restaurantDtos.GetUserResponseDTO;
+import com.zeco.zecoEats.restaurants.restaurantDtos.OrderDishAndSpice;
+import com.zeco.zecoEats.restaurants.restaurantDtos.PlaceOrderDTO;
+import com.zeco.zecoEats.common.NewOrderShared;
+import com.zeco.zecoEats.restaurants.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

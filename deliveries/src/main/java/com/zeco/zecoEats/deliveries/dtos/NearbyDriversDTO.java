@@ -1,10 +1,6 @@
-package com.deliveries.dtos;
-
-import com.deliveries.model.DeliveryDrivers;
-import org.locationtech.jts.geom.Point;
+package com.zeco.zecoEats.deliveries.dtos;
 
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 
 public interface NearbyDriversDTO {
         //method names should match database columns name

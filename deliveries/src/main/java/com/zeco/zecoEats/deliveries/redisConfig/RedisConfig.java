@@ -1,7 +1,7 @@
-package com.deliveries.redisConfig;
+package com.zeco.zecoEats.deliveries.redisConfig;
 
-import com.deliveries.dtos.OrderCurrentLocationDTO;
-import com.deliveries.service.DriversDeliveringOrdersLocationSubscriber;
+import com.zeco.zecoEats.deliveries.dtos.OrderCurrentLocationDTO;
+import com.zeco.zecoEats.deliveries.service.DriversDeliveringOrdersLocationSubscriber;
 import io.lettuce.core.ReadFrom;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,15 +13,12 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisPassword;
 import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
-import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @Slf4j
 @Configuration

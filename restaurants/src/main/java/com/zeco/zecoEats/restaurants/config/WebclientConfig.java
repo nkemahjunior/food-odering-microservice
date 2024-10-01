@@ -1,4 +1,4 @@
-package com.zeco.restaurants.config;
+package com.zeco.zecoEats.restaurants.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

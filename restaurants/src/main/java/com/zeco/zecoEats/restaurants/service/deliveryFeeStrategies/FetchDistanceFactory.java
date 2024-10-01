@@ -1,4 +1,4 @@
-package com.zeco.restaurants.service.deliveryFeeStrategies;
+package com.zeco.zecoEats.restaurants.service.deliveryFeeStrategies;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Component;

@@ -1,18 +1,16 @@
-package com.zeco.restaurants.service.placeOrderTemplate;
+package com.zeco.zecoEats.restaurants.service.placeOrderTemplate;
 
-import com.zeco.restaurants.model.OrderDishes;
-import com.zeco.restaurants.model.Orders;
-import com.zeco.restaurants.model.Restaurant;
-import com.zeco.restaurants.repository.OrdersRepository;
-import com.zeco.restaurants.repository.RestaurantRepository;
-import com.zeco.restaurants.restaurantDtos.GetUserResponseDTO;
-import com.zeco.restaurants.restaurantDtos.PlaceOrderDTO;
-import com.zeco.shared.NewOrderShared;
+import com.zeco.zecoEats.restaurants.model.OrderDishes;
+import com.zeco.zecoEats.restaurants.model.Orders;
+import com.zeco.zecoEats.restaurants.model.Restaurant;
+import com.zeco.zecoEats.restaurants.repository.OrdersRepository;
+import com.zeco.zecoEats.restaurants.restaurantDtos.GetUserResponseDTO;
+import com.zeco.zecoEats.restaurants.restaurantDtos.PlaceOrderDTO;
+import com.zeco.zecoEats.common.NewOrderShared;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public abstract class PlaceOrderTemplate {
@@ -26,7 +24,7 @@ public abstract class PlaceOrderTemplate {
 
     abstract Orders setOrderDetails(Supplier<Orders> getOrderObject, PlaceOrderDTO oderPlaced, Restaurant restaurant, UUID userID);
 
-    abstract  Orders addDishesForOrder(PlaceOrderDTO oderPlaced, BiConsumer<List<Long>,OrderDishes> spicesForDish, Supplier<Orders> order);
+    abstract  Orders addDishesForOrder(PlaceOrderDTO oderPlaced, BiConsumer<List<Long>, OrderDishes> spicesForDish, Supplier<Orders> order);
 
     abstract  void addSpicesForTheDish( List<Long> spiceIDs, OrderDishes orderDish);
 

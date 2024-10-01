@@ -1,4 +1,4 @@
-package com.deliveries.kafkaTopicsConfig;
+package com.zeco.zecoEats.deliveries.kafkaTopicsConfig;
 
 
 import org.springframework.beans.factory.annotation.Value;

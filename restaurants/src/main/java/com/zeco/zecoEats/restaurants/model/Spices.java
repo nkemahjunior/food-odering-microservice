@@ -1,4 +1,4 @@
-package com.zeco.restaurants.model;
+package com.zeco.zecoEats.restaurants.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
@@ -8,9 +8,7 @@ import lombok.NonNull;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Getter
 @Setter

@@ -1,4 +1,4 @@
-package com.deliveries.service.availableForWork;
+package com.zeco.zecoEats.deliveries.service.availableForWork;
 
 
 public class AvailableDriverForWorkFactory {

@@ -1,6 +1,6 @@
-package com.zeco.restaurants.service.searchStrategies;
+package com.zeco.zecoEats.restaurants.service.searchStrategies;
 
-import com.zeco.restaurants.restaurantDtos.GetRestaurantsDTO;
+import com.zeco.zecoEats.restaurants.restaurantDtos.GetRestaurantsDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

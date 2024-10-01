@@ -1,4 +1,4 @@
-package com.zeco.restaurants.model;
+package com.zeco.zecoEats.restaurants.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

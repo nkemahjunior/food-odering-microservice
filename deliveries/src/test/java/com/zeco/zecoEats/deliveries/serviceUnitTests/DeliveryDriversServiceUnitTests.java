@@ -1,15 +1,15 @@
-package com.deliveries.serviceUnitTests;
+package com.zeco.zecoEats.deliveries.serviceUnitTests;
 
 
-import com.deliveries.dtos.CreateDeliveryDriverDto;
-import com.deliveries.dtos.GetUserResponseDTO;
-import com.deliveries.httpCall.UserServiceClient;
-import com.deliveries.model.DeliveryDrivers;
-import com.deliveries.repository.AvailableDriversRepository;
-import com.deliveries.repository.DeliveryDriversRepository;
-import com.deliveries.repository.OrdersDriversBlacklistRepository;
-import com.deliveries.repository.OrdersReadyForDeliveryRepository;
-import com.deliveries.service.DeliveryDriversService;
+import com.zeco.zecoEats.deliveries.dtos.CreateDeliveryDriverDto;
+import com.zeco.zecoEats.deliveries.dtos.GetUserResponseDTO;
+import com.zeco.zecoEats.deliveries.httpCall.UserServiceClient;
+import com.zeco.zecoEats.deliveries.model.DeliveryDrivers;
+import com.zeco.zecoEats.deliveries.repository.AvailableDriversRepository;
+import com.zeco.zecoEats.deliveries.repository.DeliveryDriversRepository;
+import com.zeco.zecoEats.deliveries.repository.OrdersDriversBlacklistRepository;
+import com.zeco.zecoEats.deliveries.repository.OrdersReadyForDeliveryRepository;
+import com.zeco.zecoEats.deliveries.service.DeliveryDriversService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

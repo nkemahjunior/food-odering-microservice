@@ -1,20 +1,15 @@
-package com.deliveries.controller;
+package com.zeco.zecoEats.deliveries.controller;
 
-import com.deliveries.dtos.OrderCurrentLocationDTO;
-import com.deliveries.service.DriversDeliveringOrdersLocationSubscriber;
+import com.zeco.zecoEats.deliveries.dtos.OrderCurrentLocationDTO;
+import com.zeco.zecoEats.deliveries.service.DriversDeliveringOrdersLocationSubscriber;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
 
 @Slf4j

@@ -1,4 +1,4 @@
-package com.deliveries.model;
+package com.zeco.zecoEats.deliveries.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
