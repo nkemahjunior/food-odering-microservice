@@ -15,7 +15,7 @@ jobs:
       configServer-changed: ${{ steps.filter.outputs.configServer }}
       deliveries-changed: ${{ steps.filter.outputs.deliveries }}
       restaurants-changed: ${{ steps.filter.outputs.restaurants }}
-      sharedDTO-changed: ${{ steps.filter.outputs.sharedDTO }}
+      common-changed: ${{ steps.filter.outputs.common }}
       userManagement-changed: ${{ steps.filter.outputs.userManagement }}
     steps:
       - name: Checkout Repository
@@ -35,8 +35,8 @@ jobs:
             restaurants:
               - 'restaurants/**'
               - 'pom.xml' #root POM affects all services
-            sharedDTO:
-              - 'sharedDTO/**'
+            common:
+              - 'common/**'
               - 'pom.xml' #root POM affects all services
             userManagement:
               - 'userManagement/**'
@@ -69,13 +69,13 @@ jobs:
       service-name: 'restaurants'
       also-build-its-dependencies: '-am'
 
-  # JOB to build sharedDTO service
-  build-sharedDTO:
+  # JOB to build common service
+  build-common:
     needs: determine-changes
-    if: ${{ needs.determine-changes.outputs.sharedDTO-changed == 'true' }}
+    if: ${{ needs.determine-changes.outputs.common-changed == 'true' }}
     uses: ./.github/workflows/build-service.yml
     with:
-      service-name: 'sharedDTO'
+      service-name: 'common'
       also-build-its-dependencies: '-amd'
 
 
