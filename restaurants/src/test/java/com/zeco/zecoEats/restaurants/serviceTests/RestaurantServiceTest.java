@@ -1,6 +1,6 @@
 package com.zeco.zecoEats.restaurants.serviceTests;
 
-import com.zeco.restaurants.model.*;
+
 import com.zeco.zecoEats.restaurants.repository.CuisineRepository;
 import com.zeco.zecoEats.restaurants.repository.DishesRepository;
 import com.zeco.zecoEats.restaurants.repository.MenusRepository;
