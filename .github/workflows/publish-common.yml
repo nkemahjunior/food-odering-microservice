@@ -4,6 +4,7 @@ on:
     branches:
       -common
 
+
 jobs:
   publish:
     runs-on: ubuntu-latest
