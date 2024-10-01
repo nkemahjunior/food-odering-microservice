@@ -10,8 +10,34 @@
     </parent>
 
     <version>1.0.0</version>
-    <groupId>com.zeco.zecoEats.common</groupId>
+    <groupId>io.github.nkemahjunior.zecoEats.common</groupId>
     <artifactId>common</artifactId>
+    <description>ZecoEats common: common dto used across services</description>
+    <url>https://github.com/nkemahjunior/zeco-eats/tree/master/common</url>
+    <packaging>pom</packaging>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Nkemah Junior</name>
+            <email>nkemahjr@gmail.com</email>
+            <url>https://github.com/nkemahjunior</url>
+        </developer>
+    </developers>
+
+
+    <scm>
+        <connection>scm:git:git://github.com/nkemahjunior/zeco-eats.git</connection>
+        <developerConnection>scm:git:ssh://github.com/nkemahjunior/zeco-eats.git</developerConnection>
+        <url>https://github.com/nkemahjunior/zeco-eats/tree/master/common</url>
+    </scm>
+
 
 
 
@@ -33,7 +59,7 @@
                         <artifactId>central-publishing-maven-plugin</artifactId>
                     </plugin>
 
-                    <!--<plugin>
+                    <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
                     </plugin>
@@ -46,12 +72,11 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                    </plugin>-->
+                    </plugin>
                 </plugins>
             </build>
         </profile>
     </profiles>
- 
 </project>
 
 

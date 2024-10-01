@@ -1,4 +1,4 @@
-package com.zeco.zecoEats.common;
+package io.github.nkemahjunior.zecoEats.common;
 
 import lombok.*;
 

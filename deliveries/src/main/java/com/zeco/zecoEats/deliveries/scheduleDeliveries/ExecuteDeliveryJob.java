@@ -3,7 +3,7 @@ package com.zeco.zecoEats.deliveries.scheduleDeliveries;
 import com.zeco.zecoEats.deliveries.model.OrdersReadyForDelivery;
 import com.zeco.zecoEats.deliveries.repository.OrdersReadyForDeliveryRepository;
 import com.zeco.zecoEats.deliveries.service.DeliveryDriversService;
-import com.zeco.zecoEats.common.NewOrderShared;
+import io.github.nkemahjunior.zecoEats.common.NewOrderShared;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;

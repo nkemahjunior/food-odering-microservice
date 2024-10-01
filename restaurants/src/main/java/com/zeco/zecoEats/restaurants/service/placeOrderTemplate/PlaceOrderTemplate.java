@@ -6,7 +6,7 @@ import com.zeco.zecoEats.restaurants.model.Restaurant;
 import com.zeco.zecoEats.restaurants.repository.OrdersRepository;
 import com.zeco.zecoEats.restaurants.restaurantDtos.GetUserResponseDTO;
 import com.zeco.zecoEats.restaurants.restaurantDtos.PlaceOrderDTO;
-import com.zeco.zecoEats.common.NewOrderShared;
+import io.github.nkemahjunior.zecoEats.common.NewOrderShared;
 
 import java.util.List;
 import java.util.UUID;

@@ -7,7 +7,7 @@ import com.zeco.zecoEats.restaurants.repository.SpicesRepository;
 import com.zeco.zecoEats.restaurants.restaurantDtos.GetUserResponseDTO;
 import com.zeco.zecoEats.restaurants.restaurantDtos.OrderDishAndSpice;
 import com.zeco.zecoEats.restaurants.restaurantDtos.PlaceOrderDTO;
-import com.zeco.zecoEats.common.NewOrderShared;
+import io.github.nkemahjunior.zecoEats.common.NewOrderShared;
 import com.zeco.zecoEats.restaurants.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

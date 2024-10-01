@@ -9,12 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Clean Maven Cache
-        run: |
-          rm -rf ~/.m2/repository
-
-      - uses: actions/checkout@v4
       - name: Set up Maven Central Repository
         uses: actions/setup-java@v4
         with:
@@ -29,7 +23,9 @@ jobs:
         run: mvn versions:set -DnewVersion=${{ github.event.release.tag_name }}
       - name: Publish package to Maven Central
         #run: mvn -P release --batch-mode deploy -DskipTests
-        run: mvn clean deploy -P release -DskipTests --batch-mode
+        run:  |
+          cd common
+          mvn clean deploy -P release -DskipTests --batch-mode
         env:
           GPG_KEYNAME: ${{ secrets.GPG_KEYNAME }}
           MAVEN_USERNAME: ${{ secrets.CENTRAL_TOKEN_USERNAME }}

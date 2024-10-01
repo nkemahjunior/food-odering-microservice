@@ -13,7 +13,7 @@ import com.zeco.zecoEats.deliveries.service.availableForWork.AvailableDriverForW
 import com.zeco.zecoEats.deliveries.service.availableForWork.AvailableDriverForWorkFactory;
 import com.zeco.zecoEats.deliveries.service.availableForWork.AvailableDriverType;
 import com.google.firebase.messaging.Message;
-import com.zeco.zecoEats.common.NewOrderShared;
+import io.github.nkemahjunior.zecoEats.common.NewOrderShared;
 import com.zeco.zecoEats.deliveries.model.AvailableDrivers;
 import com.zeco.zecoEats.deliveries.model.DeliveryDrivers;
 import com.zeco.zecoEats.deliveries.model.OrdersDriverBlackList;

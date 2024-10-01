@@ -41,19 +41,6 @@
         <url>https://github.com/nkemahjunior/zeco-eats/tree/master</url>
     </scm>
 
-<!--    <distributionManagement>
-        <repository>
-            <id>central</id>
-            <name>Maven Repository</name>
-            <url>https://your.maven.repo.url/path/to/repo</url>
-        </repository>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <name>Maven Snapshot Repository</name>
-            <url>https://your.maven.repo.url/path/to/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>-->
-
 
     <modules>
         <module>userManagement</module>
@@ -71,7 +58,6 @@
         <central-publishing-maven-plugin.version>0.6.0</central-publishing-maven-plugin.version>
         <firebase.admin.version>9.3.0</firebase.admin.version>
         <gpg.keyname>${gpg.keyname}</gpg.keyname>
-        <gpg.passphrase>${gpg.passphrase}</gpg.passphrase>
         <hibernate.spatial.version>7.0.0.Alpha3</hibernate.spatial.version>
         <maven-gpg-plugin.version>3.2.7</maven-gpg-plugin.version>
         <maven-javadoc-plugin.version>3.10.0</maven-javadoc-plugin.version>
@@ -118,9 +104,9 @@
             </dependency>
 
             <dependency>
-                <groupId>com.zeco.zecoEats.common</groupId>
+                <groupId>io.github.nkemahjunior.zecoEats.common</groupId>
                 <artifactId>common</artifactId>
-                <version>1.0.0</version>
+                <version>${zeco-eats.common.version}</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/org.springframework.retry/spring-retry -->
@@ -210,7 +196,6 @@
                         </execution>
                     </executions>
                     <configuration>
-
                         <keyname>${gpg.keyname}</keyname>
                         <passphraseServerId>${gpg.keyname}</passphraseServerId>
 
