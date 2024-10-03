@@ -40,7 +40,7 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
     with:
-      dockerfile-path: delivery/Dockerfile
+      dockerfile-path: deliveries/Dockerfile
       ecr-repository: zeco-eats-deliveries-service
 
 
