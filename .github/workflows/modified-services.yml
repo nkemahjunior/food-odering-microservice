@@ -19,6 +19,7 @@ on:
         description: 'Indicates if userManagement module have new any modifications'
         value: ${{ jobs.determine-changes.outputs.userManagement-changed }}
 
+
 jobs:
   determine-changes:
     runs-on: ubuntu-latest
