@@ -11,6 +11,7 @@ jobs:
     uses: ./.github/workflows/modified-services.yml
 
   deploy-config-server:
+    needs: determine-changes
     if: ${{ github.event.workflow_run.conclusion == 'success' && needs.determine-changes.outputs.configServer-changed == 'true' }}  # Only run if CI succeeded
     uses: ./.github/workflows/deploy.yml
     with:
@@ -18,6 +19,7 @@ jobs:
       ecr-repository: zeco-eats-config-server
 
   deploy-restaurant-service:
+    needs: determine-changes
     if: ${{ github.event.workflow_run.conclusion == 'success' && needs.determine-changes.outputs.restaurants-changed == 'true' }}  # Only run if CI succeeded
     uses: ./.github/workflows/deploy.yml
     with:
@@ -25,6 +27,7 @@ jobs:
       ecr-repository: zeco-eats-restaurant-service
 
   deploy-delivery-service:
+    needs: determine-changes
     if: ${{ github.event.workflow_run.conclusion == 'success' && needs.determine-changes.outputs.deliveries-changed == 'true' }}  # Only run if CI succeeded
     uses: ./.github/workflows/deploy.yml
     with:
@@ -32,6 +35,7 @@ jobs:
       ecr-repository: zeco-eats-deliveries-service
 
   deploy-users-service:
+    needs: determine-changes
     if: ${{ github.event.workflow_run.conclusion == 'success' && needs.determine-changes.outputs.userManagement-changed == 'true' }}  # Only run if CI succeeded
     uses: ./.github/workflows/deploy.yml
     with:
