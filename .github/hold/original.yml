@@ -1,0 +1,89 @@
+name: zeco-eats CI
+
+on:
+  push:
+    branches: [ master]
+  pull_request:
+    branches: [ master]
+
+
+jobs:
+  determine-changes:
+    name: Determine Changed Services
+    runs-on: ubuntu-latest
+    outputs:
+      configServer-changed: ${{ steps.filter.outputs.configServer }}
+      deliveries-changed: ${{ steps.filter.outputs.deliveries }}
+      restaurants-changed: ${{ steps.filter.outputs.restaurants }}
+      common-changed: ${{ steps.filter.outputs.common }}
+      userManagement-changed: ${{ steps.filter.outputs.userManagement }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Paths Changes Filter
+        uses: dorny/paths-filter@v3.0.2
+        id: filter
+        with:
+          filters: |
+            configServer:
+              - 'configServer/**'
+              - 'pom.xml' #root POM affects all services
+            deliveries:
+              - 'deliveries/**'
+              - 'pom.xml' #root POM affects all services
+            restaurants:
+              - 'restaurants/**'
+              - 'pom.xml' #root POM affects all services
+            common:
+              - 'common/**'
+              - 'pom.xml' #root POM affects all services
+            userManagement:
+              - 'userManagement/**'
+              - 'pom.xml' #root POM affects all services
+
+    # JOB to build config server service
+  build-configServer:
+    needs: determine-changes
+    if: ${{ needs.determine-changes.outputs.configServer-changed == 'true' }}
+    uses: ./.github/workflows/build-service.yml
+    with:
+      service-name: 'configServer'
+
+
+  # JOB to build deliveries service
+  build-deliveries:
+    needs: determine-changes
+    if: ${{ needs.determine-changes.outputs.deliveries-changed == 'true' }}
+    uses: ./.github/workflows/build-service.yml
+    with:
+      service-name: 'deliveries'
+      also-build-its-dependencies: '-am'
+
+  # JOB to build restaurant service
+  build-restaurants:
+    needs: determine-changes
+    if: ${{ needs.determine-changes.outputs.restaurants-changed == 'true' }}
+    uses: ./.github/workflows/build-service.yml
+    with:
+      service-name: 'restaurants'
+      also-build-its-dependencies: '-am'
+
+  # JOB to build common service
+  build-common:
+    needs: determine-changes
+    if: ${{ needs.determine-changes.outputs.common-changed == 'true' }}
+    uses: ./.github/workflows/build-service.yml
+    with:
+      service-name: 'common'
+      also-build-its-dependencies: '-amd'
+
+
+  # JOB to build deliveries service
+  build-userManagement:
+    needs: determine-changes
+    if: ${{ needs.determine-changes.outputs.userManagement-changed == 'true' }}
+    uses: ./.github/workflows/build-service.yml
+    with:
+      service-name: 'userManagement/users,userManagement/keycloakCustom,'
+

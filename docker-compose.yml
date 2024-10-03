@@ -1,3 +1,7 @@
+networks:
+  zeco-eats-network:
+    driver: bridge
+
 services:
   kafka-1:
     image: apache/kafka
@@ -30,7 +34,7 @@ services:
       - "7000:6379"
       - "17000:16379" #cluster bus port
     networks:
-      - redis-cluster-network
+      - zeco-eats-network
     command: [
       "redis-server",
       "--port", "6379",
@@ -53,7 +57,7 @@ services:
       - "7001:6379"
       - "17001:16379" #cluster bus port
     networks:
-      - redis-cluster-network
+      - zeco-eats-network
     command: [
       "redis-server",
       "--port", "6379",
@@ -78,7 +82,7 @@ services:
       - "7002:6379"
       - "17002:16379" #cluster bus port
     networks:
-      - redis-cluster-network
+      - zeco-eats-network
     command: [
       "redis-server",
       "--port", "6379",
@@ -101,7 +105,7 @@ services:
       - "7003:6379"
       - "17003:16379" #cluster bus port
     networks:
-      - redis-cluster-network
+      - zeco-eats-network
     command: [
       "redis-server",
       "--port", "6379",
@@ -124,7 +128,7 @@ services:
       - "7004:6379"
       - "17004:16379" #cluster bus port
     networks:
-      - redis-cluster-network
+      - zeco-eats-network
     command: [
       "redis-server",
       "--port", "6379",
@@ -147,7 +151,7 @@ services:
       - "7005:6379"
       - "17005:16379" #cluster bus port
     networks:
-      - redis-cluster-network
+      - zeco-eats-network
     command: [
       "redis-server",
       "--port", "6379",
@@ -171,7 +175,7 @@ services:
       - "17006:16379" #cluster bus port
     command: redis-cli  --cluster create redis-node-0:6379 redis-node-1:6379 redis-node-2:6379 redis-node-3:6379 redis-node-4:6379 redis-node-5:6379 --cluster-replicas 1 -a redis-stack
     networks:
-      - redis-cluster-network
+      - zeco-eats-network
     depends_on:
       - redis-node-0
       - redis-node-1
@@ -184,9 +188,64 @@ services:
 # check cluster info: sudo docker compose exec redis-node-0 redis-cli -a redis-stack cluster info
 #check cluster nodes: sudo docker compose exec redis-node-0 redis-cli -a redis-stack cluster nodes
 
-networks:
-  redis-cluster-network:
-    driver: bridge
+
+    #application services
+  config-server:
+    image: zeco-eats-config-server:1.0
+    container_name: zeco-eats-config-server
+    ports:
+     - 8888:8888
+    networks:
+      - zeco-eats-network
+    volumes:
+      - /.ssh/id_rsa:/opt/zeco-eats-config-server/.ssh/id_rsa:ro
+      - /.ssh/known_hosts:/opt/zeco-eats-config-server/.ssh/known_hosts:ro
+    environment:
+      - PRIVATE_KEY_PATH=/opt/zeco-eats-config-server/.ssh/id_rsa
+      - KNOWN_HOSTS_FILE_PATH=/opt/zeco-eats-config-server/.ssh/known_hosts
+    depends_on:
+      - kafka-1
+      - redis-node-0
+      - redis-node-1
+      - redis-node-2
+      - redis-node-3
+      - redis-node-4
+      - redis-node-5
+
+  users-service:
+    image: zeco-eats-users-service:1.0
+    container_name: zeco-eats-users-service
+    ports:
+     - 8082:8082
+    networks:
+      - zeco-eats-network
+    depends_on:
+      - config-server
+
+  restaurant-service:
+    image: zeco-eats-restaurant-service:1.0
+    container_name: zeco-eats-restaurant-service
+    ports:
+     - 8081:8081
+    networks:
+      - zeco-eats-network
+    depends_on:
+      - config-server
+      - users-service
+
+  deliveries-service:
+    image: zeco-eats-deliveries-service:1.0
+    container_name: zeco-eats-deliveries-service
+    ports:
+     - 8083:8083
+    networks:
+      - zeco-eats-network
+    depends_on:
+      - config-server
+      - users-service
+
+
+
 
 
 

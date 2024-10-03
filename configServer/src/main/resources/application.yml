@@ -1,20 +1,6 @@
 server:
   port: 8888
 
-logging:
-  level:
-    root: DEBUG
-
 spring:
-  application:
-  name: configServer
-  cloud:
-    config:
-      server:
-        accept-empty: false #return 404 if config server can not find the configuration data for some config client application
-        git:
-          uri: git@github.com:nkemahjunior/zeco-eats-backend-config-server.git
-          skipSslValidation: true #dont forget to turn this to false and set the ssl for this server
-          private-key: ${user.home}/Documents/fullStack projects/02-zeco-eats-front-and-back/backend/zeco-eats-backend/.ssh/id_rsa
-          knownHostsFile: ${user.home}/Documents/fullStack projects/02-zeco-eats-front-and-back/backend/zeco-eats-backend/.ssh/known_hosts
-          timeout: 10 #seconds
+  profiles:
+    active: dev

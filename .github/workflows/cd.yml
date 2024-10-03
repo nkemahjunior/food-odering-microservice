@@ -1,0 +1,39 @@
+name: Deploy to Amazon ECS
+
+on:
+  workflow_run:
+    workflows: ["zeco-eats CI"]
+    types:
+      - completed
+
+jobs:
+  determine-changes:
+    uses: ./.github/workflows/modified-services.yml
+
+  deploy-config-server:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && needs.determine-changes.outputs.configServer-changed == 'true' }}  # Only run if CI succeeded
+    uses: ./.github/workflows/deploy.yml
+    with:
+      dockerfile-path: configServer/Dockerfile
+      ecr-repository: zeco-eats-config-server
+
+  deploy-restaurant-service:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && needs.determine-changes.outputs.restaurants-changed == 'true' }}  # Only run if CI succeeded
+    uses: ./.github/workflows/deploy.yml
+    with:
+      dockerfile-path: restaurants/Dockerfile
+      ecr-repository: zeco-eats-restaurant-service
+
+  deploy-delivery-service:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && needs.determine-changes.outputs.deliveries-changed == 'true' }}  # Only run if CI succeeded
+    uses: ./.github/workflows/deploy.yml
+    with:
+      dockerfile-path: delivery/Dockerfile
+      ecr-repository: zeco-eats-deliveries-service
+
+  deploy-users-service:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && needs.determine-changes.outputs.userManagement-changed == 'true' }}  # Only run if CI succeeded
+    uses: ./.github/workflows/deploy.yml
+    with:
+      dockerfile-path: userManagement/users/Dockerfile
+      ecr-repository: zeco-eats-users-service

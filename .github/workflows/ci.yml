@@ -6,41 +6,10 @@ on:
   pull_request:
     branches: [ master]
 
-
 jobs:
   determine-changes:
-    name: Determine Changed Services
-    runs-on: ubuntu-latest
-    outputs:
-      configServer-changed: ${{ steps.filter.outputs.configServer }}
-      deliveries-changed: ${{ steps.filter.outputs.deliveries }}
-      restaurants-changed: ${{ steps.filter.outputs.restaurants }}
-      sharedDTO-changed: ${{ steps.filter.outputs.sharedDTO }}
-      userManagement-changed: ${{ steps.filter.outputs.userManagement }}
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+    uses: ./.github/workflows/modified-services.yml
 
-      - name: Paths Changes Filter
-        uses: dorny/paths-filter@v3.0.2
-        id: filter
-        with:
-          filters: |
-            configServer:
-              - 'configServer/**'
-              - 'pom.xml' #root POM affects all services
-            deliveries:
-              - 'deliveries/**'
-              - 'pom.xml' #root POM affects all services
-            restaurants:
-              - 'restaurants/**'
-              - 'pom.xml' #root POM affects all services
-            sharedDTO:
-              - 'sharedDTO/**'
-              - 'pom.xml' #root POM affects all services
-            userManagement:
-              - 'userManagement/**'
-              - 'pom.xml' #root POM affects all services
 
     # JOB to build config server service
   build-configServer:
@@ -69,13 +38,13 @@ jobs:
       service-name: 'restaurants'
       also-build-its-dependencies: '-am'
 
-  # JOB to build sharedDTO service
-  build-sharedDTO:
+  # JOB to build common service
+  build-common:
     needs: determine-changes
-    if: ${{ needs.determine-changes.outputs.sharedDTO-changed == 'true' }}
+    if: ${{ needs.determine-changes.outputs.common-changed == 'true' }}
     uses: ./.github/workflows/build-service.yml
     with:
-      service-name: 'sharedDTO'
+      service-name: 'common'
       also-build-its-dependencies: '-amd'
 
 

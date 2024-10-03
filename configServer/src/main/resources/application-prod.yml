@@ -1,0 +1,17 @@
+logging:
+  level:
+    root: INFO
+
+spring:
+  application:
+  name: configServer
+  cloud:
+    config:
+      server:
+        accept-empty: false #return 404 if config server can not find the configuration data for some config client application
+        git:
+          uri: git@github.com:nkemahjunior/zeco-eats-backend-config-server.git
+          skipSslValidation: true #dont forget to turn this to false and set the ssl for this server
+          private-key: ${PRIVATE_KEY_PATH}
+          knownHostsFile: ${KNOWN_HOSTS_FILE_PATH}
+          timeout: 10 #seconds
