@@ -18,34 +18,37 @@ jobs:
     needs: determine-changes
     if: ${{ github.event.workflow_run.conclusion == 'success' && needs.determine-changes.outputs.configServer-changed == 'true' }}  # Only run if CI succeeded
     uses: ./.github/workflows/deploy.yml
+    secrets: inherit
     with:
       dockerfile-path: configServer/Dockerfile
       ecr-repository: zeco-eats-config-server
-      secrets: inherit
+
 
   deploy-restaurant-service:
     needs: determine-changes
     if: ${{ github.event.workflow_run.conclusion == 'success' && needs.determine-changes.outputs.restaurants-changed == 'true' }}  # Only run if CI succeeded
     uses: ./.github/workflows/deploy.yml
+    secrets: inherit
     with:
       dockerfile-path: restaurants/Dockerfile
       ecr-repository: zeco-eats-restaurant-service
-      secrets: inherit
+
 
   deploy-delivery-service:
     needs: determine-changes
     if: ${{ github.event.workflow_run.conclusion == 'success' && needs.determine-changes.outputs.deliveries-changed == 'true' }}  # Only run if CI succeeded
     uses: ./.github/workflows/deploy.yml
+    secrets: inherit
     with:
       dockerfile-path: delivery/Dockerfile
       ecr-repository: zeco-eats-deliveries-service
-      secrets: inherit
+
 
   deploy-users-service:
     needs: determine-changes
     if: ${{ github.event.workflow_run.conclusion == 'success' && needs.determine-changes.outputs.userManagement-changed == 'true' }}  # Only run if CI succeeded
     uses: ./.github/workflows/deploy.yml
+    secrets: inherit
     with:
       dockerfile-path: userManagement/users/Dockerfile
       ecr-repository: zeco-eats-users-service
-      secrets: inherit
