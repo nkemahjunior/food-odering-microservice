@@ -27,7 +27,6 @@
         </license>
     </licenses>
 
-
     <developers>
         <developer>
             <name>Nkemah Junior</name>
@@ -51,6 +50,7 @@
         <module>deliveries</module>
         <module>common</module>
     </modules>
+
 
 
     <properties>
