@@ -2,7 +2,22 @@ name: Determine modified Services
 
 on:
   workflow_call:
-
+    outputs:
+      configServer-changed:
+        description: 'Indicates if configServer module have new any modifications'
+        value: ${{ jobs.determine-changes.outputs.configServer-changed }}
+      deliveries-changed:
+        description: 'Indicates if deliveries module have new any modifications'
+        value: ${{ jobs.determine-changes.outputs.deliveries-changed }}
+      restaurants-changed:
+        description: 'Indicates if restaurants module have new any modifications'
+        value: ${{ jobs.determine-changes.outputs.restaurants-changed }}
+      common-changed:
+        description: 'Indicates if common module have new any modifications'
+        value: ${{ jobs.determine-changes.outputs.common-changed }}
+      userManagement-changed:
+        description: 'Indicates if userManagement module have new any modifications'
+        value: ${{ jobs.determine-changes.outputs.userManagement-changed }}
 jobs:
   determine-changes:
     runs-on: ubuntu-latest
