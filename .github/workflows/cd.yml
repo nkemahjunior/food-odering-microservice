@@ -18,10 +18,10 @@ jobs:
     needs: determine-changes
     if: ${{ github.event.workflow_run.conclusion == 'success' && needs.determine-changes.outputs.configServer-changed == 'true' }}  # Only run if CI succeeded
     uses: ./.github/workflows/deploy.yml
-
     with:
       dockerfile-path: configServer/Dockerfile
       ecr-repository: zeco-eats-config-server
+      secrets: inherit
 
   deploy-restaurant-service:
     needs: determine-changes
@@ -30,6 +30,7 @@ jobs:
     with:
       dockerfile-path: restaurants/Dockerfile
       ecr-repository: zeco-eats-restaurant-service
+      secrets: inherit
 
   deploy-delivery-service:
     needs: determine-changes
@@ -38,6 +39,7 @@ jobs:
     with:
       dockerfile-path: delivery/Dockerfile
       ecr-repository: zeco-eats-deliveries-service
+      secrets: inherit
 
   deploy-users-service:
     needs: determine-changes
@@ -46,3 +48,4 @@ jobs:
     with:
       dockerfile-path: userManagement/users/Dockerfile
       ecr-repository: zeco-eats-users-service
+      secrets: inherit
