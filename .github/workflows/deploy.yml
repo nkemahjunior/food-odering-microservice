@@ -14,9 +14,7 @@ env:
   AWS_REGION: us-east-1
   ECR_REPOSITORY: ${{ inputs.ecr-repository }}
 
-permissions:
-  id-token: write   # This is required for requesting the JWT
-  contents: read
+
 
 jobs:
   deploy:

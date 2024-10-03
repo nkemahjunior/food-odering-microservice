@@ -37,7 +37,6 @@
     </developers>
 
 
-
     <scm>
         <connection>scm:git:git://github.com/nkemahjunior/zeco-eats.git</connection>
         <developerConnection>scm:git:ssh://github.com/nkemahjunior/zeco-eats.git</developerConnection>

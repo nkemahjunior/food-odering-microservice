@@ -6,6 +6,10 @@ on:
     types:
       - completed
 
+permissions:
+  id-token: write   # This is required for requesting the JWT
+  contents: read
+
 jobs:
   determine-changes:
     uses: ./.github/workflows/modified-services.yml
@@ -14,6 +18,7 @@ jobs:
     needs: determine-changes
     if: ${{ github.event.workflow_run.conclusion == 'success' && needs.determine-changes.outputs.configServer-changed == 'true' }}  # Only run if CI succeeded
     uses: ./.github/workflows/deploy.yml
+
     with:
       dockerfile-path: configServer/Dockerfile
       ecr-repository: zeco-eats-config-server
