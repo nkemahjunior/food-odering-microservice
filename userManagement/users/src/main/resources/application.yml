@@ -4,7 +4,8 @@ spring:
   profiles:
     active: dev
   config:
-    import: optional:configserver:http://localhost:8888
+    #import: optional:configserver:http://localhost:8888
+    import: optional:configserver:${CONFIG_SERVER}:8888
   application:
     name: users-service
 

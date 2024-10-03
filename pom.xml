@@ -61,7 +61,7 @@
         <maven-gpg-plugin.version>3.2.7</maven-gpg-plugin.version>
         <maven-javadoc-plugin.version>3.10.0</maven-javadoc-plugin.version>
         <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
-        <zeco-eats.common.version>1.0.0</zeco-eats.common.version> <!--installed in your local repository-->
+        <zeco-eats.common.version>1.0.1</zeco-eats.common.version>
         <spring-cloud.version>2023.0.3</spring-cloud.version>
         <spring-retry.version>2.0.8</spring-retry.version>
 

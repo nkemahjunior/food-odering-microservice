@@ -6,10 +6,41 @@ on:
   pull_request:
     branches: [ master]
 
+
 jobs:
   determine-changes:
-    uses: ./.github/workflows/modified-services.yml
+    name: Determine Changed Services
+    runs-on: ubuntu-latest
+    outputs:
+      configServer-changed: ${{ steps.filter.outputs.configServer }}
+      deliveries-changed: ${{ steps.filter.outputs.deliveries }}
+      restaurants-changed: ${{ steps.filter.outputs.restaurants }}
+      common-changed: ${{ steps.filter.outputs.common }}
+      userManagement-changed: ${{ steps.filter.outputs.userManagement }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
+      - name: Paths Changes Filter
+        uses: dorny/paths-filter@v3.0.2
+        id: filter
+        with:
+          filters: |
+            configServer:
+              - 'configServer/**'
+              - 'pom.xml' #root POM affects all services
+            deliveries:
+              - 'deliveries/**'
+              - 'pom.xml' #root POM affects all services
+            restaurants:
+              - 'restaurants/**'
+              - 'pom.xml' #root POM affects all services
+            common:
+              - 'common/**'
+              - 'pom.xml' #root POM affects all services
+            userManagement:
+              - 'userManagement/**'
+              - 'pom.xml' #root POM affects all services
 
     # JOB to build config server service
   build-configServer:

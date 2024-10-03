@@ -9,12 +9,12 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <groupId>io.github.nkemahjunior.zecoEats.common</groupId>
     <artifactId>common</artifactId>
     <description>ZecoEats common: common DTOs used across zeco-eats services</description>
     <url>https://github.com/nkemahjunior/zeco-eats/tree/master/common</url>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <licenses>
         <license>

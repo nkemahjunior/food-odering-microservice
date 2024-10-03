@@ -6,6 +6,8 @@ WORKDIR /app
 
 # Copy parent POM
 COPY pom.xml /app/
+COPY .mvn /app/.mvn
+COPY mvnw /app/
 
 #Copy second parent pom
 COPY userManagement/pom.xml /app/userManagement/
@@ -16,9 +18,12 @@ COPY userManagement/users/mvnw /app/userManagement/users/
 COPY userManagement/users/.mvn /app/userManagement/users/.mvn/
 COPY userManagement/users/src /app/userManagement/users/src
 
-# Download dependencies and build the application
+#install parent pom (skip modules)
+RUN ./mvnw install -N
+
+# package application to jar
 WORKDIR /app/userManagement/users
-RUN ./mvnw  package -DskipTests
+RUN ./mvnw   package -DskipTests
 
 # Stage 2: Runtime
 FROM eclipse-temurin:21.0.4_7-jre-ubi9-minimal
@@ -37,8 +42,8 @@ EXPOSE 8082
 
 # Define environment variables as placeholders
 ENV SPRING_PROFILES_ACTIVE=prod
-ENV PRIVATE_KEY_PATH=
-ENV KNOWN_HOSTS_FILE_PATH=
+ENV CONFIG_SERVER=
+
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "zeco-eats-users-service.jar"]
