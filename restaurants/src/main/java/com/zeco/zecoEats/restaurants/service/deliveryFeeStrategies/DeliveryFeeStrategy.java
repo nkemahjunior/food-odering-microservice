@@ -1,6 +1,6 @@
-package com.zeco.zecoEats.restaurants.service.deliveryFeeStrategies;
+package com.zeco.restaurants.service.deliveryFeeStrategies;
 
-import com.zeco.zecoEats.restaurants.restaurantDtos.GetDeliveryFee;
+import com.zeco.restaurants.restaurantDtos.GetDeliveryFee;
 
 import java.util.List;
 

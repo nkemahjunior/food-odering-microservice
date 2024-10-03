@@ -1,8 +1,16 @@
+<<<<<<< HEAD:restaurants/src/main/java/com/zeco/zecoEats/restaurants/restaurantDtos/DTOFactory.java
 package com.zeco.zecoEats.restaurants.restaurantDtos;
 
 import com.zeco.zecoEats.restaurants.model.Dishes;
 import com.zeco.zecoEats.restaurants.model.Menus;
 import com.zeco.zecoEats.restaurants.model.Restaurant;
+=======
+package com.zeco.restaurants.restaurantDtos;
+
+import com.zeco.restaurants.model.Dishes;
+import com.zeco.restaurants.model.Menus;
+import com.zeco.restaurants.model.Restaurant;
+>>>>>>> master:restaurants/src/main/java/com/zeco/restaurants/restaurantDtos/DTOFactory.java
 
 import java.util.ArrayList;
 

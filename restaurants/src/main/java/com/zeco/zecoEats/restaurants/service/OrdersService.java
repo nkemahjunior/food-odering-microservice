@@ -1,11 +1,18 @@
 package com.zeco.zecoEats.restaurants.service;
 
 
+<<<<<<< HEAD:restaurants/src/main/java/com/zeco/zecoEats/restaurants/service/OrdersService.java
 import com.zeco.zecoEats.restaurants.repository.OrdersRepository;
 import com.zeco.zecoEats.restaurants.service.deliveryFeeStrategies.DeliveryFeeStrategyFactory;
 import com.zeco.zecoEats.restaurants.service.placeOrderTemplate.PlaceOrderTemplate;
 import com.zeco.zecoEats.restaurants.restaurantDtos.GetDeliveryFee;
 import com.zeco.zecoEats.restaurants.restaurantDtos.PlaceOrderDTO;
+=======
+import com.zeco.restaurants.repository.OrdersRepository;
+import com.zeco.restaurants.restaurantDtos.*;
+import com.zeco.restaurants.service.deliveryFeeStrategies.DeliveryFeeStrategyFactory;
+import com.zeco.restaurants.service.placeOrderTemplate.PlaceOrderTemplate;
+>>>>>>> master:restaurants/src/main/java/com/zeco/restaurants/service/OrdersService.java
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +29,10 @@ public class OrdersService {
     @Autowired
     private OrdersRepository ordersRepository;
 
+
     @Autowired
     private DeliveryFeeStrategyFactory deliveryFeeStrategyFactory;
+<<<<<<< HEAD:restaurants/src/main/java/com/zeco/zecoEats/restaurants/service/OrdersService.java
 
 
     public void  placeOrder(List<PlaceOrderDTO> placeOrderDTO){
@@ -35,6 +44,18 @@ public class OrdersService {
     }
 
 
+=======
+
+
+
+
+
+
+    public void  placeOrder(List<PlaceOrderDTO > placeOrderDTO){
+        placeOrderTemplate.placeOrder(placeOrderDTO, ordersRepository);
+    }
+
+>>>>>>> master:restaurants/src/main/java/com/zeco/restaurants/service/OrdersService.java
    /* public void  placeOrder(List<PlaceOrderDTO > placeOrderDTO){
 
 
@@ -109,11 +130,17 @@ public class OrdersService {
 
     }*/
 
+<<<<<<< HEAD:restaurants/src/main/java/com/zeco/zecoEats/restaurants/service/OrdersService.java
 
+=======
+>>>>>>> master:restaurants/src/main/java/com/zeco/restaurants/service/OrdersService.java
 /*    public void sendOrder(NewOrderShared deliveryOrder, UUID key){
         kafkaTemplate.send(newOrderTopic, key.toString(), deliveryOrder);
     }*/
 
+    public GetDeliveryFee calculateDeliveryFee(String customerLongitude, String customerLat, List<String> restaurantCoordinates ){
+        return deliveryFeeStrategyFactory.calculateDeliveryFee(customerLongitude, customerLat, restaurantCoordinates);
+    }
 
 
 

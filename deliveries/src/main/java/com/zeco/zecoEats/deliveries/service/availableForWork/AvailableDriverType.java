@@ -1,4 +1,4 @@
-package com.zeco.zecoEats.deliveries.service.availableForWork;
+package com.deliveries.service.availableForWork;
 
 public  enum AvailableDriverType{
     EXISTING,

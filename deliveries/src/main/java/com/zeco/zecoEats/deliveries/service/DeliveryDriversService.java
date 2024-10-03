@@ -1,5 +1,6 @@
 package com.zeco.zecoEats.deliveries.service;
 
+<<<<<<< HEAD:deliveries/src/main/java/com/zeco/zecoEats/deliveries/service/DeliveryDriversService.java
 
 import com.zeco.zecoEats.deliveries.dtos.*;
 import com.zeco.zecoEats.deliveries.httpCall.UserServiceClient;
@@ -18,6 +19,24 @@ import com.zeco.zecoEats.deliveries.model.AvailableDrivers;
 import com.zeco.zecoEats.deliveries.model.DeliveryDrivers;
 import com.zeco.zecoEats.deliveries.model.OrdersDriverBlackList;
 import com.zeco.zecoEats.deliveries.model.OrdersReadyForDelivery;
+=======
+import com.deliveries.dtos.*;
+import com.deliveries.httpCall.UserServiceClient;
+import com.deliveries.model.*;
+import com.deliveries.repository.AvailableDriversRepository;
+import com.deliveries.repository.DeliveryDriversRepository;
+import com.deliveries.repository.OrdersDriversBlacklistRepository;
+import com.deliveries.repository.OrdersReadyForDeliveryRepository;
+import com.deliveries.service.assignDriversToDeliverOrders.AssignDriverFactory;
+import com.deliveries.service.assignDriversToDeliverOrders.AssignmentType;
+import com.deliveries.service.assignDriversToDeliverOrders.ClosestDriverStrategy;
+import com.deliveries.service.availableForWork.AvailableDriverForWork;
+import com.deliveries.service.availableForWork.AvailableDriverForWorkFactory;
+import com.deliveries.service.availableForWork.AvailableDriverType;
+
+import com.google.firebase.messaging.Message;
+import com.zeco.shared.NewOrderShared;
+>>>>>>> master:deliveries/src/main/java/com/deliveries/service/DeliveryDriversService.java
 import lombok.extern.slf4j.Slf4j;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -53,6 +72,10 @@ public class DeliveryDriversService {
 
     @Autowired
     private AvailableDriverForWorkFactory availableDriverForWorkFactory;
+<<<<<<< HEAD:deliveries/src/main/java/com/zeco/zecoEats/deliveries/service/DeliveryDriversService.java
+=======
+
+>>>>>>> master:deliveries/src/main/java/com/deliveries/service/DeliveryDriversService.java
 
     private final GeometryFactory geometryFactory = new GeometryFactory();
 
@@ -87,6 +110,10 @@ public class DeliveryDriversService {
      * OR
      * adds drivers available to work( pick up orders), if they are new
      */
+<<<<<<< HEAD:deliveries/src/main/java/com/zeco/zecoEats/deliveries/service/DeliveryDriversService.java
+=======
+
+>>>>>>> master:deliveries/src/main/java/com/deliveries/service/DeliveryDriversService.java
     public void addDriverAvailableForWork(AddAvailableDriverDTO addAvleDriverReq){
         DeliveryDrivers driver = deliveryDriversRepository.findById(addAvleDriverReq.driverID()).orElseThrow(() -> new NoSuchElementException("driver not found"));
 

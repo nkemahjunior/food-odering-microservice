@@ -1,8 +1,7 @@
-package com.deliveries.service.availableForWork;
+package com.deliveries.service;
 
 import com.deliveries.model.AvailableDrivers;
 import com.deliveries.repository.AvailableDriversRepository;
-import com.deliveries.service.availableForWork.AvailableDriverForWork;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.springframework.beans.factory.annotation.Autowired;

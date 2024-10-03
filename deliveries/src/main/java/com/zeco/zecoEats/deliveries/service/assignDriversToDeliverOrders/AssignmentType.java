@@ -1,4 +1,4 @@
-package com.zeco.zecoEats.deliveries.service.assignDriversToDeliverOrders;
+package com.deliveries.service.assignDriversToDeliverOrders;
 
 public enum AssignmentType {
     CLOSEST_DRIVER

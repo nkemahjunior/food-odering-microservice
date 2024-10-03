@@ -1,4 +1,4 @@
-package com.zeco.zecoEats.restaurants.service.searchStrategies;
+package com.zeco.restaurants.service.searchStrategies;
 
 public enum SearchType {
     LOCATION

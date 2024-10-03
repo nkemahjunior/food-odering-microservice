@@ -1,9 +1,9 @@
-package com.zeco.zecoEats.deliveries.service.assignDriversToDeliverOrders;
+package com.deliveries.service.assignDriversToDeliverOrders;
 
-import com.zeco.zecoEats.deliveries.dtos.NearbyDriversDTO;
-import com.zeco.zecoEats.deliveries.repository.AvailableDriversRepository;
-import com.zeco.zecoEats.deliveries.repository.OrdersDriversBlacklistRepository;
-import io.github.nkemahjunior.zecoEats.common.NewOrderShared;
+import com.deliveries.dtos.NearbyDriversDTO;
+import com.deliveries.repository.AvailableDriversRepository;
+import com.deliveries.repository.OrdersDriversBlacklistRepository;
+import com.zeco.shared.NewOrderShared;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,9 +1,13 @@
-package com.deliveries.service.availableForWork;
+package com.deliveries.service;
+
+import org.springframework.stereotype.Component;
 
 
 public class AvailableDriverForWorkFactory {
 
-
+    public  enum AvailableDriverType{
+        EXISTING, NEW
+    }
 
     public static <T> AvailableDriverForWork<T> getAvailableDriver(AvailableDriverType type){
         switch (type){

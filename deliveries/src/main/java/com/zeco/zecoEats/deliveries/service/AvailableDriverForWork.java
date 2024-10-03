@@ -1,4 +1,4 @@
-package com.deliveries.service.availableForWork;
+package com.deliveries.service;
 
 public interface AvailableDriverForWork<T> {
 
