@@ -21,3 +21,4 @@ management:
     web:
       exposure:
         include: health, info, metrics
+      base-path: /api/configServer/actuator
