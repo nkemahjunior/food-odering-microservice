@@ -10,7 +10,7 @@ spring:
       server:
         accept-empty: false #return 404 if config server can not find the configuration data for some config client application
         git:
-          uri: git@github.com:nkemahjunior/zeco-eats-backend-config-server.git
+          uri: https://github.com/nkemahjunior/zeco-eats-backend-config-server.git
           skipSslValidation: true #dont forget to turn this to false and set the ssl for this server
           username: ${username}
           password: ${password}
