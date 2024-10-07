@@ -38,8 +38,8 @@ EXPOSE 8888
 
 # Define environment variables as placeholders
 ENV SPRING_PROFILES_ACTIVE=prod
-ENV PRIVATE_KEY_PATH=
-ENV KNOWN_HOSTS_FILE_PATH=
+ENV username=
+ENV password=
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "zeco-eats-config-server.jar"]
