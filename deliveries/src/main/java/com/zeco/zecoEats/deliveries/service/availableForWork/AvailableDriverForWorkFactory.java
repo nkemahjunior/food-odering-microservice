@@ -1,8 +1,9 @@
 package com.zeco.zecoEats.deliveries.service.availableForWork;
 
+import org.springframework.stereotype.Component;
 
+@Component
 public class AvailableDriverForWorkFactory {
-
 
 
     public static <T> AvailableDriverForWork<T> getAvailableDriver(AvailableDriverType type){

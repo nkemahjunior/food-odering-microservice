@@ -40,4 +40,5 @@ build/
 
 #### ssh #
 .ssh/
-common/gpgKeys/*
+common/gpgKeys/
+backups/

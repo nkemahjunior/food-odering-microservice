@@ -12,6 +12,14 @@ spring:
         git:
           uri: git@github.com:nkemahjunior/zeco-eats-backend-config-server.git
           skipSslValidation: true #dont forget to turn this to false and set the ssl for this server
-          private-key: ${user.home}/Documents/fullStack projects/02-zeco-eats-front-and-back/backend/zeco-eats-backend/.ssh/id_rsa
-          knownHostsFile: ${user.home}/Documents/fullStack projects/02-zeco-eats-front-and-back/backend/zeco-eats-backend/.ssh/known_hosts
-          timeout: 10 #seconds
+          #private-key: ${user.home}/Documents/fullStack projects/02-zeco-eats-front-and-back/backend/zeco-eats-backend/.ssh/id_rsa
+          #knownHostsFile: ${user.home}/Documents/fullStack projects/02-zeco-eats-front-and-back/backend/zeco-eats-backend/.ssh/known_hosts
+          #timeout: 10 #seconds
+          username: ${username}
+          password: ${password}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

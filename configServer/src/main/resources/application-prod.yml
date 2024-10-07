@@ -12,6 +12,12 @@ spring:
         git:
           uri: git@github.com:nkemahjunior/zeco-eats-backend-config-server.git
           skipSslValidation: true #dont forget to turn this to false and set the ssl for this server
-          private-key: ${PRIVATE_KEY_PATH}
-          knownHostsFile: ${KNOWN_HOSTS_FILE_PATH}
+          username: ${username}
+          password: ${password}
           timeout: 10 #seconds
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics

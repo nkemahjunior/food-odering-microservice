@@ -167,22 +167,22 @@ services:
 
     ]
 
-  redis-cluster:
-    image: redis/redis-stack-server:7.4.0-v0
-    container_name: redis-cluster
-    ports:
-      - "7006:6379"
-      - "17006:16379" #cluster bus port
-    command: redis-cli  --cluster create redis-node-0:6379 redis-node-1:6379 redis-node-2:6379 redis-node-3:6379 redis-node-4:6379 redis-node-5:6379 --cluster-replicas 1 -a redis-stack
-    networks:
-      - zeco-eats-network
-    depends_on:
-      - redis-node-0
-      - redis-node-1
-      - redis-node-2
-      - redis-node-3
-      - redis-node-4
-      - redis-node-5
+#  redis-cluster:
+#    image: redis/redis-stack-server:7.4.0-v0
+#    container_name: redis-cluster
+#    ports:
+#      - "7006:6379"
+#      - "17006:16379" #cluster bus port
+#    command: redis-cli  --cluster create redis-node-0:6379 redis-node-1:6379 redis-node-2:6379 redis-node-3:6379 redis-node-4:6379 redis-node-5:6379 --cluster-replicas 1 -a redis-stack
+#    networks:
+#      - zeco-eats-network
+#    depends_on:
+#      - redis-node-0
+#      - redis-node-1
+#      - redis-node-2
+#      - redis-node-3
+#      - redis-node-4
+#      - redis-node-5
 
 #the clusters ( 3 masters, 3 slaves) was created with this command:  sudo docker compose exec redis-node-0 redis-cli  --cluster create redis-node-0:6379 redis-node-1:6379 redis-node-2:6379 redis-node-3:6379 redis-node-4:6379 redis-node-5:6379 --cluster-replicas 1 -a thePassword
 # check cluster info: sudo docker compose exec redis-node-0 redis-cli -a redis-stack cluster info
