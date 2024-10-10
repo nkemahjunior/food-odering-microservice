@@ -66,6 +66,7 @@
         <zeco-eats.common.version>1.0.1</zeco-eats.common.version>
         <spring-cloud.version>2023.0.3</spring-cloud.version>
         <spring-retry.version>2.0.8</spring-retry.version>
+        <spring-cloud-aws.version>3.2.0</spring-cloud-aws.version>
 
 
         <maven.compiler.source>21</maven.compiler.source>
@@ -132,6 +133,7 @@
                 <artifactId>hibernate-spatial</artifactId>
                 <version>${hibernate.spatial.version}</version>
             </dependency>
+
 
         </dependencies>
     </dependencyManagement>
