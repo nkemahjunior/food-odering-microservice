@@ -6,7 +6,7 @@ spring:
   config:
     #import: optional:configserver:http://localhost:8888
     #import: optional:configserver:${CONFIG_SERVER}:8888
-    import: optional:configserver:http://zeco-eats-config-server.zeco-eats-cluster-namespace
+    import: optional:configserver:http://zeco-eats-config-server.zeco-eats-cluster-namespace:8888
   application:
     name: users-service
 
