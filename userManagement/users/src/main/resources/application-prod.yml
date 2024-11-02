@@ -1,0 +1,3 @@
+spring:
+  config:
+    import: optional:configserver:http://zeco-eats-config-server.zeco-eats-cluster-namespace:8888
