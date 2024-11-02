@@ -1,4 +1,5 @@
-import PrivateComponent from "@/components/PrivateComponent";
+import PrivateComponent from "@/features/home/components/PrivateComponent";
+
 
  
  

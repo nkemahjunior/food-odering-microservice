@@ -1,5 +1,5 @@
-import PublicComponent from "@/components/PublicComponent";
-import { signIn } from "./auth";
+import PublicComponent from "@/features/home/components/PublicComponent";
+
 
  
  
