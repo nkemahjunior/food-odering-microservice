@@ -31,3 +31,9 @@ body {
     text-wrap: balance;
   }
 }
+
+
+.outline-text-cst {
+  color: transparent;
+  -webkit-text-stroke: 1px white;
+}
