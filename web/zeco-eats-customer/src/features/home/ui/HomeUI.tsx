@@ -1,11 +1,9 @@
-import NavBar from "@/shared/components/NavBar";
+import NavBar from "@/shared/components/navbar/NavBar";
 
- 
- 
 export default function HomeUi() {
-    return (
-        <>
-          <NavBar/>
-        </>
-    );
+  return (
+    <>
+      <NavBar />
+    </>
+  );
 }
