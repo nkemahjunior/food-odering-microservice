@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { FaMapMarkerAlt, FaShoppingBasket } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
+import UserLocation from "./UserLocation";
 
 export default function NavBar1() {
   return (
-    <div className="border-backgroundBorder bg-background xl:mx-xxl hidden h-20 justify-between overflow-hidden rounded-b-xl border-b-[1px] border-l-[1px] border-r-[1px] border-solid pl-8 font-medium 2xl:flex">
+    <div className="border-backgroundBorder bg-background 2xl:mx-xxl mb-spaceXlg hidden h-20 justify-between overflow-hidden rounded-b-xl border-b-[1px] border-l-[1px] border-r-[1px] border-solid pl-8 font-medium 2xl:flex">
       <div className="flex items-center">
         <p>
           🌟 Get 5% off your first order, &nbsp;
@@ -15,13 +16,7 @@ export default function NavBar1() {
       </div>
 
       <div className="flex items-center space-x-4 text-secondary">
-        <div className="flex items-baseline space-x-4">
-          <span className=" ">
-            <FaLocationDot size={24} />{" "}
-          </span>
-          <p>Regen Street, A4, A420K, London</p>
-        </div>
-
+        <UserLocation iconSize={24} />
         <button className="text-primary underline">Change Location</button>
       </div>
 

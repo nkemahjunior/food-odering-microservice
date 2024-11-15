@@ -21,7 +21,6 @@ const config: Config = {
         secondary: "#03081F",
         background: "rgb(245 245 244)",
         backgroundBorder: "rgb(214 211 209)",
-        
       },
 
       padding: {
@@ -34,6 +33,8 @@ const config: Config = {
         sm: "1rem",
         lg: "1.5rem",
         xxl: "6rem",
+        spaceXsm: "1.5rem",
+        spaceXlg: "2rem",
       },
     },
   },

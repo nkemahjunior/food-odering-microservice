@@ -4,9 +4,9 @@ import { IoIosArrowDroprightCircle } from "react-icons/io";
  
 export default function HeroSearchBar() {
   return (
-    <div className="flex h-fit  md:justify-center xl:justify-start">
+    <div className="flex h-fit  md:justify-center xl:justify-start ">
       <input
-        className="w-full rounded-3xl border-2 border-solid border-backgroundBorder  pl-6 focus:outline-none md:w-1/2 xl:w-[60%] 2xl:xl:w-[63%]"
+        className="w-full rounded-3xl border-2 border-solid border-backgroundBorder  pl-6 focus:outline-none  xl:w-[60%] 2xl:xl:w-[63%]"
         placeholder="Enter location"
         type="text"
       />

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Fuzzy_Bubbles, Inter, Poppins } from "next/font/google";
 import "./globals.css";
+import "@/features/home/styles/carousel.css"
 import AuthProvider from "./AuthProvider";
 import { auth } from "./auth";
 import ExpiredTokenCheck from "./ExpiredTokenCheck";
 import { poppins } from "@/shared/fonts/fonts";
+import NavBar from "@/shared/components/navbar/NavBar";
 
 export const metadata: Metadata = {
   title: "zeco eats",
@@ -22,6 +23,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
+        <NavBar />
         {children}
         {/* <AuthProvider session={session}>
           <ExpiredTokenCheck>

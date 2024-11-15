@@ -12,7 +12,7 @@ export default function NavBar2() {
   };
 
   return (
-    <div className="px-sm lg:px-lg 2xl:px-xxl h-20 lg:flex lg:h-fit lg:gap-x-6">
+    <div className="px-sm lg:px-lg 2xl:px-xxl h-20 lg:mb-spaceXlg lg:mt-4 lg:flex lg:h-fit lg:gap-x-6 xl:mt-8 2xl:mt-0">
       <div className={`flex h-full items-center justify-between`}>
         <Logo
           text1Size="text-2xl xl:text-4xl"
