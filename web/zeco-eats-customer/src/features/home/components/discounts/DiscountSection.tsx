@@ -1,4 +1,5 @@
 
+import Carousel from "@/shared/components/carousel/Carousel";
 import DiscountDishes from "./DiscountDishes";
 import DiscountHead from "./DiscountHead";
 
@@ -10,5 +11,6 @@ export default function DiscountSection() {
         <DiscountHead />
         <DiscountDishes />
       </section>
+      
     );
 }

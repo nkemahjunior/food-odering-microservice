@@ -37,3 +37,8 @@ body {
   color: transparent;
   -webkit-text-stroke: 1px white;
 }
+
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
