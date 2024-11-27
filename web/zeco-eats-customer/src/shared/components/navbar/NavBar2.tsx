@@ -12,7 +12,7 @@ export default function NavBar2() {
   };
 
   return (
-    <div className="px-sm lg:px-lg 2xl:px-xxl h-20 lg:mb-spaceXlg lg:mt-4 lg:flex lg:h-fit lg:gap-x-6 xl:mt-8 2xl:mt-0">
+    <div className="md:px-md xl:px-xl 2xl:mb-[3rem] 2xl:mt-[3rem] h-20 lg:h-24  px-sm  lg:flex 2xl:h-fit lg:gap-x-6 lg:px-lg  2xl:px-xxl ">
       <div className={`flex h-full items-center justify-between`}>
         <Logo
           text1Size="text-2xl xl:text-4xl"
@@ -20,7 +20,7 @@ export default function NavBar2() {
           padding="py-1 xl:px-1"
         />
 
-        <div className="border-backgroundBorder flex h-full w-16 items-center justify-center border-l-[1px] border-solid">
+        <div className="flex h-full w-16 items-center justify-center border-l-[1px] border-solid border-backgroundBorder">
           <div
             className="z-20 cursor-pointer space-y-2 lg:hidden"
             onClick={() => toggleNavMobile(!showNavMobile)}

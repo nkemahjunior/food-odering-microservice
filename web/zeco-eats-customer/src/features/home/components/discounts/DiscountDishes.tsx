@@ -7,7 +7,7 @@ export default function DiscountDishes() {
   const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
 
   return (
-    <div className="border-2 border-solid border-red-700">
+    <div className="">
       <Carousel slides={SLIDES} options={OPTIONS} />
     </div>
   );

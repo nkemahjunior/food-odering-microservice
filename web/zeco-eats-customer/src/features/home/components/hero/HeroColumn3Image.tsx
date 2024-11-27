@@ -7,7 +7,7 @@ export default function HeroColumn3Image() {
     <div className="relative bottom-0 h-full w-full">
       <Image
         className=" "
-        src={"/hero/heroImg2.png"}
+        src={"/hero/heroImg2.webp"}
         fill={true}
         alt="hero image 2"
         quality={100}

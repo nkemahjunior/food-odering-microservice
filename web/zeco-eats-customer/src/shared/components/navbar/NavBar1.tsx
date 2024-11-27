@@ -5,7 +5,7 @@ import UserLocation from "./UserLocation";
 
 export default function NavBar1() {
   return (
-    <div className="border-backgroundBorder bg-background 2xl:mx-xxl mb-spaceXlg hidden h-20 justify-between overflow-hidden rounded-b-xl border-b-[1px] border-l-[1px] border-r-[1px] border-solid pl-8 font-medium 2xl:flex">
+    <div className="border-backgroundBorder bg-background 2xl:mx-xxl  hidden h-20 justify-between overflow-hidden rounded-b-xl border-b-[1px] border-l-[1px] border-r-[1px] border-solid pl-8 font-medium 2xl:flex">
       <div className="flex items-center">
         <p>
           🌟 Get 5% off your first order, &nbsp;

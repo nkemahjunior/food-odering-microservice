@@ -1,5 +1,5 @@
 "use client";
-import "@/features/home/styles/carousel.css"
+import "@/shared/styles/carousel.css"
 import React, { useCallback, useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";

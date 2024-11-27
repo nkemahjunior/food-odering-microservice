@@ -25,16 +25,23 @@ const config: Config = {
 
       padding: {
         sm: "1rem",
-        lg: "1.5rem",
+        md: "2rem",
+        lg: "3rem",
+        xl: "6rem",
         xxl: "6rem",
       },
 
       margin: {
         sm: "1rem",
-        lg: "1.5rem",
+        md: "2rem",
+        lg: "3rem",
+        xl: "6rem",
         xxl: "6rem",
-        spaceXsm: "1.5rem",
-        spaceXlg: "2rem",
+        Ysm: "2.5rem",
+        // Ymd: "1rem",
+        Ylg: "3.5rem",
+        YXl: "4rem",
+        YXXl: "4rem",
       },
     },
   },

@@ -1,9 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import "@/features/home/styles/carousel.css"
-import AuthProvider from "./AuthProvider";
-import { auth } from "./auth";
-import ExpiredTokenCheck from "./ExpiredTokenCheck";
 import { poppins } from "@/shared/fonts/fonts";
 import NavBar from "@/shared/components/navbar/NavBar";
 
