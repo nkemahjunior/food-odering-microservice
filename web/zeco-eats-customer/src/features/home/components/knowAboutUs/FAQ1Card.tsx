@@ -6,7 +6,7 @@ interface fnProps{
   desc:string
 }
 
-export default function Tab1Card({title, imagePath, desc}:fnProps) {
+export default function FAQ1Card({title, imagePath, desc}:fnProps) {
   return (
     <div className="h-[15rem] w-[17rem] space-y-6 rounded-lg bg-background flex flex-col justify-center items-center">
       

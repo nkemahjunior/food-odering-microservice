@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { poppins } from "@/shared/fonts/fonts";
 import NavBar from "@/shared/components/navbar/NavBar";
+import FooterSection from "@/shared/components/footer/FooterSection";
 
 export const metadata: Metadata = {
   title: "zeco eats",
@@ -21,6 +22,7 @@ export default async function RootLayout({
       <body className={poppins.className}>
         <NavBar />
         {children}
+        <FooterSection/>
         {/* <AuthProvider session={session}>
           <ExpiredTokenCheck>
               {children}

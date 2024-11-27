@@ -11,7 +11,7 @@ export default function KnowAboutUsSection() {
       </div>
 
       <div className="space-y-10 bg-secondary py-8 xl:space-y-0">
-        <div className="space-y-8 lg:space-y-10 2xl:space-y-12">
+        <div className="space-y-8 lg:space-y-10 2xl:space-y-12 px-4 lg:px-12">
           <FAQ1 question="How does Zeco Eats work" />
           <FAQ
             question="Can I track my order in real-time?"

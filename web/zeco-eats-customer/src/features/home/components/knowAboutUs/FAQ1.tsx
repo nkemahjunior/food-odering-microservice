@@ -1,8 +1,8 @@
 "use client"
 import { BiMinus, BiPlus } from "react-icons/bi";
-import Tab1Card from "./FAQ1Card";
 import { useState } from "react";
 import { motion } from "motion/react";
+import FAQ1Card from "./FAQ1Card";
 
 export default function FAQ1({ question }: { question: string }) {
   const [open, setOpen] = useState(false);
@@ -24,17 +24,17 @@ export default function FAQ1({ question }: { question: string }) {
       </div>
 
       <div className="flex flex-col items-center space-y-6 lg:flex-row lg:justify-center lg:space-x-4 lg:space-y-0">
-        <Tab1Card
+        <FAQ1Card
           title="Place an Order!"
           imagePath="/knowAboutUs/order-food1.png"
           desc="Place order through our website"
         />
-        <Tab1Card
+        <FAQ1Card
           title="Track Progress"
           imagePath="/knowAboutUs/food1.png"
           desc="Your can track your order status "
         />
-        <Tab1Card
+        <FAQ1Card
           title="Get your Order!"
           imagePath="/knowAboutUs/order1.png"
           desc="Receive your order!"

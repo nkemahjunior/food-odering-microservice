@@ -4,6 +4,7 @@ import PopularCategoriesSection from "../components/popularCategories/PopularCat
 import PopularRestaurantsSection from "../components/popularRestaurants/PopularRestaurantsSection";
 import PartnerWithUsSection from "../components/partnerWithUs/PartnerWithUsSection";
 import KnowAboutUsSection from "../components/knowAboutUs/KnowAboutUsSection";
+import CompanyStatsSection from "../components/companyStats/CompanyStatsSection";
 
 export default function HomeUi() {
   return (
@@ -14,6 +15,7 @@ export default function HomeUi() {
       <PopularRestaurantsSection />
       <PartnerWithUsSection />
       <KnowAboutUsSection />
+      <CompanyStatsSection />
     </>
   );
 }
