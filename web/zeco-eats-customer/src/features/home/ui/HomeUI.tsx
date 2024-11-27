@@ -3,6 +3,7 @@ import DiscountSection from "../components/discounts/DiscountSection";
 import PopularCategoriesSection from "../components/popularCategories/PopularCategoriesSection";
 import PopularRestaurantsSection from "../components/popularRestaurants/PopularRestaurantsSection";
 import PartnerWithUsSection from "../components/partnerWithUs/PartnerWithUsSection";
+import KnowAboutUsSection from "../components/knowAboutUs/KnowAboutUsSection";
 
 export default function HomeUi() {
   return (
@@ -12,6 +13,7 @@ export default function HomeUi() {
       <PopularCategoriesSection />
       <PopularRestaurantsSection />
       <PartnerWithUsSection />
+      <KnowAboutUsSection />
     </>
   );
 }

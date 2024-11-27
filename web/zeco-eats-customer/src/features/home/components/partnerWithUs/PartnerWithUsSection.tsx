@@ -1,4 +1,3 @@
-import Image from "next/image";
 import PartnerCard from "./PartnerCard";
 
 export default function PartnerWithUsSection() {

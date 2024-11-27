@@ -12,7 +12,7 @@ interface fnProps {
 
 export default function PartnerCard({ details }: fnProps) {
   return (
-    //after:content-['*']
+
     <div className="relative h-[15rem] w-full  md:h-[24rem] lg:h-[28rem] rounded-lg overflow-hidden">
       <div className="absolute inset-0 z-10  bg-gradient-to-tr from-[rgba(3,8,31,0.9)] from-25% via-transparent to-transparent"></div>
       <div className="absolute top-0 z-20 ml-[1.5rem] flex h-[2rem] w-[12rem] items-center justify-center rounded-b-lg bg-white md:ml-[3rem] 2xl:ml-[6rem] md:h-[4rem] md:w-[18rem] ">
