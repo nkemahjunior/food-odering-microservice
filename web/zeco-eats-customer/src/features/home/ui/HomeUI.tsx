@@ -10,7 +10,7 @@ export default function HomeUi() {
   return (
     <>
       <Hero />
-      <DiscountSection />
+      {/* <DiscountSection /> */}
       <PopularCategoriesSection />
       <PopularRestaurantsSection />
       <PartnerWithUsSection />

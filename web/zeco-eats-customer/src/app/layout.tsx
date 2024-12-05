@@ -19,10 +19,10 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={poppins.className}>
+      <body className={`${poppins.className}  text-sm antialiased `}>
         <NavBar />
         {children}
-        <FooterSection/>
+        <FooterSection />
         {/* <AuthProvider session={session}>
           <ExpiredTokenCheck>
               {children}

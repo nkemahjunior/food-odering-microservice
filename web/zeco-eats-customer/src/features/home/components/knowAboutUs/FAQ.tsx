@@ -25,7 +25,7 @@ export default function FAQ({
           onClick={() => setOpen((v) => !v)}
           className="bpg-primary flex w-full cursor-pointer items-center justify-between text-white md:w-[70%] lg:w-full 2xl:w-[60%]"
         >
-          <p className="tdext-secondary text-lg font-bold">{question}</p>
+          <p className="  font-medium">{question}</p>
           <p>{open ? <BiMinus /> : <BiPlus />}</p>
         </div>
       </div>

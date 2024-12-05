@@ -18,7 +18,7 @@ export default function FAQ1({ question }: { question: string }) {
         onClick={() => setOpen((v) => !v)}
       >
         <div className="flex w-full items-center justify-between text-white md:w-[70%] lg:w-full 2xl:w-[60%]">
-          <p className="tdext-secondary text-lg font-bold">{question}</p>
+          <p className="tdext-secondary  font-medium">{question}</p>
           <p>{open ? <BiMinus /> : <BiPlus />}</p>
         </div>
       </div>

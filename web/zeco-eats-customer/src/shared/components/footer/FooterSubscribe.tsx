@@ -15,9 +15,9 @@ export default function FooterSubscribe() {
             <input
               type="text"
               placeholder="youremail@gmail.com"
-              className="h-[3rem] w-[15rem] rounded-3xl bg-stone-200 px-4 placeholder:text-sm placeholder:text-stone-500 lg:h-[3.5rem] lg:w-[20rem]"
+              className="h-[3rem] outline-none w-[15rem] rounded-3xl bg-stone-200 px-4 placeholder:text-sm placeholder:text-stone-500  lg:w-[20rem]"
             />
-            <button className="-ml-10 h-[3rem] w-[10rem] rounded-3xl bg-primary font-medium text-white lg:h-[3.5rem] lg:w-[10rem] lg:text-lg">
+            <button className="-ml-10 h-[3rem] w-[10rem] rounded-3xl bg-primary font-medium text-white  lg:w-[10rem] ">
               {" "}
               Subscribe
             </button>

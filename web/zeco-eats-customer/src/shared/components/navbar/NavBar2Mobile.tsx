@@ -7,7 +7,7 @@ export default function NavBar2Mobile() {
   return (
     <>
       <div className="2xl:hidden">
-        <div className=" flex h-20 items-center lg:h-24">
+        <div className="flex h-20 items-center lg:h-24">
           <div className="flex h-full basis-1/2 items-center justify-center gap-x-4 bg-primary py-4">
             <div className="relative h-[2rem] w-[2rem] overflow-hidden rounded-full">
               <Image
@@ -16,18 +16,18 @@ export default function NavBar2Mobile() {
                 fill={true}
               />
             </div>
-            <p className="text-sm font-semibold">Aycan</p>
+            <p className="font-medium">Aycan</p>
           </div>
 
           <div className="flex h-full basis-1/2 items-center justify-evenly bg-[#028643] py-4">
             <span className="text-backgroundBorder">
               <FaShoppingBasket size={44} />
             </span>
-            <p className="font-semibold uppercase text-white">GBP 79.89</p>
+            <p className="font-medium uppercase text-white">GBP 79.89</p>
           </div>
         </div>
 
-        <div className="mx-sm mb-2 mt-2 flex justify-end text-sm md:mb-6 md:mt-6 xl:mx-lg">
+        <div className="mx-sm  mb-[1.5rem] mt-[1.5rem] flex justify-end text-sm md:mb-6 md:mt-6 xl:mx-lg">
           <UserLocation iconSize={18} />
         </div>
       </div>

@@ -5,19 +5,21 @@ import UserLocation from "./UserLocation";
 
 export default function NavBar1() {
   return (
-    <div className="border-backgroundBorder bg-background 2xl:mx-xxl  hidden h-20 justify-between overflow-hidden rounded-b-xl border-b-[1px] border-l-[1px] border-r-[1px] border-solid pl-8 font-medium 2xl:flex">
+    <div className="hidden h-20 justify-between overflow-hidden rounded-b-xl border-b-[1px] border-l-[1px] border-r-[1px] border-solid border-backgroundBorder bg-background pl-8 font-medium 2xl:mx-xxl 2xl:flex">
       <div className="flex items-center">
         <p>
           🌟 Get 5% off your first order, &nbsp;
-          <Link className="font-bold text-primary underline" href={"/"}>
+          <Link className="font-semibold text-primary underline" href={"/"}>
             Promo: ORDER1
           </Link>
         </p>
       </div>
 
-      <div className="flex items-center space-x-4 text-secondary">
+      <div className="flex items-center space-x-4  text-secondary">
         <UserLocation iconSize={24} />
-        <button className="text-primary underline">Change Location</button>
+        {/* <button className="border-2 border-solid border-red-600 text-primary underline ">
+          Change Location
+        </button> */}
       </div>
 
       <div className="space flex items-center rounded-bl-xl bg-[#028643] font-semibold text-white">

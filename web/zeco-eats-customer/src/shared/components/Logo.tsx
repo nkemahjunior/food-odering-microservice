@@ -6,13 +6,13 @@ interface fnProps {
 
 export default function ({ text1Size, text2Size, padding }: fnProps) {
   return (
-    <div className="flex items-center font-extrabold text-secondary">
+    <div className=" p-2e font-extrabold text-secondary  ">
       <div className={`${text1Size}`}>Zeco Eats</div>
-      <div
+      {/* <div
         className={`-rotate-90 bg-primary px-[0.20rem] ${padding} ${text2Size}`}
       >
         cm
-      </div>
+      </div> */}
     </div>
   );
 }

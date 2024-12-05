@@ -12,13 +12,18 @@ export default function NavBar2() {
   };
 
   return (
-    <div className="md:px-md xl:px-xl 2xl:mb-[3rem] 2xl:mt-[3rem] h-20 lg:h-24  px-sm  lg:flex 2xl:h-fit lg:gap-x-6 lg:px-lg  2xl:px-xxl ">
-      <div className={`flex h-full items-center justify-between`}>
-        <Logo
-          text1Size="text-2xl xl:text-4xl"
-          text2Size="xl:text-xl text-xs"
-          padding="py-1 xl:px-1"
-        />
+    <div className="h-20 px-sm md:px-md lg:flex lg:h-24 lg:gap-x-6 lg:px-lg xl:px-xl 2xl:mb-[2rem] 2xl:mt-[2rem] 2xl:h-fit 2xl:px-xxl">
+      <div className={`text flex h-full items-center justify-between `}>
+        <div className=" mt-2">
+          <Logo
+            // text1Size="text-2xl xl:text-4xl"
+            // text2Size="xl:text-xl text-xs"
+            // padding="py-1 xl:px-1"
+            text1Size="text-xl"
+            text2Size="xl:text-sm text-xs"
+            padding="py-0 xl:px-0"
+          />
+        </div>
 
         <div className="flex h-full w-16 items-center justify-center border-l-[1px] border-solid border-backgroundBorder">
           <div

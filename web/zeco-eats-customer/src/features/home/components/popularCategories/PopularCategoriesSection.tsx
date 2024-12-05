@@ -6,7 +6,7 @@ import PopularCategoriesCard from "./PopularCategoriesCard";
  
 export default function PopularCategoriesSection() {
     return (
-      <section className="md:mx-md xl:mx-xl 2xl:mt-YXl mt-Ysm lg:mt-Ylg mx-sm border-2 border-solid border-green-500 bg-background lg:mx-lg xl:bg-white 2xl:mx-xxl">
+      <section className="md:mx-md xl:mx-xl 2xl:mt-YXl mt-Ysm lg:mt-Ylg mx-sm  bg-background lg:mx-lg xl:bg-white 2xl:mx-xxl">
         <div className="2xl:mb-YXl mb-Ysm lg:mb-Ylg">
           <SectionTitle titleSM="ZecoEats Popular Categories" />
         </div>

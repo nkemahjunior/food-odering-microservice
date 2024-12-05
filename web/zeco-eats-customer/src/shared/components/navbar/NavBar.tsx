@@ -4,7 +4,7 @@ import NavBar2 from "./NavBar2";
 
 export default function NavBar() {
   return (
-    <nav className=" xl:text-lg">
+    <nav className=" nxl:text-lg">
       <NavBar1 />
       <NavBar2 />
       <NavBar1Mobile />

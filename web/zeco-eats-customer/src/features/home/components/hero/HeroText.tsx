@@ -2,7 +2,7 @@ import HeroSearchBar from "./HeroSearchBar";
 
 export default function HeroText() {
   return (
-    <div className="flex items-center xl:h-full md:justify-center xl:justify-start">
+    <div className="flex items-center xl:h-full justify-center xl:justify-start">
       <div className="xl:h-fit xl:whitespace-nowrap ">
         <p className="mb-2 text-center text-xs md:text-sm lg:text-base xl:mb-4 xl:text-start">
           Order Restaurant food, takeaway and groceries.
