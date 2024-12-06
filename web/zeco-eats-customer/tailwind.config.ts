@@ -24,6 +24,7 @@ const config: Config = {
         backgroundShade1: "#ebebea",
         backgroundShade2: "#e6e6e5",
         backgroundBorder: "rgb(214 211 209)",
+        storeTextColorTint: "#78716c", //text-stone-500
       },
 
       padding: {

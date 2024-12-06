@@ -1,17 +1,16 @@
-import SectionTitle from "@/shared/components/SectionTitle";
 import FAQ1 from "./FAQ1";
 import FAQ from "./FAQ";
-
+import Heading from "@/shared/components/text/Heading";
 
 export default function KnowAboutUsSection() {
   return (
-    <section className="border-h2 mx-sm mt-Ysm border-solid border-emerald-600 bg-backgroundd md:mx-md lg:mx-lg lg:mt-Ylg xl:mx-xl 2xl:mx-xxl 2xl:mt-YXl">
-      <div className="mb-Ysm flex justify-center lg:mb-Ylg 2xl:mb-YXl ">
-        <SectionTitle titleSM="Know more about us!" />
+    <section className="border-h2 bg-backgroundd mx-sm mt-Ysm border-solid border-emerald-600 md:mx-md lg:mx-lg lg:mt-Ylg xl:mx-xl 2xl:mx-xxl 2xl:mt-YXl">
+      <div className="mb-Ysm flex justify-center lg:mb-Ylg 2xl:mb-YXl">
+        <Heading text="Know more about us!" />
       </div>
 
       <div className="space-y-10 bg-secondary py-8 xl:space-y-0">
-        <div className="space-y-8 lg:space-y-10 2xl:space-y-12 px-4 lg:px-12">
+        <div className="space-y-8 px-4 lg:space-y-10 lg:px-12 2xl:space-y-12">
           <FAQ1 question="How does Zeco Eats work" />
           <FAQ
             question="Can I track my order in real-time?"

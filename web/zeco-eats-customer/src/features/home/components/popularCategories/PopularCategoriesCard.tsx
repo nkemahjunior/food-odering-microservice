@@ -1,3 +1,4 @@
+import CardTitle from "@/shared/components/text/CardTitle";
 import Image from "next/image";
 
  
@@ -19,9 +20,10 @@ export default function PopularCategoriesCard() {
 
         <div className="flex h-[4rem] items-center bg-inherit md:h-[5rem] xl:bg-background">
           <div className="ml-2 2xl:ml-4">
-            <p className="text-lg font-medium text-secondary ">
+            {/* <p className="text-lg font-medium text-secondary ">
               Pasta & Casuals
-            </p>
+            </p> */}
+            <CardTitle text="Pasta & Casuals" textColor="text-secondary "/>
             <p className=" text-primary ">
               4 Restaurants
             </p>

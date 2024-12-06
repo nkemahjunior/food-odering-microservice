@@ -1,7 +1,6 @@
 "use client";
 
 import { useDeviceType } from "@/shared/hooks/useDeviceType";
-import { truncate } from "fs/promises";
 import { useEffect, useRef, useState } from "react";
 import DisplaySelectedPrice from "./DisplaySelectedPrice";
 import DeliveryPrices from "./DeleveryPrices";
@@ -67,6 +66,8 @@ export default function FilterDeliveryFeeSlider({
       positions[positionOnSlider].current?.getBoundingClientRect().x! +
         slideMidPoint
     ) {
+      
+      if (positionOnSlider >  positions.length - 1) return;
       setTimeout(() => {
         setSliderBallPosition(newSliderBallPosition!);
         setPositionOnSlider(selectNextPosition);
@@ -78,6 +79,7 @@ export default function FilterDeliveryFeeSlider({
       positions[positionOnSlider].current?.getBoundingClientRect().x! -
         slideMidPoint
     ) {
+      if (positionOnSlider <= 0) return;
       const selectPrevPosition =
         positionOnSlider - 1 < 0 ? 0 : positionOnSlider - 1;
 

@@ -8,15 +8,10 @@ import UserLocation from "@/shared/components/navbar/UserLocation";
  
 export default function BrowseDishes() {
     return (
-      <>
-        {/* <div className=" flex">
-          <Logo text1Size="text-xl" />
-          <UserLocation iconSize={24} />
-        </div> */}
+      <div className="mx-sm md:mx-md lg:mx-lg xl:mx-xl 2xl:mx-[14rem]">
         <FoodCategoriesSlider />
         <Filters />
         <Dishes />
-            
-      </>
+      </div>
     );
 }
