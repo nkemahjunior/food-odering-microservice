@@ -34,7 +34,7 @@ export default function Carousel({slides, options}:PropType) {
      nextBtnDisabled,
      onPrevButtonClick,
      onNextButtonClick,
-   } = usePrevNextButtons(emblaApi, onNavButtonClick);
+   } = usePrevNextButtons(emblaApi); // removed auto play
   
   return (
     <div className="embla">

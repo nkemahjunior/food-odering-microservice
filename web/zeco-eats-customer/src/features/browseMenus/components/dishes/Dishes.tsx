@@ -15,31 +15,27 @@ export default function Dishes() {
   }, []);
 
   return (
-    <div>
+    <div className="mt-6">
       {/* <DishCard /> */}
 
-      {isMobile ? (
-        <DishesCarouselMobile />
-      ) : (
-        <div className="grid grid-cols-4 gap-x-4 gap-y-6 bg-background">
-          <DishCard />
-          <DishCard />
-          <DishCard />
-          <DishCard />
-          <DishCard />
-          <DishCard />
-          <DishCard />
-          <DishCard />
-          <DishCard />
-          <DishCard />
-          <DishCard />
-          <DishCard />
-          <DishCard />
-          <DishCard />
-          <DishCard />
-          <DishCard />
-        </div>
-      )}
+      <div className="grid grid-cols-1 gap-y-6 md:grid-cols-3 lg:grid-cols-4 md:gap-x-4">
+        <DishCard />
+        <DishCard />
+        <DishCard />
+        <DishCard />
+        <DishCard />
+        <DishCard />
+        <DishCard />
+        <DishCard />
+        <DishCard />
+        <DishCard />
+        <DishCard />
+        <DishCard />
+        <DishCard />
+        <DishCard />
+        <DishCard />
+        
+      </div>
     </div>
   );
 }

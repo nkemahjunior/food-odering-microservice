@@ -19,7 +19,10 @@ const config: Config = {
       colors: {
         primary: "#FC8A06",
         secondary: "#03081F",
+        secondaryTint: "#12172c",
         background: "rgb(245 245 244)",
+        backgroundShade1: "#ebebea",
+        backgroundShade2: "#e6e6e5",
         backgroundBorder: "rgb(214 211 209)",
       },
 

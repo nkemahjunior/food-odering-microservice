@@ -7,8 +7,8 @@ import ResultsAndReset from "./ResultsAndReset";
 
 export default function Filters() {
   return (
-    <div className="relativef border-2 border-solid border-yellow-300">
-      <div className="flex w-full space-x-4 overflow-x-auto border-2 border-solid border-green-800">
+    <div className="mt-6 space-y-6">
+      <div className="scrollbar-hidden flex w-full space-x-4 overflow-x-auto">
         <FilterDeliveryFee />
         <FilterUnder30Min />
         <FilterHighestRated />

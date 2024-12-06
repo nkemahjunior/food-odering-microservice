@@ -17,8 +17,6 @@ export default function OrderProcess({processNum, processDetail1, processDetail2
           <div className="space-y-1">
             <Logo
               text1Size="text-xs "
-              text2Size=" text-[0.5rem]"
-              padding="py-[0.7px] px-[1.2px]"
             />
             <p className="text-xs font-semibold">{processDetail1}</p>
             <p className="text-xs">{processDetail2} </p>

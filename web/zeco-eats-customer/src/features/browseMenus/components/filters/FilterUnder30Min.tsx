@@ -1,18 +1,12 @@
 "use client"
-import { useState } from "react";
-import FilterBtn from "./FilterBtn";
+
 
 export default function FilterUnder30Min() {
-  const [open, setOpen] = useState(false);
   return (
     <div>
-      <FilterBtn filterName="Under 30 min" toggleModal={setOpen} />
-
-      <div
-        className={`absolute inset-x-0 bottom-0 h-[50dvh] bg-red-600 lg:inset-x-auto lg:bottom-auto lg:h-[20rem] lg:w-[20rem] ${open ? "block" : "hidden"}`}
-      >
-        modal
-      </div>
+      <button className=" w-fit space-x-2 text-nowrap rounded-3xl bg-background px-4 py-2 font-medium transition-colors duration-200 hover:bg-stone-200">
+        Under 30 min
+      </button>
     </div>
   );
 }

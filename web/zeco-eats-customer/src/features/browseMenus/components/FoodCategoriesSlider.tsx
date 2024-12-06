@@ -59,7 +59,7 @@ export default function FoodCategoriesSlider() {
               key={i}
             >
               <el.Icon width={35} height={35} />
-              <p className="text-xs lg:text-sm "> {el.name}</p>
+              <p className="text-xs font-medium "> {el.name}</p>
             </div>
           ))}
         </div>

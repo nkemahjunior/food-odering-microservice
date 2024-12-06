@@ -8,7 +8,7 @@ import DeliveryPrices from "./DeleveryPrices";
 import SliderLine from "./SliderLine";
 import SliderBall from "./SliderBall";
 
-export default function FilterSlider({
+export default function FilterDeliveryFeeSlider({
   modlaIsOpen,
   modalPosition,
   modalPadding,
@@ -112,7 +112,6 @@ export default function FilterSlider({
       setSliderBallPosition(slidePositions[3]);
   };
 
-
   const onGrabSliderBall = () => {
     setIsGrabbing(true);
   };
@@ -122,7 +121,7 @@ export default function FilterSlider({
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6  ">
       <DisplaySelectedPrice selectedValue={selectedValue} />
       <DeliveryPrices />
 
@@ -140,6 +139,7 @@ export default function FilterSlider({
           lgWidth="lg:w-28"
           isGrabbing={isGrabbing}
           sliderBallPosition={sliderBallPosition}
+          direction="under"
         />
         <SliderLine
           refProp={ref2}
@@ -149,6 +149,7 @@ export default function FilterSlider({
           lgWidth="lg:w-28"
           isGrabbing={isGrabbing}
           sliderBallPosition={sliderBallPosition}
+          direction="under"
         />
         <SliderLine
           refProp={ref3}
@@ -158,15 +159,17 @@ export default function FilterSlider({
           lgWidth="lg:w-28"
           isGrabbing={isGrabbing}
           sliderBallPosition={sliderBallPosition}
+          direction="under"
         />
         <SliderLine
           refProp={ref4}
-          leftPosition="left-[20.5rem]"
+          leftPosition="left-[19.6rem]"
           lgLeftPosition="lg:left-[22rem]"
           width="w-[0.1px]"
           lgWidth=""
           isGrabbing={isGrabbing}
           sliderBallPosition={sliderBallPosition}
+          direction="under"
         />
 
         <SliderBall
@@ -179,90 +182,13 @@ export default function FilterSlider({
       </div>
 
       <div className="flex flex-col-reverse space-y-2 lg:flex-row lg:justify-end lg:space-x-4 lg:space-y-0">
-        <button className="h-[3rem] w-full rounded-lg text-black hover:bg-background lg:w-[7rem]">
+        <button className="hover:bg-backgroundShade2 h-[3rem] w-full rounded-lg font-medium text-black transition-colors duration-300 lg:w-[7rem]">
           <span>Reset</span>
         </button>
-        <button className="h-[3rem] w-full rounded-lg bg-secondary text-white lg:w-[7rem]">
+        <button className="hover:bg-secondaryTint h-[3rem] w-full rounded-lg bg-secondary font-medium text-white transition-colors duration-300 lg:w-[7rem]">
           <span>Apply</span>
         </button>
       </div>
     </div>
   );
 }
-
-// onTouchStart={() => {
-//             console.log("touch startttttttttttttt");
-//           }}
-//           onTouchEnd={() => {
-//             console.log("touch endddddddddddddddd");
-//           }}
-//           // onTouchMove={() => {
-//           //   console.log("touch movinggggggggg");
-//           // }}
-
-/**
- *   const handleMouseMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!isGrabbing) return;
-    const movement = e.clientX - sliderBallPosition;
-
-    console.log("initial, ", sliderBallPosition);
-    console.log("initial2, ", positionOnSlider);
-    console.log("clientX, " + e.clientX);
-    console.log("movement, " + movement);
-
-    const currentPos = positionOnSlider;
-    const newSliderBallPosition =
-      positions[
-        currentPos + 1 > 3 ? 3 : currentPos + 1
-      ].current?.getBoundingClientRect().x;
-
-    if (
-      e.clientX >
-      positions[positionOnSlider].current?.getBoundingClientRect().x! +
-        slideMidPoint
-    ) {
-      setTimeout(() => {
-        console.log("1 second has passed for!");
-        setSliderBallPosition(newSliderBallPosition!);
-        setPositionOnSlider(currentPos + 1 > 3 ? 3 : currentPos + 1);
-      }, 1000);
-      //return;
-    }
-
-    console.log("ok11, " + sliderBallPosition!);
-    console.log("ok22, " + e.clientX);
-
-    // if(newSliderBallPosition! - e.clientX <50  ) return
-
-    if (
-      e.clientX <
-      positions[positionOnSlider].current?.getBoundingClientRect().x! -
-        slideMidPoint
-    ) {
-      // if (e.clientX - sliderBallPosition > slideMidPoint) {
-      //   console.log("caught himmmmmmmmm");
-      //   console.log(currentPos);
-      //   return;
-      // }
-
-      console.log(" ok enter");
-      console.log("enter client", e.clientX);
-      console.log(
-        "enter position",
-        positions[positionOnSlider].current?.getBoundingClientRect().x! -
-          slideMidPoint,
-      );
-
-      const newSliderBallPosition =
-        positions[
-          currentPos - 1 < 0 ? 0 : currentPos - 1
-        ].current?.getBoundingClientRect().x;
-
-      setTimeout(() => {
-        console.log("1 second has passed revvvvvvvv!");
-        setSliderBallPosition(newSliderBallPosition!);
-        setPositionOnSlider(currentPos - 1 < 0 ? 0 : currentPos - 1);
-      }, 1000);
-    }
-  };
- */

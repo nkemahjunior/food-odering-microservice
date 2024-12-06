@@ -2,6 +2,7 @@ import Link from "next/link";
 import { FaMapMarkerAlt, FaShoppingBasket } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import UserLocation from "./UserLocation";
+import CartNavBar from "./CartNavBar";
 
 export default function NavBar1() {
   return (
@@ -22,7 +23,9 @@ export default function NavBar1() {
         </button> */}
       </div>
 
-      <div className="space flex items-center rounded-bl-xl bg-[#028643] font-semibold text-white">
+      <CartNavBar roundedBottom/>
+
+      {/* <div className="space flex items-center rounded-bl-xl bg-[#028643] font-semibold text-white">
         <div className="flex h-full items-center border-solid px-4">
           <FaShoppingBasket size={44} />{" "}
         </div>
@@ -32,7 +35,7 @@ export default function NavBar1() {
         <div className="flex h-full items-center border-l-2 border-solid px-4">
           GBP 79.89
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -5,24 +5,19 @@ import { useState } from "react";
 import Link from "next/link";
 import Logo from "../Logo";
 
-export default function NavBar2() {
+export default function NavBar2({notHome}:{notHome:boolean}) {
   const [showNavMobile, setShowNavMobile] = useState(false);
   const toggleNavMobile = (show: boolean) => {
     setShowNavMobile(show);
   };
 
   return (
-    <div className="h-20 px-sm md:px-md lg:flex lg:h-24 lg:gap-x-6 lg:px-lg xl:px-xl 2xl:mb-[2rem] 2xl:mt-[2rem] 2xl:h-fit 2xl:px-xxl">
-      <div className={`text flex h-full items-center justify-between `}>
-        <div className=" mt-2">
-          <Logo
-            // text1Size="text-2xl xl:text-4xl"
-            // text2Size="xl:text-xl text-xs"
-            // padding="py-1 xl:px-1"
-            text1Size="text-xl"
-            text2Size="xl:text-sm text-xs"
-            padding="py-0 xl:px-0"
-          />
+    <div
+      className={`h-20 px-sm md:px-md lg:flex lg:h-24 lg:gap-x-6 lg:px-lg xl:px-xl ${notHome ? "2xl:pb-[1rem]" : "2xl:mb-[2rem]"} 2xl:mt-[2rem] 2xl:h-fit 2xl:px-xxl`}
+    >
+      <div className={`text flex h-full items-center justify-between`}>
+        <div className="mt-2">
+          <Logo text1Size="text-xl" />
         </div>
 
         <div className="flex h-full w-16 items-center justify-center border-l-[1px] border-solid border-backgroundBorder">

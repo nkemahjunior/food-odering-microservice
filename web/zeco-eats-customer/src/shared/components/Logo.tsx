@@ -1,10 +1,9 @@
 interface fnProps {
   text1Size: string;
-  text2Size: string;
-  padding: string;
+
 }
 
-export default function ({ text1Size, text2Size, padding }: fnProps) {
+export default function ({ text1Size }: fnProps) {
   return (
     <div className=" p-2e font-extrabold text-secondary  ">
       <div className={`${text1Size}`}>Zeco Eats</div>

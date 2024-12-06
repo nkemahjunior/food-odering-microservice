@@ -2,11 +2,14 @@
 import { useEffect, useRef, useState } from "react";
 import { BsArrowDownShort } from "react-icons/bs";
 import FilterBtn from "./FilterBtn";
-import FilterSlider from "./FilterSlider";
+
 import { BiX } from "react-icons/bi";
 import { useDeviceType } from "@/shared/hooks/useDeviceType";
 import { motion } from "motion/react";
 import { usePreventScrolling } from "@/shared/hooks/usePreventScrolling";
+import ModalOverlay from "@/shared/components/modal/ModalOverlay";
+import FilterDeliveryFeeSlider from "./FilterDeliveryFeeSlider";
+import FilterRatingSlider from "./FilterRatingSlider";
 
 export default function FilterDeliveryFee() {
   const [open, setOpen] = useState(false);
@@ -21,11 +24,11 @@ export default function FilterDeliveryFee() {
   }, [open]);
 
   //disable scrolling when modal is open
-  // usePreventScrolling(open);
+  usePreventScrolling(open);
 
   return (
     <>
-      <div ref={modalRef}>
+      <div>
         <FilterBtn
           filterName="Delivery fee"
           toggleModal={setOpen}
@@ -33,8 +36,9 @@ export default function FilterDeliveryFee() {
           iconPosition="afterText"
         />
         <motion.div
+          ref={modalRef}
           initial={isMobile ? { height: "0vh", opacity: 0 } : false}
-          animate={isMobile ? { height: open ? "40vh" : "0vh" } : false}
+          animate={isMobile ? { height: open ? "50dvh" : "0vh" } : false}
           transition={
             isMobile
               ? {
@@ -47,7 +51,7 @@ export default function FilterDeliveryFee() {
           className={`absolute inset-x-0 bottom-0 z-10 h-0 space-y-3 overflow-x-hidden rounded-t-3xl bg-white shadow-2xl shadow-black lg:inset-x-auto lg:bottom-auto lg:mt-2 lg:h-[22rem] lg:w-[28rem] lg:space-y-6 lg:rounded-xl lg:px-8 lg:py-4 ${open ? "lg:block" : "lg:hidden"}`}
         >
           <div className="flex justify-between">
-            <p className="w-full border-b-[1px] border-solid border-stone-200 py-4 text-center text-lg font-semibold lg:border-b-0 lg:text-start lg:text-xl lg:font-bold">
+            <p className="w-full border-b-[1px] border-solid border-stone-200 py-4 text-center text-2xl font-bold lg:border-b-0 lg:text-start">
               Delivery fee
             </p>
             <button
@@ -61,7 +65,7 @@ export default function FilterDeliveryFee() {
           </div>
 
           <div className="px-6 lg:px-0">
-            <FilterSlider
+            <FilterDeliveryFeeSlider
               modlaIsOpen={open}
               modalPosition={modalPosition}
               modalPadding={isMobile ? 24 : 32} //padding in px
@@ -69,11 +73,20 @@ export default function FilterDeliveryFee() {
           </div>
         </motion.div>
       </div>
-      <div className={` fixed inset-0 -left-4 z-[8] bg-[rgba(0,0,0,0.1)] ${open ?  " ": "hidden"}`} onClick={() => setOpen(false)}></div>
+      {/* <div
+        className={`fixed inset-0 -left-4 z-[8] bg-[rgba(0,0,0,0.1)] ${open ? " " : "hidden"}`}
+        onClick={() => setOpen(false)}
+      ></div> */}
+
+      <ModalOverlay
+        closeModal={setOpen}
+        modalIsOpen={open}
+        expandLeft="-left-4"
+        zIndex="z-[8]"
+      />
     </>
   );
 }
-
 
 /**
  *   return (
