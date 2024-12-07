@@ -11,7 +11,7 @@ export default function StoreLocationItem () {
             <BiLocationPlus size={20} />
           </span>
         </div>
-        <div className="flex basis-[80%] border-b-2 border-solid border-backgroundBorder py-2">
+        <div className="flex basis-[80%] border-b-[1px] border-solid border-backgroundBorder py-2">
           <div className="basis-[80%]">
             <p className="text-base font-medium">19 New Row</p>
             <p className="text-storeTextColorTint">London, Emea</p>
@@ -26,3 +26,17 @@ export default function StoreLocationItem () {
     );
 }
 //overflow-hidden text-ellipsis whitespace-nowrap  w-10
+
+/**
+ *   const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopy = async (textToCopy: string) => {
+    try {
+      await navigator.clipboard.writeText(textToCopy);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000); // Reset after 2 seconds
+    } catch (error) {
+      console.error("Failed to copy text: ", error);
+    }
+  };
+ */

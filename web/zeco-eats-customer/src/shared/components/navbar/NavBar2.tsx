@@ -13,7 +13,7 @@ export default function NavBar2({notHome}:{notHome:boolean}) {
 
   return (
     <div
-      className={`h-20 px-sm md:px-md lg:flex lg:h-24 lg:gap-x-6 lg:px-lg xl:px-xl ${notHome ? "2xl:pb-[1rem]" : "2xl:mb-[2rem]"} 2xl:mt-[2rem] 2xl:h-fit 2xl:px-xxl`}
+      className={`2xl mb-[1.5rem] h-16 border-b-[1px] border-solid border-backgroundBorder px-sm md:mb-6 md:px-md lg:flex lg:h-24 lg:gap-x-6 lg:px-lg xl:px-xl 2xl:border-b-0 ${notHome ? "2xl:pb-[1rem]" : "2xl:mb-[2rem]"} 2xl:mt-[2rem] 2xl:h-fit 2xl:px-xxl`}
     >
       <div className={`text flex h-full items-center justify-between`}>
         <div className="mt-2">

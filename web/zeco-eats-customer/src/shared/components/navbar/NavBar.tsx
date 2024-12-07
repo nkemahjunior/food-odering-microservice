@@ -8,16 +8,15 @@ export default function NavBar() {
 
   const pathname = usePathname()
   const notHome = pathname !== "/home";
-  console.log("----------",notHome);
   return (
     <>
       <nav
-        className={`${notHome && "border-b-2 border-solid border-background bg-white lg:sticky lg:top-0 lg:z-[1] 2xl:mb-8"}`}
+        className={`${notHome && "2xl:border-b-[1px] border-solid border-backgroundBorder bg-white lg:sticky lg:top-0 lg:z-[1] 2xl:mb-8"}`}
       >
         <NavBar1 />
         <NavBar2 notHome={notHome} />
       </nav>
-      <NavBar1Mobile notHome={notHome} />
+      {/* <NavBar1Mobile pathname={pathname} /> */}
     </>
     // <>
     //   <NavBar1Mobile />

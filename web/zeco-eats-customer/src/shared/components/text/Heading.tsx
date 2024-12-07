@@ -2,15 +2,17 @@
  
 export default function Heading({
   text,
-  textColor
+  textColor,
+  style
 }: {
     text: string;
-  textColor?: string
+    textColor?: string
+  style?:string
 }) {
   return (
     <>
       <h1
-        className={`text-2xl font-bold ${textColor ? textColor : "text-black"}`}
+        className={` text-xl lg:text-2xl font-bold ${textColor ? textColor : "text-black"} ${style}`}
       >
         {text}
       </h1>

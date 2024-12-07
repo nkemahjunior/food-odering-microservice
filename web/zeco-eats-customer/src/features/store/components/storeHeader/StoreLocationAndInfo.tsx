@@ -6,8 +6,8 @@ import StoreOpeningHours from "./StoreOpeningHours";
 
 export default function StoreLocationAndInfo() {
   return (
-    <div className="grid w-full grid-cols-[70fr,30fr] border-2 border-solid border-red-700">
-      <div className="border-2 border-solid border-fuchsia-600">
+    <div className="lg:grid w-full grid-cols-[70fr,30fr] border-[1px] border-solid border-backgroundBorder rounded-lg hidden ">
+      <div className="">
         {" "}
         restaurant map
       </div>

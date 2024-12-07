@@ -16,7 +16,7 @@ export default function StoreOpeningHours() {
             <BsClock size={20} />
           </span>
         </div>
-        <div className="flex basis-[80%] border-b-2 border-solid border-backgroundBorder py-2">
+        <div className="flex basis-[80%] border-b-[1px] border-solid border-backgroundBorder py-2">
           <div className="basis-[80%]">
             <p className="text-base font-medium">Open</p>
             <p className="text-storeTextColorTint">Open untill 10:00 PM</p>
