@@ -14,7 +14,7 @@ export default function StoreRatings() {
           <ShowMoreRatings />
         </div>
       </div>
-      <div className="flex w-full space-x-2 rounded-lg lg:border-[1px] border-solid border-backgroundBorder lg:py-2">
+      <div className="flex w-full space-x-2 rounded-lg border-solid border-backgroundBorder lg:border-[1px] lg:py-2">
         <div className="flex w-[30%] flex-col items-center justify-center space-y-2 rounded-lg border-[1px] border-solid border-backgroundBorder p-2 lg:rounded-none lg:border-0 lg:p-0">
           <p className="text-base font-medium">4.5</p>
           <div>
@@ -25,7 +25,7 @@ export default function StoreRatings() {
 
         <div className="w-full space-y-4 rounded-lg border-[1px] border-solid border-backgroundBorder p-2 lg:w-[50%] lg:rounded-none lg:border-0 lg:p-0">
           <RatingText />
-          <div className="hidden lg:block">
+          <div className="hidden space-y-4 lg:block">
             <RatingText />
 
             <ShowMoreRatings />

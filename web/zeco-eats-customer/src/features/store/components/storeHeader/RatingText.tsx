@@ -14,7 +14,7 @@ export default function RatingText() {
         <div className="flex items-center space-x-1 text-storeTextColorTint">
           <Rating rating={5} textColor="text-black" />
           &nbsp;&middot;
-          <p className=" w-[2rem] overflow-hidden text-ellipsis whitespace-nowrap  lg:w-auto">
+          <p className=" w-[2rem] overflow-hidden text-ellipsis whitespace-nowrap  md:w-auto">
             Shabina yooree 
           </p>
           &nbsp;&middot;&nbsp;
