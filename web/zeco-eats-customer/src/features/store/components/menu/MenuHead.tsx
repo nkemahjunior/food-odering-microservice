@@ -1,22 +1,23 @@
 "use client";
 import Heading from "@/shared/components/text/Heading";
+import { truncateSync } from "fs";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { BiMenu, BiSearch } from "react-icons/bi";
 
 export default function MenuHead() {
   const [focus, setFocus] = useState(false);
   // const menuTitleRefs = useRef<Record<number, HTMLSpanElement | null>>({});
-  const menuTitleRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const menuRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const menuTitlesAreaRef = useRef<HTMLDivElement | null>(null);
-  const [visibleTitles, setVisibleTitles] = useState<Record<number, boolean>>({0:true});
   const [menuTitleDimension, setmenuTitleDimension] = useState({
     left: 0,
     width: 0,
   });
+  const [manualScroll, setManualScroll] = useState(false);
 
-  const [curMenuVal, setCurMenuVal] = useState(0);
-  const mainRef = useRef<HTMLDivElement | null>(null);
+  const scrollAreaRef = useRef<HTMLDivElement | null>(null);
+  const menuTitleRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const menuRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
   //titleRefs.
   const titles = [
@@ -35,132 +36,291 @@ export default function MenuHead() {
     "Beers and Ciders",
     "Wines",
     "Bubbles",
+    "Smoothies",
+    "Mocktails",
+    "Cocktails",
+    "Spirits",
+    "Milkshakes",
+    "Appetizers",
+    "Soups",
+    "Salads",
+    "Main Course",
+    "Kids Menu",
   ];
 
   useEffect(() => {
     const curMenuTitle = menuTitleRefs.current[0]?.getBoundingClientRect();
-
     setmenuTitleDimension({
       left: curMenuTitle?.left!,
       width: curMenuTitle?.width!,
     });
   }, []);
 
-
   useEffect(() => {
     function observerCallback(entries: IntersectionObserverEntry[]) {
-      const [entry] = entries;
-      //setCurTitleVisible(entry.isIntersecting);
-      // setVisibleTitles
-      // setVisibleTitles(arr)
-     
-      console.log(
-        " an entryyy ",
-        (entry.target as HTMLDivElement).dataset.value," ", entry.isIntersecting
-      );
+      // if (manualScroll) {
+      //   console.log("manual scroll detected, retrunigggggggggg");
+      //   return;
+      // }
+
+      console.log("the scroll ", manualScroll);
+      console.log("did not fucking return");
+
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const value = Number((entry.target as HTMLDivElement).dataset.value);
+          console.log("intersecting element ", entry.target);
+          const curMenuTitle =
+            menuTitleRefs.current[value]?.getBoundingClientRect();
+          const scrollAreaRect = scrollAreaRef.current!.getBoundingClientRect();
+
+          if (
+            //60% of scroll box
+            curMenuTitle!.right >=
+            0.6 * scrollAreaRect.right && !manualScroll
+          ) {
+            console.log(
+              "bringing into view ",
+              menuTitleRefs.current[value + 2],
+            );
+            menuTitleRefs.current[value + 2]?.scrollIntoView({
+              behavior: "auto",
+              block: "nearest",
+              inline: "nearest",
+            });
+          }
+
+          if (
+            //40% of scroll box
+            curMenuTitle!.right <= 0.4 * scrollAreaRect.right &&
+            !manualScroll
+          ) {
+            console.log(
+              "bringing into view backward ",
+              menuTitleRefs.current[value - 2],
+            );
+            menuTitleRefs.current[value - 2]?.scrollIntoView({
+              behavior: "auto",
+              block: "nearest",
+              inline: "start",
+            });
+          }
+
+          const newLeft =
+            menuTitleRefs.current[value]?.getBoundingClientRect()?.left!;
+
+          setmenuTitleDimension({
+            left:
+              newLeft < scrollAreaRect.left
+                ? scrollAreaRect.left
+                : newLeft > scrollAreaRect.right
+                  ? scrollAreaRect.right
+                  : newLeft,
+
+            width:
+              menuTitleRefs.current[value]?.getBoundingClientRect()?.width!,
+          });
+        }
+      });
     }
 
     const observer = new IntersectionObserver(observerCallback, {
-      root: mainRef.current,
+      root: null,
       rootMargin: "0px 0px 0px 0px",
-      threshold: 0.5,
+      threshold: 1,
     });
 
-    
-
-    menuTitleRefs.current.forEach((el, index) => {
+    menuRefs.current.forEach((el, index) => {
       if (el) observer.observe(el);
     });
 
     return () => {
-      menuTitleRefs.current.forEach((el) => {
+      menuRefs.current.forEach((el) => {
         if (el) observer.unobserve(el);
       });
     };
-  }, []);
+  }, [menuTitleRefs, scrollAreaRef, manualScroll]);
 
-  useEffect(
-    () => {
-      let scrollTimeout: any;
-      let scrollTimeout2: any;
-      function observerCallback(entries: IntersectionObserverEntry[]) {
-        const [entry] = entries;
+  // useEffect(
+  //   () => {
+  //     function observerCallback(entries: IntersectionObserverEntry[]) {
+  //       const [entry] = entries;
 
-        if (entry.isIntersecting) {
-          const value = Number((entry.target as HTMLDivElement).dataset.value)
-          if (!visibleTitles.at(value)) {
-            scrollTimeout = setTimeout(() => {
-              console.log("okkkkkkkkkkkkkkkkkkkkkkkkk");
-              console.log("what are u ", value," ", visibleTitles.at(value));
-              menuTitleRefs.current[value]?.scrollIntoView({
-                behavior: "smooth", // smooth scrolling
-                block: "nearest", // "nearest" prevents unnecessary vertical scrolling
-                inline: "start", // align the element to the start of the scrollable area horizontally
-              });
-              console.log("yesssssssssssssss");
-            }, 1000);
-          }
-          //console.log("entry ", entry);
+  //       if (entry.isIntersecting) {
+  //         const value = Number((entry.target as HTMLDivElement).dataset.value);
+  //         console.log("intersecting element ", entry.target);
+  //         const curMenuTitle =
+  //           menuTitleRefs.current[value]?.getBoundingClientRect();
+  //         const scrollAreaRect = scrollAreaRef.current!.getBoundingClientRect();
 
-          // console.log("valueMenu div ", value);
-          scrollTimeout2 = setTimeout(() => {
-            const curMenuTitle =
-              menuTitleRefs.current[value]?.getBoundingClientRect();
+  //         if (
+  //           //60% of scroll box
+  //           curMenuTitle!.right >=
+  //           0.6 * scrollAreaRect.right
+  //         ) {
+  //           console.log(
+  //             "bringing into view ",
+  //             menuTitleRefs.current[value + 2],
+  //           );
+  //           menuTitleRefs.current[value + 2]?.scrollIntoView({
+  //             behavior: "auto",
+  //             block: "nearest",
+  //             inline: "nearest",
+  //           });
+  //         }
+  //         // console.log(
+  //         //   "test test ",
+  //         //   curMenuTitle!.left <= 0.4 * scrollAreaRect.left
+  //         // ,"left ", curMenuTitle!.left, "percentage ", 0.4 * scrollAreaRect.left );
 
-            //setCurMenuVal(value);
-            setmenuTitleDimension({
-              left: curMenuTitle?.left!,
-              width: curMenuTitle?.width!,
-            });
-          }, 1200);
-        }
-      }
+  //         if (
+  //           //40% of scroll box
+  //           curMenuTitle!.right <=
+  //           0.4 * scrollAreaRect.right
+  //         ) {
+  //           console.log(
+  //             "bringing into view backward ",
+  //             menuTitleRefs.current[value - 2],
+  //           );
+  //           menuTitleRefs.current[value - 2]?.scrollIntoView({
+  //             behavior: "auto",
+  //             block: "nearest",
+  //             inline: "start",
+  //           });
+  //         }
 
-      const observer = new IntersectionObserver(observerCallback, {
-        root: null,
-        rootMargin: "205px 0px 0px 0px",
-        threshold: 0.2,
-      });
+  //         const newLeft =
+  //           menuTitleRefs.current[value]?.getBoundingClientRect()?.left!;
 
-      menuRefs.current.forEach((el, index) => {
-        if (el) observer.observe(el);
-      });
+  //         setmenuTitleDimension({
+  //           left:
+  //             newLeft < scrollAreaRect.left
+  //               ? scrollAreaRect.left
+  //               : newLeft > scrollAreaRect.right
+  //                 ? scrollAreaRect.right
+  //                 : newLeft,
 
-      return () => {
-        clearTimeout(scrollTimeout);
-        clearTimeout(scrollTimeout2);
-        menuRefs.current.forEach((el) => {
-          if (el) observer.unobserve(el);
-        });
-      };
-    },
-    [
-      /*curMenuVal*/
-    ],
-  );
+  //           width:
+  //             menuTitleRefs.current[value]?.getBoundingClientRect()?.width!,
+  //         });
+  //       }
+  //     }
+
+  //     const observer = new IntersectionObserver(observerCallback, {
+  //       root: null,
+  //       rootMargin: "0px 0px 0px 0px",
+  //       threshold: 1,
+  //     });
+
+  //     menuRefs.current.forEach((el, index) => {
+  //       if (el) observer.observe(el);
+  //     });
+
+  //     return () => {
+  //       menuRefs.current.forEach((el) => {
+  //         if (el) observer.unobserve(el);
+  //       });
+  //     };
+  //   },
+  //   [
+  //     /*menuTitleRefs, scrollAreaRef*/
+  //   ],
+  // );
+
+  // useEffect(() => {
+  //   let timeout: any;
+  //   function observerCallback(entries: IntersectionObserverEntry[]) {
+  //     const [entry] = entries;
+
+  //     if (entry.isIntersecting) {
+  //       const value = Number((entry.target as HTMLDivElement).dataset.value);
+  //       console.log("intersecting element ", entry.target);
+  //       const curMenuTitle =
+  //         menuTitleRefs.current[value]?.getBoundingClientRect();
+  //       const scrollAreaRect = scrollAreaRef.current!.getBoundingClientRect();
+
+  //       if (
+  //         curMenuTitle!.right > scrollAreaRect.right ||
+  //         curMenuTitle!.left < scrollAreaRect.left
+  //       ) {
+  //         console.log("executed a motherfucker");
+  //         menuTitleRefs.current[value]?.scrollIntoView({
+  //           behavior: "auto",
+  //           block: "nearest",
+  //           inline: "start",
+  //         });
+
+  //         timeout = setTimeout(() => {
+  //           setmenuTitleDimension({
+  //             left: curMenuTitle?.left!,
+  //             width: curMenuTitle?.width!,
+  //           });
+  //         }, 1000);
+
+  //         return;
+  //       }
+
+  //       setmenuTitleDimension({
+  //         left: curMenuTitle?.left!,
+  //         width: curMenuTitle?.width!,
+  //       });
+  //     }
+  //   }
+
+  //   const observer = new IntersectionObserver(observerCallback, {
+  //     root: null,
+  //     rootMargin: "205px 0px 0px 0px",
+  //     threshold: 1,
+  //   });
+
+  //   menuRefs.current.forEach((el, index) => {
+  //     if (el) observer.observe(el);
+  //   });
+
+  //   // return () => {
+  //   //   clearTimeout(timeout);
+  //   //   menuRefs.current.forEach((el) => {
+  //   //     if (el) observer.unobserve(el);
+  //   //   });
+  //   // };
+  // }, [/*menuTitleRefs, scrollAreaRef*/]);
+
+  function scrollToMenu(index: number) {
+    setManualScroll(true);
+    console.log("index ", index);
+    console.log("clicked index ", menuTitleRefs.current[index]);
+    console.log(
+      "clicked title ------------ ",
+      menuTitleRefs.current[index]?.getBoundingClientRect(),
+    );
+    menuRefs.current[index]?.scrollIntoView(/*{
+      behavior: "smooth",
+      block: "center",
+    }*/);
+
+    const newLeft =
+      menuTitleRefs.current[index]?.getBoundingClientRect()?.left!;
+    const scrollAreaRect = scrollAreaRef.current!.getBoundingClientRect();
+
+    // setmenuTitleDimension({
+    //   left:
+    //     newLeft < scrollAreaRect.left
+    //       ? scrollAreaRect.left
+    //       : newLeft > scrollAreaRect.right
+    //         ? scrollAreaRect.right
+    //         : newLeft,
+
+    //   width: menuTitleRefs.current[index]?.getBoundingClientRect()?.width!,
+    // });
+
+    setTimeout(() => {
+      setManualScroll(false);
+    }, 1000);
+  }
 
   return (
     <>
-      {/* <button
-        onClick={(el: React.MouseEvent) => {
-          console.log("scrolling into view");
-          console.log(
-            "#########",
-            menuTitleRefs.current[14]?.getBoundingClientRect(),
-          );
-          menuTitleRefs.current[14]?.scrollIntoView({
-            behavior: "smooth", // smooth scrolling
-            block: "nearest", // "nearest" prevents unnecessary vertical scrolling
-            inline: "start", // align the element to the start of the scrollable area horizontally
-          });
-        }}
-      >
-        test
-      </button> */}
-      <div
-        className="sticky top-[12.5rem] w-full border-2 border-solid border-green-600"
-        ref={mainRef}
-      >
+      <div className="sticky top-[12.5rem] w-full border-2 border-solid border-green-600">
         <div className="flex items-center justify-between">
           <div>
             <p className="font-medium">Menu</p>
@@ -188,14 +348,14 @@ export default function MenuHead() {
             <BiMenu size={20} />
           </div>
 
-          <div className="w-[97%] border-2 border-solid border-red-700">
+          <div className="overflow-x-hiddenw w-[97%] border-4 border-solid border-red-700">
             <div
+              ref={scrollAreaRef}
               className="scrollbar-hidden flex w-full items-center space-x-8 overflow-x-auto border-2 border-solid border-yellow-400"
-              ref={menuTitlesAreaRef}
             >
-              {" "}
               {titles.map((el, i) => (
                 <span
+                  onClick={() => scrollToMenu(i)}
                   data-value={i}
                   key={i}
                   ref={(elementNode) => {
@@ -204,30 +364,21 @@ export default function MenuHead() {
                       menuTitleRefs.current[i] = elementNode;
                     }
                   }}
-                  className="block w-fit text-nowrap border-2 border-solid border-red-600 font-medium"
-                  onClick={(el: React.MouseEvent) => {
-                    console.log(
-                      "clicked title",
-                      el.currentTarget.getBoundingClientRect(),
-                    );
-                    console.log("clicked title", el.target);
-                  }}
+                  className="block w-fit cursor-pointer text-nowrap border-2 border-solid border-red-600 font-medium"
                 >
                   {el}
+                  {/* <Link
+                    href={`#${el.replaceAll(/\s+/g, "")}`}
+                    className="block h-full w-full"
+                  ></Link> */}
                 </span>
               ))}
             </div>
-            <div
-              className="h-4 w-full bg-backgroundShade1"
-              onClick={(el: React.MouseEvent) => {
-                console.log("111", el.currentTarget.getBoundingClientRect());
-                console.log("111", el.target);
-              }}
-            >
+            <div className="h-4 w-full bg-backgroundShade1">
               <div
                 style={{
                   width: `${menuTitleDimension.width}px`,
-                  //marginLeft: ` ${558.34375 - 224 - 32 - 16}px`,
+                  marginLeft: ` -2px`,
                   transform: `translateX(${menuTitleDimension.left - 224 - 32 - 16}px)`,
                 }}
                 className={`h-full bg-secondary`}
@@ -237,9 +388,10 @@ export default function MenuHead() {
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-8">
         {titles.map((el, i) => (
           <div
+            id={`${el.replaceAll(/\s+/g, "")}`}
             data-value={i}
             key={i}
             ref={(elementNode) => {
@@ -248,7 +400,7 @@ export default function MenuHead() {
                 menuRefs.current[i] = elementNode;
               }
             }}
-            className="h-[30rem] border-2 border-solid border-pink-700"
+            className="h-[30rem] scroll-mt-[16rem] border-2 border-solid border-pink-700"
           >
             <Heading text={el} />1 body
           </div>
