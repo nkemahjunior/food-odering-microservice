@@ -5,6 +5,7 @@ import MenuTimeAndSearch from "./MenuTimeAndSearch";
 import MenuTitle from "./MenuTitle";
 import CurrentMenuIndicator from "./CurrentMenuIndicator";
 import MenuItem from "./MenuItem";
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 export default function Menu() {
   // const menuTitleRefs = useRef<Record<number, HTMLSpanElement | null>>({});
@@ -35,16 +36,16 @@ export default function Menu() {
     "Beers and Ciders",
     "Wines",
     "Bubbles",
-    "Smoothies",
-    "Mocktails",
-    "Cocktails",
-    "Spirits",
-    "Milkshakes",
-    "Appetizers",
-    "Soups",
-    "Salads",
-    "Main Course",
-    "Kids Menu",
+    // "Smoothies",
+    // "Mocktails",
+    // "Cocktails",
+    // "Spirits",
+    // "Milkshakes",
+    // "Appetizers",
+    // "Soups",
+    // "Salads",
+    // "Main Course",
+    // "Kids Menu",
   ];
 
   useEffect(() => {
@@ -56,12 +57,12 @@ export default function Menu() {
     setScrollContainerWidth(scrollAreaRef.current!.scrollWidth);
   }, []);
 
-
   useEffect(() => {
     function observerCallback(entries: IntersectionObserverEntry[]) {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const value = Number((entry.target as HTMLDivElement).dataset.value);
+          //setCurrentValue(value);
           const curMenuTitle =
             menuTitleRefs.current[value]?.getBoundingClientRect();
           const scrollAreaRect = scrollAreaRef.current!.getBoundingClientRect();
@@ -71,7 +72,9 @@ export default function Menu() {
             curMenuTitle!.right >= 0.6 * scrollAreaRect.right &&
             !manualScroll
           ) {
-            menuTitleRefs.current[value + 2]?.scrollIntoView({
+            const index =
+              value + 2 > titles.length - 1 ? titles.length - 1 : value + 2;
+            menuTitleRefs.current[index]?.scrollIntoView({
               behavior: "auto",
               block: "nearest",
               inline: "nearest",
@@ -83,7 +86,8 @@ export default function Menu() {
             curMenuTitle!.right <= 0.4 * scrollAreaRect.right &&
             !manualScroll
           ) {
-            menuTitleRefs.current[value - 2]?.scrollIntoView({
+            const index = value - 2 < 0 ? 0 : value - 2;
+            menuTitleRefs.current[index]?.scrollIntoView({
               behavior: "auto",
               block: "nearest",
               inline: "start",
@@ -94,10 +98,12 @@ export default function Menu() {
           const newLeft = menuTitleRefs.current[value]?.offsetLeft!;
           const newWidth =
             menuTitleRefs.current[value]?.getBoundingClientRect()?.width!;
-          setmenuTitleDimension({
-            left: newLeft,
-            width: newWidth,
-          });
+          setTimeout(() => {
+            setmenuTitleDimension({
+              left: newLeft,
+              width: newWidth,
+            });
+          },200)
         }
       });
     }
@@ -105,7 +111,7 @@ export default function Menu() {
     const observer = new IntersectionObserver(observerCallback, {
       root: null,
       rootMargin: "0px",
-      threshold: 0.8,
+      threshold: 0.5,
     });
 
     menuRefs.current.forEach((el, index) => {
@@ -117,24 +123,49 @@ export default function Menu() {
         if (el) observer.unobserve(el);
       });
     };
-  }, [menuTitleRefs,menuRefs, scrollAreaRef, manualScroll]);
+  }, [menuTitleRefs, menuRefs, scrollAreaRef, manualScroll]);
 
-  
+  const scrollMenuOnClick = (direction: "forward" | "backward") => {
+    setManualScroll(true);
+    const index = direction == "forward" ? titles.length - 1 : 0;
+    menuRefs.current[index]?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+
+    setTimeout(() => {
+      setManualScroll(false);
+    }, 1000);
+  };
+
   return (
     <>
-      <div className="sticky top-[12.5rem] w-full border-2 border-solid border-green-600">
+      <div className="sticky top-[12.5rem] z-10 w-full space-y-6 bg-white">
         <MenuTimeAndSearch />
 
         <div className="flex w-full items-center space-x-4">
-          <div className="w-[2%] border-2 border-solid border-purple-800">
+          <div className="w-[2%]">
             <BiMenu size={20} />
           </div>
 
-          <div className="w-[97%] border-4 border-solid border-red-700">
+          <div className="w-[88%]">
             <div
               ref={scrollAreaRef}
+              onClick={() => {
+                console.log(
+                  "height ",
+                  scrollAreaRef.current?.getBoundingClientRect(),
+                );
+                console.log("offset ", scrollAreaRef.current?.offsetHeight);
+                console.log(
+                  "scroll top ",
+                  scrollAreaRef.current?.scrollHeight,
+                  " scroll left ",
+                  scrollAreaRef.current?.scrollLeft,
+                );
+              }}
               //ofset parent
-              className="scrollbar-hidden relative flex w-full flex-col space-y-4 overflow-x-auto border-2 border-solid border-yellow-400"
+              className="scrollbar-hidden relative flex w-full flex-col overflow-x-auto"
             >
               <div className="flex w-full items-center space-x-8">
                 {" "}
@@ -150,13 +181,37 @@ export default function Menu() {
                 ))}
               </div>
 
-              <CurrentMenuIndicator scrollContainerWidth={scrollContainerWidth} menuTitleDimension={menuTitleDimension}/>
+              <CurrentMenuIndicator
+                scrollContainerWidth={scrollContainerWidth}
+                menuTitleDimension={menuTitleDimension}
+              />
+            </div>
+          </div>
+
+          <div className="w-[8%]">
+            <div className="flex items-center justify-center space-x-2">
+              <button
+                onClick={() => scrollMenuOnClick("backward")}
+                className="flex items-center justify-center rounded-full bg-backgroundShade1 p-3 hover:bg-backgroundShade2"
+              >
+                <span>
+                  <BsArrowLeft size={20} />
+                </span>
+              </button>
+              <button
+                onClick={() => scrollMenuOnClick("forward")}
+                className="flex items-center justify-center rounded-full bg-backgroundShade1 p-3 hover:bg-backgroundShade2"
+              >
+                <span>
+                  <BsArrowRight size={20} />
+                </span>
+              </button>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="space-y-8">
+      <div className="mt-8 space-y-8 bg-white">
         {titles.map((el, i) => (
           <MenuItem key={i} menuIndex={i} menuRefs={menuRefs} testEl={el} />
         ))}

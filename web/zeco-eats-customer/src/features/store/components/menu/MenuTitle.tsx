@@ -17,10 +17,10 @@ export default function MenuTitle({
 }: fnProps) {
   function scrollToMenu(index: number) {
     manualScroll(true);
-    menuRefs.current[index]?.scrollIntoView(/*{
+    menuRefs.current[index]?.scrollIntoView({
       behavior: "smooth",
       block: "center",
-    }*/);
+    });
 
     setTimeout(() => {
       manualScroll(false);
@@ -38,7 +38,7 @@ export default function MenuTitle({
           menuTitleRefs.current[titleIindex] = elementNode;
         }
       }}
-      className="block w-fit cursor-pointer text-nowrap border-2 border-solid border-red-600 font-medium"
+      className="block w-fit px-2 py-3  transition-colors duration-300 cursor-pointer hover:bg-backgroundShade1  text-nowrap  font-medium"
     >
       {testEl}
     </span>

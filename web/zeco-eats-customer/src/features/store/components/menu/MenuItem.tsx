@@ -1,4 +1,5 @@
 import Heading from "@/shared/components/text/Heading";
+import MenuCard from "./MenuCard";
 
  interface fnProps {
    menuIndex: number;
@@ -7,7 +8,8 @@ import Heading from "@/shared/components/text/Heading";
  }
 
  
-export default function MenuItem({menuIndex, menuRefs, testEl}:fnProps) {
+export default function MenuItem({ menuIndex, menuRefs, testEl }: fnProps) {
+    const fakeArr = Array.from({ length: 12 }, (_, i) => i + 1)
     return (
       <div
         data-value={menuIndex}
@@ -18,9 +20,15 @@ export default function MenuItem({menuIndex, menuRefs, testEl}:fnProps) {
             menuRefs.current[menuIndex] = elementNode;
           }
         }}
-        className="h-[30rem] scroll-mt-[16rem] border-2 border-solid border-pink-700"
+        className={`h-fit scroll-mt-[55rem] space-y-8 `}
+        
       >
-        <Heading text={testEl} />1 body
+        <Heading text={testEl} />
+        <div className="grid w-full grid-cols-2 gap-x-3 gap-y-4">
+          {fakeArr.map((el) => (
+            <MenuCard key={el} />
+          ))}
+        </div>
       </div>
     );
 }
