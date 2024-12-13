@@ -65,9 +65,12 @@ export default function FilterRatingSlider({
   const handleMouseMove = (e: React.PointerEvent<HTMLDivElement>) => {
     if (!isGrabbing) return;
     const delay = 100;
+    const numOfSlideLines = 4
 
     const selectNextPosition =
-      positionOnSlider + 1 > 4 ? 4 : positionOnSlider + 1;
+      positionOnSlider + 1 > numOfSlideLines
+        ? numOfSlideLines
+        : positionOnSlider + 1;
 
     const newSliderBallPosition =
       positions[selectNextPosition].current?.getBoundingClientRect().x;
@@ -141,7 +144,7 @@ export default function FilterRatingSlider({
       <Ratings />
 
       <div
-        className="relative h-[3rem]  w-full touch-none select-none pt-5"
+        className="relative h-[3rem] w-full touch-none select-none pt-5"
         onClick={moveBallOnClick}
         onPointerMove={handleMouseMove}
         onPointerUp={onUnGrabSliderBall}
@@ -208,10 +211,10 @@ export default function FilterRatingSlider({
       </div>
 
       <div className="flex flex-col-reverse space-y-2 lg:flex-row lg:justify-end lg:space-x-4 lg:space-y-0">
-        <button className="hover:bg-backgroundShade2 h-[3rem] w-full rounded-lg font-medium text-black transition-colors duration-300 lg:w-[7rem]">
+        <button className="h-[3rem] w-full rounded-lg font-medium text-black transition-colors duration-300 hover:bg-backgroundShade2 lg:w-[7rem]">
           <span>Reset</span>
         </button>
-        <button className="hover:bg-secondaryTint h-[3rem] w-full rounded-lg bg-secondary font-medium text-white transition-colors duration-300 lg:w-[7rem]">
+        <button className="h-[3rem] w-full rounded-lg bg-secondary font-medium text-white transition-colors duration-300 hover:bg-secondaryTint lg:w-[7rem]">
           <span>Apply</span>
         </button>
       </div>
