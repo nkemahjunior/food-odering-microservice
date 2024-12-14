@@ -10,6 +10,8 @@ import { useDeviceType } from "@/shared/hooks/useDeviceType";
 
 export default function Menu() {
   // const menuTitleRefs = useRef<Record<number, HTMLSpanElement | null>>({});
+    const { isMobile } = useDeviceType();
+    
   const [menuTitleDimension, setmenuTitleDimension] = useState({
     left: 0,
     width: 0,
@@ -24,7 +26,7 @@ export default function Menu() {
   const scrollAreaRef = useRef<HTMLDivElement | null>(null);
   const menuTitleRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const menuRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const { isMobile } = useDeviceType();
+  
 
   const titles = [
     "Sides",
@@ -64,6 +66,7 @@ export default function Menu() {
   }, []);
 
   useEffect(() => {
+     
     function observerCallback(entries: IntersectionObserverEntry[]) {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -118,6 +121,7 @@ export default function Menu() {
       });
     }
 
+    
     const observer = new IntersectionObserver(observerCallback, {
       root: null,
       rootMargin: "0px ",
@@ -133,7 +137,7 @@ export default function Menu() {
         if (el) observer.unobserve(el);
       });
     };
-  }, [menuTitleRefs, menuRefs, scrollAreaRef, manualScroll /*disableBtn*/]);
+  }, [menuTitleRefs, menuRefs, scrollAreaRef, manualScroll, isMobile /*disableBtn*/]);
 
   const scrollMenuOnClick = (direction: "forward" | "backward") => {
     setManualScroll(true);
@@ -147,6 +151,8 @@ export default function Menu() {
       setManualScroll(false);
     }, 1000);
   };
+
+
 
   return (
     <>

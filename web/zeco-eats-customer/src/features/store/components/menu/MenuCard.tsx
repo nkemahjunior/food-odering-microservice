@@ -14,7 +14,7 @@ export default function MenuCard() {
         <p className="text-storeTextColorTint">
           {clipText(
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique vero laboriosam deleniti ex sit voluptatibus",
-            53,
+            53, //the number of characters should depend on the length of the title, if the title is too short allow more charcters here, do this when real data from the api comes
           )}
         </p>
       </div>
