@@ -6,6 +6,7 @@ import MenuTitle from "./MenuTitle";
 import CurrentMenuIndicator from "./CurrentMenuIndicator";
 import MenuItem from "./MenuItem";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+import { useDeviceType } from "@/shared/hooks/useDeviceType";
 
 export default function Menu() {
   // const menuTitleRefs = useRef<Record<number, HTMLSpanElement | null>>({});
@@ -15,10 +16,15 @@ export default function Menu() {
   });
   const [manualScroll, setManualScroll] = useState(false);
   const [scrollContainerWidth, setScrollContainerWidth] = useState(0);
+  const [disableBtn, setDisableBtn] = useState({
+    forward: true,
+    backward: false,
+  });
 
   const scrollAreaRef = useRef<HTMLDivElement | null>(null);
   const menuTitleRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const menuRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const { isMobile } = useDeviceType();
 
   const titles = [
     "Sides",
@@ -62,7 +68,11 @@ export default function Menu() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const value = Number((entry.target as HTMLDivElement).dataset.value);
-          //setCurrentValue(value);
+          setDisableBtn({
+            forward: value == titles.length - 1,
+            backward: value == 0,
+          });
+
           const curMenuTitle =
             menuTitleRefs.current[value]?.getBoundingClientRect();
           const scrollAreaRect = scrollAreaRef.current!.getBoundingClientRect();
@@ -103,15 +113,15 @@ export default function Menu() {
               left: newLeft,
               width: newWidth,
             });
-          },200)
+          }, 200);
         }
       });
     }
 
     const observer = new IntersectionObserver(observerCallback, {
       root: null,
-      rootMargin: "0px",
-      threshold: 0.5,
+      rootMargin: "0px ",
+      threshold: isMobile ? 0.2 : 0.5, //0.5
     });
 
     menuRefs.current.forEach((el, index) => {
@@ -123,7 +133,7 @@ export default function Menu() {
         if (el) observer.unobserve(el);
       });
     };
-  }, [menuTitleRefs, menuRefs, scrollAreaRef, manualScroll]);
+  }, [menuTitleRefs, menuRefs, scrollAreaRef, manualScroll /*disableBtn*/]);
 
   const scrollMenuOnClick = (direction: "forward" | "backward") => {
     setManualScroll(true);
@@ -140,7 +150,7 @@ export default function Menu() {
 
   return (
     <>
-      <div className="sticky top-[12.5rem] z-10 w-full space-y-6 bg-white">
+      <div className="sticky top-16 z-10 w-full space-y-6 bg-white lg:top-24 2xl:top-[12.48rem]">
         <MenuTimeAndSearch />
 
         <div className="flex w-full items-center space-x-4">
@@ -148,7 +158,7 @@ export default function Menu() {
             <BiMenu size={20} />
           </div>
 
-          <div className="w-[88%]">
+          <div className="w-[97%] lg:w-[88%]">
             <div
               ref={scrollAreaRef}
               onClick={() => {
@@ -167,7 +177,7 @@ export default function Menu() {
               //ofset parent
               className="scrollbar-hidden relative flex w-full flex-col overflow-x-auto"
             >
-              <div className="flex w-full items-center space-x-8">
+              <div className="flex w-full items-center space-x-4 lg:space-x-8">
                 {" "}
                 {titles.map((el, i) => (
                   <MenuTitle
@@ -188,11 +198,12 @@ export default function Menu() {
             </div>
           </div>
 
-          <div className="w-[8%]">
+          <div className="hidden w-[8%] lg:block">
             <div className="flex items-center justify-center space-x-2">
               <button
                 onClick={() => scrollMenuOnClick("backward")}
-                className="flex items-center justify-center rounded-full bg-backgroundShade1 p-3 hover:bg-backgroundShade2"
+                className={`flex items-center justify-center rounded-full ${disableBtn.backward ? "cursor-not-allowed bg-background text-stone-400" : "bg-backgroundShade1 hover:bg-backgroundShade2"} p-3`}
+                disabled={disableBtn.backward}
               >
                 <span>
                   <BsArrowLeft size={20} />
@@ -200,7 +211,8 @@ export default function Menu() {
               </button>
               <button
                 onClick={() => scrollMenuOnClick("forward")}
-                className="flex items-center justify-center rounded-full bg-backgroundShade1 p-3 hover:bg-backgroundShade2"
+                className={`flex items-center justify-center rounded-full ${disableBtn.forward ? "cursor-not-allowed bg-background text-stone-400" : "bg-backgroundShade1 hover:bg-backgroundShade2"} p-3`}
+                disabled={disableBtn.forward}
               >
                 <span>
                   <BsArrowRight size={20} />
@@ -211,7 +223,7 @@ export default function Menu() {
         </div>
       </div>
 
-      <div className="mt-8 space-y-8 bg-white">
+      <div className="mt-8 divide-y-4 divide-backgroundBorder bg-white lg:space-y-8 lg:divide-y-0">
         {titles.map((el, i) => (
           <MenuItem key={i} menuIndex={i} menuRefs={menuRefs} testEl={el} />
         ))}

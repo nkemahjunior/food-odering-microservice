@@ -20,11 +20,10 @@ export default function MenuItem({ menuIndex, menuRefs, testEl }: fnProps) {
             menuRefs.current[menuIndex] = elementNode;
           }
         }}
-        className={`h-fit scroll-mt-[55rem] space-y-8 `}
-        
+        className={`h-fit scroll-mt-[55rem]  py-4 lg:space-y-8 lg:py-0`}
       >
         <Heading text={testEl} />
-        <div className="grid w-full grid-cols-2 gap-x-3 gap-y-4">
+        <div className="grid w-full grid-cols-1 gap-y-4 divide-y-[1px] lg:divide-y-0 divide-backgroundBorder lg:grid-cols-2 lg:gap-x-3">
           {fakeArr.map((el) => (
             <MenuCard key={el} />
           ))}
