@@ -167,19 +167,6 @@ export default function Menu() {
           <div className="w-[97%] lg:w-[88%]">
             <div
               ref={scrollAreaRef}
-              onClick={() => {
-                console.log(
-                  "height ",
-                  scrollAreaRef.current?.getBoundingClientRect(),
-                );
-                console.log("offset ", scrollAreaRef.current?.offsetHeight);
-                console.log(
-                  "scroll top ",
-                  scrollAreaRef.current?.scrollHeight,
-                  " scroll left ",
-                  scrollAreaRef.current?.scrollLeft,
-                );
-              }}
               //ofset parent
               className="scrollbar-hidden relative flex w-full flex-col overflow-x-auto"
             >
