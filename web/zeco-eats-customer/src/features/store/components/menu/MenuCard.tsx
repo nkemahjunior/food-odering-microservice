@@ -1,25 +1,46 @@
-"use clinet";
+"use client";
 import ImageContainer from "@/shared/components/image/ImageContainer";
 import ModalOverlayR from "@/shared/components/modal/ModalOverlayR";
 import CardTitle from "@/shared/components/text/CardTitle";
 import Heading from "@/shared/components/text/Heading";
 import { clipText } from "@/shared/utils/clipText";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MenuCardModal from "./MenuCardModal";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import ModalOverlayUrl from "@/shared/components/modal/ModalOverlayUrl";
+import { useDeviceType } from "@/shared/hooks/useDeviceType";
 
-export default function MenuCard() {
-  const [open, setOpen] = useState(false);
+export default function MenuCard({id}:{id:number}) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const viewDish = "viewDish";
+
+  const {isMobile} = useDeviceType()
 
 
+  const openModal = () => {
+    const params = new URLSearchParams(searchParams);
+    params.set(viewDish, "true");
+    //update this with real store name
+
+    console.log(" is mobile ", isMobile);
+    const modalLink = isMobile
+      ? `storeName/dish-details`
+      : `${"storeName"}?${params.toString()}${id}`;
+     router.push(modalLink);
+  };
+
+  
 
   return (
     <>
       {" "}
-      <div>
+      <div onClick={openModal}>
         <div
           className="flex h-[10rem] w-full cursor-pointer space-x-1 overflow-hidden border-solid border-backgroundBorder py-4 lg:h-[10rem] lg:rounded-lg lg:border-[1px] lg:py-0"
-          onClick={() => setOpen(true)}
+          //onClick={() => setOpen(true)}
         >
           <div className="flex w-[60%] flex-col justify-center space-y-1 lg:w-[70%] lg:flex-none lg:p-4">
             <CardTitle
@@ -54,9 +75,9 @@ export default function MenuCard() {
           </div>
         </div>
       </div>
-      <ModalOverlayR setOpen={setOpen} open={open} rounded="rounded-2xl">
-        <MenuCardModal />
-      </ModalOverlayR>
+      <ModalOverlayUrl id={id}  /*open={open}*/  open={searchParams.get(viewDish)} router={router} rounded="rounded-2xl">
+        <MenuCardModal isModal={true} />
+      </ModalOverlayUrl>
     </>
   );
 }

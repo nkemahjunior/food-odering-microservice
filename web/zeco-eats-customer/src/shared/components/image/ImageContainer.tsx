@@ -30,7 +30,7 @@ export default function ImageContainer({
 }: FnProps) {
   return (
     <div
-      className={`relative ${height} ${width} lg:overflow-hidden ${roundedCorners} ${className}`}
+      className={`relative ${height} ${width} overflow-hidden ${roundedCorners} ${className} `}
     >
       <Image
         ref={ref}

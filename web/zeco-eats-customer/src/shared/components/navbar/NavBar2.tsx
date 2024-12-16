@@ -5,7 +5,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Logo from "../Logo";
 
-export default function NavBar2({notHome}:{notHome:boolean}) {
+export default function NavBar2({ notHome }: { notHome: boolean }) {
   const [showNavMobile, setShowNavMobile] = useState(false);
   const toggleNavMobile = (show: boolean) => {
     setShowNavMobile(show);
@@ -20,7 +20,7 @@ export default function NavBar2({notHome}:{notHome:boolean}) {
           <Logo text1Size="text-xl" />
         </div>
 
-        <div className="flex h-full w-16 items-center justify-center uuborder-l-[1px] border-solid border-backgroundBorder">
+        <div className="uuborder-l-[1px] flex h-full w-16 items-center justify-center border-solid border-backgroundBorder">
           <div
             className="z-20 cursor-pointer space-y-2 lg:hidden"
             onClick={() => toggleNavMobile(!showNavMobile)}

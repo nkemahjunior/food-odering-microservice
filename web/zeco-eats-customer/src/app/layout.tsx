@@ -3,6 +3,7 @@ import "./globals.css";
 import { poppins } from "@/shared/fonts/fonts";
 import NavBar from "@/shared/components/navbar/NavBar";
 import FooterSection from "@/shared/components/footer/FooterSection";
+import React from "react";
 
 export const metadata: Metadata = {
   title: "zeco eats",
@@ -10,16 +11,19 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({
+ 
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: Readonly<{  children: React.ReactNode }>) {
   // const session = await auth();
   // console.log("-----------------");
   // console.log(session);
   // console.log("-----------------");
 
+
   return (
     <html lang="en">
-      <body className={`${poppins.className}  text-sm antialiased `}>
+      <body className={`${poppins.className} text-sm antialiased`}>
+    
         <NavBar />
         {children}
         <FooterSection />

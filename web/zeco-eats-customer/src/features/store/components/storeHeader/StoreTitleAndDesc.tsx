@@ -48,8 +48,8 @@ export default function StoreTitleAndDesc() {
             <span className="hidden text-nowrap lg:inline">
               £2 Delivery fee &middot;
             </span>
-            {restaurantKeywords.map((el) => (
-              <span className="hidden text-nowrap lg:inline">
+            {restaurantKeywords.map((el,i) => (
+              <span key={i} className="hidden text-nowrap lg:inline">
                 {el}&nbsp;&middot;
               </span>
             ))}
