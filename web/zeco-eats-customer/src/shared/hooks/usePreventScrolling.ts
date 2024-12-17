@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export const usePreventScrolling = (disableScrolling: boolean) => {
+export const usePreventScrolling = (disableScrolling: boolean | string | null) => {
   useEffect(() => {
     const scrollbarWidth =
       window.innerWidth - document.documentElement.clientWidth;

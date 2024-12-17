@@ -1,39 +1,44 @@
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { ReadonlyURLSearchParams } from "next/navigation";
+"use client";
+
+import { usePreventScrolling } from "@/shared/hooks/usePreventScrolling";
+import { useRouter } from "next/navigation";
 import { RxCross2 } from "react-icons/rx";
 
 interface fnProps {
-  id:number
+  disableScrolling: boolean | string | null;
   children: React.ReactNode;
-  open?: string | null;
-  router?: AppRouterInstance;
   rounded?: string;
   bg?: string;
   padding?: string;
+  className?: string
+  disableCancelBtn?:boolean
 }
 
 export default function ModalOverlayUrl({
-  id,
+  disableScrolling,
   children,
-  //setOpen,
-  open,
-  router,
-  rounded = "rounded-lg",
+  rounded = "rounded-2xl",
   bg = "bg-white",
-  padding = "px-6 pb-6 pt-2", //bg-[rgb(0,0,0,0.2)]
+  padding = "px-6 pb-6 pt-2",
+  className,
+  disableCancelBtn
 }: fnProps) {
+  const router = useRouter();
+
+  usePreventScrolling(disableScrolling);
+
   return (
     <div
-      className={`absoluteb ${open === `true${id}` ? "fixed" : "hidden"} inset-0 z-[100] flex  items-center justify-center border-solid bg-[rgb(0,0,0,0.07)]`}
+      className={`fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto border-solid bg-[rgb(0,0,0,0.2)]`}
       onClick={() => router?.back()}
     >
       <div
-        className={`h-fit w-fit ${rounded} ${bg} ${padding} space-y-2`}
+        className={`h-fit w-fit ${rounded} ${bg} ${padding} ${className} space-y-2`}
         onClick={(e: React.MouseEvent) => {
           e.stopPropagation();
         }}
       >
-        <div className={`flex w-full justify-end`}>
+        <div className={` w-full justify-end ${disableCancelBtn ? 'hidden':'flex'}`}>
           <button
             className="flex items-center justify-center rounded-full bg-background p-2 hover:bg-backgroundShade1"
             onClick={() => router?.back()}
@@ -43,6 +48,7 @@ export default function ModalOverlayUrl({
             </span>
           </button>
         </div>
+
         {children}
       </div>
     </div>

@@ -6,7 +6,7 @@ import SelectionCategoryItem from "./SelectionCategoryItem";
  
 export default function SelectionCategory() {
     return (
-      <div className="mb-4 mt-4 space-y-4">
+      <div className=" space-y-4 ">
         <div className="">
           <div>
             <div className="flex items-center justify-between">

@@ -5,6 +5,7 @@ import NavBar from "@/shared/components/navbar/NavBar";
 import FooterSection from "@/shared/components/footer/FooterSection";
 import React from "react";
 
+
 export const metadata: Metadata = {
   title: "zeco eats",
   description: "Get your food wherever you want",
@@ -23,10 +24,12 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.className} text-sm antialiased`}>
-    
-        <NavBar />
-        {children}
-        <FooterSection />
+        
+          
+          <NavBar />
+          {children}
+          <FooterSection />
+       
         {/* <AuthProvider session={session}>
           <ExpiredTokenCheck>
               {children}

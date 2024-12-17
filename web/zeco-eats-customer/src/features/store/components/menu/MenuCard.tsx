@@ -1,38 +1,24 @@
 "use client";
-import ImageContainer from "@/shared/components/image/ImageContainer";
-import ModalOverlayR from "@/shared/components/modal/ModalOverlayR";
 import CardTitle from "@/shared/components/text/CardTitle";
-import Heading from "@/shared/components/text/Heading";
 import { clipText } from "@/shared/utils/clipText";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import MenuCardModal from "./MenuCardModal";
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import ModalOverlayUrl from "@/shared/components/modal/ModalOverlayUrl";
+import { useRouter } from "next/navigation";
 import { useDeviceType } from "@/shared/hooks/useDeviceType";
+import { useUpdateUrlParams } from "@/shared/hooks/useUpdateUrlParams";
+import { VIEW_DISH } from "@/features/store/utils/modalUrlKeys";
 
-export default function MenuCard({id}:{id:number}) {
+export default function MenuCard({ id }: { id: number }) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const viewDish = "viewDish";
-
-  const {isMobile} = useDeviceType()
-
+  const { isMobile } = useDeviceType();
+  const updateParams = useUpdateUrlParams();
 
   const openModal = () => {
-    const params = new URLSearchParams(searchParams);
-    params.set(viewDish, "true");
-    //update this with real store name
-
-    console.log(" is mobile ", isMobile);
-    const modalLink = isMobile
-      ? `storeName/dish-details`
-      : `${"storeName"}?${params.toString()}${id}`;
-     router.push(modalLink);
+    if (isMobile) {
+      router.push(`storeName/dish-details`);
+      return;
+    }
+    updateParams(VIEW_DISH, id.toString() + "testMenu");
   };
-
-  
 
   return (
     <>
@@ -75,9 +61,6 @@ export default function MenuCard({id}:{id:number}) {
           </div>
         </div>
       </div>
-      <ModalOverlayUrl id={id}  /*open={open}*/  open={searchParams.get(viewDish)} router={router} rounded="rounded-2xl">
-        <MenuCardModal isModal={true} />
-      </ModalOverlayUrl>
     </>
   );
 }

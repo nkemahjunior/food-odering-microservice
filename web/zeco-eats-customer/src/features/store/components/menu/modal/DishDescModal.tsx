@@ -4,7 +4,7 @@ import Heading from "@/shared/components/text/Heading";
  
 export default function DishDescModal() {
     return (
-      <div className="space-y-2 border-b-[1px] border-solid border-backgroundBorder pb-6">
+      <div className="space-y-2 border-b-[1px]border-solidborder-backgroundBorderpb-6">
         <Heading text="Pesto Mozzarella" />
         <p className="text-lg text-storeTextColorTint lg:text-xl">£99.99</p>
         <p>
