@@ -12,24 +12,20 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({
- 
   children,
-}: Readonly<{  children: React.ReactNode }>) {
+}: Readonly<{ children: React.ReactNode }>) {
   // const session = await auth();
   // console.log("-----------------");
   // console.log(session);
   // console.log("-----------------");
 
-
   return (
     <html lang="en">
       <body className={`${poppins.className} text-sm antialiased`}>
-        
-          
-          <NavBar />
-          {children}
-          <FooterSection />
-       
+        <NavBar />
+        {children}
+        <FooterSection />
+
         {/* <AuthProvider session={session}>
           <ExpiredTokenCheck>
               {children}

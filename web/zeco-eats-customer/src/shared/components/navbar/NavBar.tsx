@@ -18,7 +18,7 @@ export default function NavBar() {
   return (
     <>
       <nav
-        className={`${notHome && "lg: lg: lg: sticky top-0 z-[1] border-solid border-backgroundBorder bg-white 2xl:mb-8 2xl:border-b-[1px]"}`}
+        className={`${notHome && "lg: lg: lg: sticky top-0 z-[99] border-solid border-backgroundBorder bg-white 2xl:mb-8 2xl:border-b-[1px]"}`}
       >
         <NavBar1 />
         {!hideNavBar && <NavBar2 notHome={notHome} />}
