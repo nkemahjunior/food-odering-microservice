@@ -4,9 +4,11 @@ import CartIncreaseDecreaseQty from "./CartIncreaseDecreaseQty";
  
  
 export default function CartItem() {
+
+    
     return (
-      <div className="flex items-center space-x-4">
-        <div className="w-[20%]">
+      <div className="flex items-center space-x-4 py-4">
+        <div className="w-[7rem]">
           <ImageContainer
             height="h-[5rem]"
             width="w-full"
@@ -17,7 +19,7 @@ export default function CartItem() {
         </div>
 
         <div className="flex w-full flex-col justify-center text-storeTextColorTint">
-          <p className="text-base font-semibold text-secondary">
+          <p className="text-base  font-medium text-secondary">
             Hot Pepper Soup
           </p>
           <div className="flex flex-wrap items-center space-x-1">
@@ -28,7 +30,7 @@ export default function CartItem() {
             <span>Sauce stew (£2.00),</span>
             <span>Groundnut stew (£4.00)</span>
             <span>Sauce stew (£2.00),</span>
-            <span>Groundnut stew (£4.00)</span>
+          
           </div>
 
           <p className="mt-2 font-medium">£116.5</p>

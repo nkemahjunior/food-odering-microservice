@@ -1,5 +1,6 @@
 import { usePreventScrolling } from "@/shared/hooks/usePreventScrolling";
 import { RxCross2 } from "react-icons/rx";
+import CloseBtn from "../buttons/CloseBtn";
 
 interface fnProps {
   children: React.ReactNode;
@@ -20,7 +21,7 @@ export default function ModalOverlayR({
   bg = "bg-white",
   padding = "px-6 pb-6 pt-2",
 }: fnProps) {
-  usePreventScrolling(open)
+  usePreventScrolling(open);
   return (
     <div
       className={`absoluteb ${open ? "fixed" : "hidden"} inset-0 z-[101] ${controlChildren ? " " : `flex items-center justify-center`} h-screen w-full border-solid bg-[rgb(0,0,0,0.2)]`}
@@ -32,7 +33,20 @@ export default function ModalOverlayR({
           e.stopPropagation();
         }}
       >
-        {/* {!controlChildren && (
+        {!controlChildren && (
+          <div className={`flex w-full justify-end`}>
+            <CloseBtn setOpen={setOpen} />
+          </div>
+        )}
+
+        {children}
+      </div>
+    </div>
+  );
+}
+
+{
+  /* {!controlChildren && (
           <div className={`flex w-full justify-end`}>
             <button className="flex items-center justify-center rounded-full bg-background p-2 hover:bg-backgroundShade1">
               <span>
@@ -40,10 +54,5 @@ export default function ModalOverlayR({
               </span>
             </button>
           </div>
-        )} */}
-
-        {children}
-      </div>
-    </div>
-  );
+        )} */
 }

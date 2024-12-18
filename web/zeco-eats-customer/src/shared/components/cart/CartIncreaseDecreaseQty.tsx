@@ -2,7 +2,7 @@ import { BiMinus, BiPlus } from "react-icons/bi";
 
 export default function CartIncreaseDecreaseQty() {
   return (
-    <div className="flex items-center space-x-4 bg-backgroundShade1 hover:bg-backgroundShade2 p-2 rounded-3xl">
+    <div className="flex items-center space-x-4 bg-backgroundShade1 hover:bg-backgroundShade2 py-2 px-3 rounded-3xl">
       <button
         className={`disabled:hidden disabled:cursor-not-allowed disabled:text-stone-400`}
         //   onClick={decreaseSelectedQty}

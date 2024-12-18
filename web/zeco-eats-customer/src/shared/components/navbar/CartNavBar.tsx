@@ -8,6 +8,10 @@ import CardTitle from "../text/CardTitle";
 import RestaurantTitleCart from "../cart/RestaurantTitleCart";
 import CartIncreaseDecreaseQty from "../cart/CartIncreaseDecreaseQty";
 import CartItem from "../cart/CartItem";
+import Line from "../Line";
+import CloseBtn from "../buttons/CloseBtn";
+import { BiTrash } from "react-icons/bi";
+import Cart from "../cart/Cart";
 
 export default function CartNavBar({
   roundedBottom,
@@ -17,12 +21,13 @@ export default function CartNavBar({
   mobile?: boolean;
 }) {
   const [open, setOpen] = useState(false);
+  
 
   return (
     <>
       {" "}
       <div
-        className={`flex cursor-pointer items-center justify-evenly ${roundedBottom && "rounded-bl-xl"} h-full bg-[#028643] font-semibold text-white`}
+        className={`flex cursor-pointer items-center justify-evenly ${roundedBottom && "rounded-bl-xl"} h-full overflow-y-auto bg-[#028643] font-semibold text-white`}
         onClick={() => setOpen(true)}
       >
         <div className="flex h-full items-center border-solid px-4">
@@ -36,15 +41,8 @@ export default function CartNavBar({
           GBP 79.89
         </div>
       </div>
-      <ModalOverlayR open={open} setOpen={setOpen} controlChildren>
-        <div className="absolute right-0 h-full w-[30%] space-y-4 px-4 items-center border-2 border-solid border-green-600 bg-white">
-          <RestaurantTitleCart />
-
-          <div>
-            <CartItem/>
-          </div>
-        </div>
-      </ModalOverlayR>
+      
+      <Cart open={open} setOpen={setOpen}/>
     </>
   );
 }
