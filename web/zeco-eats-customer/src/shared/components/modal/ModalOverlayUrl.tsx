@@ -3,33 +3,40 @@
 import { usePreventScrolling } from "@/shared/hooks/usePreventScrolling";
 import { useRouter } from "next/navigation";
 import { RxCross2 } from "react-icons/rx";
+import ButtonBackUrl from "../buttons/ButtonBacKUrl";
+import { useEffect, useState } from "react";
 
 interface fnProps {
-  disableScrolling: boolean | string | null;
+  disableScrolling?: boolean | string | null;
   children: React.ReactNode;
   rounded?: string;
   bg?: string;
   padding?: string;
-  className?: string
-  disableCancelBtn?:boolean
+  className?: string;
+  disableCancelBtn?: boolean;
 }
 
 export default function ModalOverlayUrl({
-  disableScrolling,
+  disableScrolling = false,
   children,
   rounded = "rounded-2xl",
   bg = "bg-white",
   padding = "px-6 pb-6 pt-2",
   className,
-  disableCancelBtn
+  disableCancelBtn,
 }: fnProps) {
+  usePreventScrolling(disableScrolling);
   const router = useRouter();
 
-  usePreventScrolling(disableScrolling);
+  const [mount, setMount] = useState(false);
+  useEffect(() => {
+    if (disableScrolling) setMount(true);
+    else setMount(false);
+  }, [disableScrolling]);
 
   return (
     <div
-      className={`fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto border-solid bg-[rgb(0,0,0,0.2)]`}
+      className={`items-centejxxx fixed inset-0 z-[100] flex max-h-screen justify-center ${mount && "overflow-y-auto"} border-solid bg-[rgb(0,0,0,0.2)]`}
       onClick={() => router?.back()}
     >
       <div
@@ -38,15 +45,10 @@ export default function ModalOverlayUrl({
           e.stopPropagation();
         }}
       >
-        <div className={` w-full justify-end ${disableCancelBtn ? 'hidden':'flex'}`}>
-          <button
-            className="flex items-center justify-center rounded-full bg-background p-2 hover:bg-backgroundShade1"
-            onClick={() => router?.back()}
-          >
-            <span>
-              <RxCross2 size={20} />
-            </span>
-          </button>
+        <div
+          className={`w-full justify-end ${disableCancelBtn ? "hidden" : "flex"}`}
+        >
+          <ButtonBackUrl />
         </div>
 
         {children}

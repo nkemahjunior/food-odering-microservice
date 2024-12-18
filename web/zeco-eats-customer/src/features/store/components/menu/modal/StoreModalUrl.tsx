@@ -14,16 +14,16 @@ export default function StoreModalUrl() {
   return (
     <>
       <div className={`${viewDish ? "block" : "hidden"} h-full w-full`}>
-        <ModalOverlayUrl disableScrolling={viewDish }>
+        <ModalOverlayUrl disableScrolling={viewDish} className="mt-[10%]">
           <MenuCardModal isModal />
         </ModalOverlayUrl>
       </div>
 
-      <div className={`${selection ? "block" : "hidden"} h-full w-full`}>
+      {/* <div className={`${selection ? "block" : "hidden"} h-full w-full`}>
         <ModalOverlayUrl disableScrolling={selection} className=" mt-[25%]" disableCancelBtn>
           <SelectionModal />
         </ModalOverlayUrl>
-      </div>
+      </div> */}
     </>
   );
 }

@@ -52,20 +52,3 @@ export default function Selection({
     </div>
   );
 }
-
-/**
- *   const [selectedQty, setSelectedQty] = useState(0);
-  const [disable, setDisable] = useState(false);
-
-  const increaseSelectedQty = () => {
-    if (selectedQty + 1 > max) return setDisable(true);
-    setSelectedQty((prev) => prev + 1);
-  };
-
-  const decreaseSelectedQty = () => {
-    if (selectedQty - 1 < min) return setDisable(true);
-    if (selectedQty - 1 < max && disable) setDisable(false);
-    
-    setSelectedQty((prev) => prev - 1);
-  };
- */

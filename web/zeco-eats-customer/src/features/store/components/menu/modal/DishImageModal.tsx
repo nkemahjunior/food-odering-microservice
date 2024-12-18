@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 
-export default function DishImageModal() {
+export default function DishImageModal({isModal}:{isModal:boolean | undefined}) {
   const router = useRouter();
   const imageRef = useRef<HTMLImageElement | null>(null);
 
@@ -37,7 +37,9 @@ export default function DishImageModal() {
   };
 
   return (
-    <div className="w-full lg:sticky lg:top-[8rem] lg:h-[35rem] lg:w-[50%]">
+    <div
+      className={`w-full lg:sticky ${isModal ? "lg:top-[5.5rem]" : "lg:top-[8rem]"} lg:h-[35rem] lg:w-[50%]`}
+    >
       <button
         className="absolute left-2 top-4 z-[1] flex items-center justify-center rounded-full bg-background p-3 hover:bg-backgroundShade1 lg:hidden"
         onClick={() => {

@@ -2,6 +2,9 @@
 import DishImageModal from "./modal/DishImageModal";
 import BackToRestaurantModal from "./modal/BackToRestaurantModal";
 import DishInfoModal from "./modal/DishInfoModal";
+import { useRef } from "react";
+import { useIsIntersecting } from "@/shared/hooks/useIsIntersecting";
+import StickyModalTitle from "./modal/StickyModalTitle";
 
 export default function MenuCardModal({
   gapx = "gap-x-8",
@@ -10,18 +13,35 @@ export default function MenuCardModal({
   gapx?: string;
   isModal?: boolean;
 }) {
+  const observerRef = useRef<HTMLDivElement | null>(null);
+
+  const isIntersecting = useIsIntersecting(
+    observerRef,
+    true,
+    { root: null, rootMargin: "0px ", threshold: 1 },
+    [],
+  );
+
   return (
     <div
-      className={` ${!isModal ? "flex w-full justify-center bg-[#f7f7f7] lg:bg-white" : " "}`}
+      className={` ${!isModal ? "flex w-full justify-center bg-[#f7f7f7] lg:bg-white" : " "} `}
     >
       <div
         className={`${!isModal ? "lg:min-h-[32rem]" : "min-h-[35rem]"} w-full lg:w-[65rem]`}
       >
-        <BackToRestaurantModal isModal={isModal} />
+        {!isModal && <BackToRestaurantModal />}
+        {isModal && (
+          <StickyModalTitle
+            isIntersecting={isIntersecting}
+            title="Pesto Mozzarella"
+          />
+        )}
+        <div ref={observerRef} className="h-1 w-full "></div>
+
         <div
           className={`flex h-full w-full flex-col space-y-4 lg:flex-row lg:space-y-0 ${gapx}`}
         >
-          <DishImageModal />
+          <DishImageModal isModal={isModal} />
           <DishInfoModal isModal={isModal} />
         </div>
       </div>

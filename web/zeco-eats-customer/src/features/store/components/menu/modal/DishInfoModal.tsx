@@ -15,7 +15,7 @@ export default function DishInfoModal({
   
   const fakeArr = Array.from({length:5})
   return (
-    <div className="flex w-full flex-col justify-center space-y-6 px-4 lg:w-[50%] lg:px-0">
+    <div className="flex w-full h-full mt-96 flex-col justify-center space-y-6 px-4 lg:w-[50%] lg:px-0">
       <DishDescModal />
       <Line />
 

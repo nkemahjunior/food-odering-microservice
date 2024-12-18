@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 
-export const usePreventScrolling = (disableScrolling: boolean | string | null) => {
+export const usePreventScrolling = (
+  disableScrolling: boolean | string | null | undefined,
+) => {
   useEffect(() => {
     const scrollbarWidth =
       window.innerWidth - document.documentElement.clientWidth;
@@ -19,3 +21,5 @@ export const usePreventScrolling = (disableScrolling: boolean | string | null) =
     };
   }, [disableScrolling]);
 };
+
+
