@@ -9,6 +9,10 @@ export default {
   theme: {
     extend: {
       colors: {
+        primary: "#FC8A06",
+        secondary: "#03081F",
+        secondaryTint: "#12172c",
+        textTint: "#78716c",
         background: "rgb(245 245 244)",
         backgroundShade1: "#ebebea",
         backgroundShade2: "#e6e6e5",

@@ -1,37 +1,52 @@
-//import Link from "next/link";
-//import { IoMdHome } from "react-icons/io";
-import NavLink, { nestedLinks } from "./NavLink";
-
- 
-const obj:nestedLinks = {
-  mainLink: "main 1",
-  childLink: [
-    " child 1",
-    "child 2",
-    {
-      mainLink: "child main 1",
-      childLink: [
-        " child child main",
-        " child child main",
-        { mainLink: "child main link 3", childLink: ["one ", "two"] },
-      ],
-    },
-  ],
-  initialPaddingLeft: 0,
-  paddingIncrement: 1,
-};
+import NavLink from "./NavLink";
+import { IoBasketOutline, IoHomeOutline, IoStorefrontOutline } from "react-icons/io5";
+import { BsBarChartLine, BsPeople } from "react-icons/bs";
+import { MdOutlinePayments, MdOutlineRestaurantMenu, MdOutlineSettings } from "react-icons/md";
 
 export default function SideNav() {
-    return (
-      <div className="h-screen w-[20vw] border-2 border-solid border-red-700">
-        {/* <Link href="" className="block border-2 border-solid border-purple-700">
-          {" "}
-          <span>
-            <IoMdHome />
-          </span>
-
-        </Link> */}
-        <NavLink nested={false} nestedLinks={obj} />
-      </div>
-    );
+  return (
+    <div className="h-screen w-full space-y-4 border-0 border-solid border-red-700">
+      <NavLink icon={<IoHomeOutline />} text="Home" />
+      <NavLink icon={<IoStorefrontOutline />} text="Stores" />
+      <NavLink icon={<IoBasketOutline />} text="Orders" />
+      <NavLink
+        nestedLinks={{
+          icon: <BsBarChartLine />,
+          mainLink: "Performance",
+          childLink: ["Sales"],
+          initialPaddingLeft: 0,
+          paddingIncrement: 1,
+        }}
+      />
+      <NavLink
+        nestedLinks={{
+          icon: <BsPeople />,
+          mainLink: "Customers",
+          childLink: ["My Reviews"],
+          initialPaddingLeft: 0,
+          paddingIncrement: 1,
+        }}
+      />
+      <NavLink icon={<MdOutlineRestaurantMenu />} text="Menu" />
+      <NavLink
+        nestedLinks={{
+          icon: <MdOutlinePayments />,
+          mainLink: "Payments",
+          childLink: ["Payouts"],
+          initialPaddingLeft: 0,
+          paddingIncrement: 1,
+        }}
+      />
+      <NavLink
+        nestedLinks={{
+          //display all on one page , use #links
+          icon: <MdOutlineSettings />,
+          mainLink: "Settings",
+          childLink: ["General", "Holiday hours", "Preparation times"],
+          initialPaddingLeft: 0,
+          paddingIncrement: 1,
+        }}
+      />
+    </div>
+  );
 }

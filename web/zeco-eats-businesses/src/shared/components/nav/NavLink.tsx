@@ -1,10 +1,10 @@
 "use client";
 import Link from "next/link";
-
 import { JSX, useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 
-export interface nestedLinks {
+interface nestedLinks {
+  icon: React.ReactNode;
   mainLink: string;
   childLink: (string | nestedLinks)[];
   initialPaddingLeft?: number;
@@ -14,23 +14,27 @@ export interface nestedLinks {
 interface fnProps {
   icon?: React.ReactNode;
   text?: string;
-  nested?: boolean;
-  nestedLinks: nestedLinks;
+  nestedLinks?: nestedLinks;
 }
+
+const textToLink = (text: string) => {
+  return text.toLowerCase().replaceAll(" ", "-");
+};
 
 const RenderNestedLinks = (
   links: nestedLinks,
   padding: number,
   paddingIncrement: number,
 ): JSX.Element => {
-  const [closeChildren, setCloseChildren] = useState(false);
+  const [closeChildren, setCloseChildren] = useState(true);
   return (
-    <div key={links.mainLink}>
+    <div key={links.mainLink} className="text-base font-medium">
       <div
-        className="flex items-center space-x-2"
+        className="flex cursor-pointer items-center space-x-2"
         style={{ paddingLeft: `${padding}rem` }}
         onClick={() => setCloseChildren((v) => !v)}
       >
+        <span>{links.icon}</span>
         <span> {links.mainLink}</span>
         <span>
           {closeChildren ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
@@ -44,8 +48,8 @@ const RenderNestedLinks = (
           typeof el === "string" ? (
             <Link
               key={i + el}
-              className="block"
-              href=""
+              className="block rounded-lg py-2 hover:bg-background"
+              href={textToLink(el)}
               style={{ paddingLeft: `${padding + paddingIncrement}rem` }}
             >
               {el}
@@ -59,28 +63,20 @@ const RenderNestedLinks = (
   );
 };
 
-export default function NavLink({
-  /*icon, text,*/ nested,
-  nestedLinks,
-}: fnProps) {
-  return nested ? (
-    <div>
-      <span>{nestedLinks.mainLink}nes</span>
-      {nestedLinks.childLink.map((el, i) =>
-        typeof el == "string" ? (
-          <span key={i}>{el}</span>
-        ) : (
-          <div key={i}>
-            <span>{el.mainLink}</span>
-          </div>
-        ),
-      )}
-    </div>
-  ) : (
+export default function NavLink({ icon, text, nestedLinks }: fnProps) {
+  return nestedLinks ? (
     RenderNestedLinks(
       nestedLinks,
       nestedLinks.initialPaddingLeft!,
       nestedLinks.paddingIncrement!,
     )
+  ) : (
+    <Link
+      href={textToLink(text!)}
+      className="flex items-center space-x-2 text-base font-medium hover:bg-background rounded-lg  py-2"
+    >
+      <span>{icon}</span>
+      <span> {text}</span>
+    </Link>
   );
 }

@@ -11,7 +11,7 @@ export default function TopNav() {
       };
 
     return (
-      <div className="flex items-center justify-between border-2 border-solid border-red-700 pt-4">
+      <div className="flex items-center justify-between  pt-4 ">
         <Logo />
 
         <div>

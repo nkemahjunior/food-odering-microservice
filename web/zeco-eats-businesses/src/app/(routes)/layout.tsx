@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import SideNav from "@/shared/components/nav/SideNav";
 import TopNav from "@/shared/components/nav/TopNav";
-
+import Line from "@/shared/components/Line";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,7 +17,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "zeco-eats-businesses",
-  description: "A platform for business owners to manage orders, menus, and analytics on Zeco Eats",
+  description:
+    "A platform for business owners to manage orders, menus, and analytics on Zeco Eats",
 };
 
 export default function RootLayout({
@@ -28,12 +29,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} text-sm antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} text-sm antialiased `}
       >
-        <TopNav />
-        <div className="grid grid-cols-[30fr,70fr]">
-          <SideNav />
-          {children}
+        <div className="w-full pl-6 pr-28 mb-8 space-y-4 sticky top-0 bg-white">
+          <TopNav />
+          <Line/>
+        </div>
+        <div className="grid grid-cols-[13fr,87fr]">
+          <div className=" w-full pl-6 border-solid border-r-2 border-backgroundBorder ">
+            <SideNav />
+          </div>
+          <div className="border-0 border-solid border-yellow-400 px-28">
+            {children}
+          </div>
         </div>
       </body>
     </html>

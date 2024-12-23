@@ -1,6 +1,9 @@
+import HomeUi from "@/features/home/ui/HomeUi";
 
-export default function Home() {
+export default function Page() {
   return (
-   <div>home</div>
+    <>
+      <HomeUi />
+    </>
   );
 }

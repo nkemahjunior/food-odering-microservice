@@ -1,7 +1,6 @@
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { FlatCompat } from "@eslint/eslintrc";
-import reactHooks from "eslint-plugin-react-hooks"; 
 //import "eslint-config-next"
 
 const __filename = fileURLToPath(import.meta.url);
