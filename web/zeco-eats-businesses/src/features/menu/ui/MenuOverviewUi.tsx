@@ -1,9 +1,9 @@
- 
- 
+import MenuTitle from "../components/overview/MenuTitle";
+
 export default function MenuOverviewUi() {
-    return (
-        <div>
-            
-        </div>
-    );
+  return (
+    <div className=" space-y-8">
+      <MenuTitle />
+    </div>
+  );
 }
