@@ -5,7 +5,7 @@ import { MdOutlinePayments, MdOutlineRestaurantMenu, MdOutlineSettings } from "r
 
 export default function SideNav() {
   return (
-    <div className="h-screen w-full space-y-4 border-0 border-solid border-red-700">
+    <div className=" h-full w-full space-y-4 border-0 border-solid border-red-700">
       <NavLink icon={<IoHomeOutline />} text="Home" />
       <NavLink icon={<IoStorefrontOutline />} text="Stores" />
       <NavLink icon={<IoBasketOutline />} text="Orders" />
@@ -27,7 +27,7 @@ export default function SideNav() {
           paddingIncrement: 1,
         }}
       />
-      <NavLink icon={<MdOutlineRestaurantMenu />} text="Menu" />
+      <NavLink icon={<MdOutlineRestaurantMenu />} text="Menu" href="/menu/overview" />
       <NavLink
         nestedLinks={{
           icon: <MdOutlinePayments />,

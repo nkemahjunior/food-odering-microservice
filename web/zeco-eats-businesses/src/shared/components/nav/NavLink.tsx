@@ -12,6 +12,7 @@ interface nestedLinks {
 }
 
 interface fnProps {
+  href?:string
   icon?: React.ReactNode;
   text?: string;
   nestedLinks?: nestedLinks;
@@ -63,7 +64,7 @@ const RenderNestedLinks = (
   );
 };
 
-export default function NavLink({ icon, text, nestedLinks }: fnProps) {
+export default function NavLink({ icon, text, nestedLinks, href }: fnProps) {
   return nestedLinks ? (
     RenderNestedLinks(
       nestedLinks,
@@ -72,8 +73,8 @@ export default function NavLink({ icon, text, nestedLinks }: fnProps) {
     )
   ) : (
     <Link
-      href={textToLink(text!)}
-      className="flex items-center space-x-2 text-base font-medium hover:bg-background rounded-lg  py-2"
+      href={href ? href : textToLink(text!)}
+      className="flex items-center space-x-2 rounded-lg py-2 text-base font-medium hover:bg-background"
     >
       <span>{icon}</span>
       <span> {text}</span>

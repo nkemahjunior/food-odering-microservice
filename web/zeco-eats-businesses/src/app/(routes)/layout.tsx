@@ -29,20 +29,29 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} text-sm antialiased `}
+        className={`${geistSans.variable} ${geistMono.variable} text-sm antialiased`}
       >
-        <div className="w-full pl-6 pr-28 mb-8 space-y-4 sticky top-0 bg-white">
+        <div className="sticky top-0 z-[10] w-full space-y-4 bg-white pl-6 pr-28 pt-4">
           <TopNav />
-          <Line/>
+          <Line />
         </div>
-        <div className="grid grid-cols-[13fr,87fr]">
-          <div className=" w-full pl-6 border-solid border-r-2 border-backgroundBorder ">
+
+        <div className="fixed  left-0 top-0h z-[9] h-screen w-[15rem] overflow-y-auto border-r-2 border-solid border-backgroundBorder pl-6 pt-[1rem]">
+          <SideNav />
+        </div>
+
+        <div className="ml-[15rem]  px-28 pt-[1rem]">
+          {children}
+        </div>
+
+        {/* <div className="grid grid-cols-[13fr,87fr]">
+          <div className="h-screen  sticky  top-14 w-full border-2 border-solid border-backgroundBorder pl-6">
             <SideNav />
           </div>
           <div className="border-0 border-solid border-yellow-400 px-28">
             {children}
           </div>
-        </div>
+        </div> */}
       </body>
     </html>
   );

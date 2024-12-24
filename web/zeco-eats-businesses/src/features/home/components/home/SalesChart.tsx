@@ -40,7 +40,7 @@ const testData = [
 
 
     return (
-      <div className=" space-y-8">
+      <div className="space-y-8">
         <div className="flex items-start justify-between">
           <Heading2 text="Sales" />
           <div className="w-fit rounded-lg bg-background p-2">
@@ -54,11 +54,11 @@ const testData = [
           </div>
         </div>
 
-        <div className="h-[25rem] w-full">
+        <div className="h-[25rem] w-full rounded-xl border-[1px] border-solid border-backgroundBorder p-8">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart
               data={testData}
-              //margin={{ top: 20, right: 20, left: 20, bottom: 5 }}
+             // margin={{ top: 20, right: 20, left: 40, bottom: 5 }}
             >
               <CartesianGrid
                 horizontal={true}
@@ -77,6 +77,7 @@ const testData = [
                     : ""
                 }
                 axisLine={false}
+                interval="preserveStartEnd"
                 tickLine={false}
                 padding={{ left: 28, right: 10 }}
                 tickMargin={10}
@@ -109,17 +110,18 @@ const testData = [
               <Line
                 type="monotone"
                 dataKey="thisMonth"
-                stroke="#8884d8"
+                stroke="#FC8A06"
                 strokeWidth={2.5}
                 name="This day"
                 //activeDot={{ r: 8 }}
                 dot={false}
               />
               <Line
+                
                 type="monotone"
                 dataKey="lastMonth"
                 strokeWidth={2.5}
-                stroke="#82ca9d"
+                stroke="#03081F" 
                 name="This day Last Month"
                 dot={false}
               />

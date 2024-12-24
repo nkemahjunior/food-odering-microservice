@@ -11,7 +11,7 @@ export default function TopNav() {
       };
 
     return (
-      <div className="flex items-center justify-between  pt-4 ">
+      <div className="flex items-center justify-between   ">
         <Logo />
 
         <div>
