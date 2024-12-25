@@ -1,6 +1,6 @@
 # ZecoEats 🍕 🍔 🍜 🍣 🥗 🥘 🚴 📦
 
-ZecoEats is a food delivery platform where users can browse dishes from various restaurants, place orders, and receive their food at their chosen location.
+zeco-eats is a food delivery application where users can browse different dishes from different restaurants, make orders and receive their food at their desired location. Also restaurant owners can manage their restaurants by uploading dishes, creating offers, ads and also viewing their performance metrics through the zeco-eats manager dashboard
 
 ## Features
 
