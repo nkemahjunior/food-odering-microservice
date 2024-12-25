@@ -17,7 +17,7 @@ export default function Item({ el}: fnProps) {
     });
   return (
     <div
-      className="flex items-center justify-between  "
+      className="flex items-center justify-between   touch-none"
       ref={setNodeRef}
       style={{
         transform: CSS.Transform.toString(transform),
@@ -32,7 +32,7 @@ export default function Item({ el}: fnProps) {
         <ItemTitle item={`Fried Rice${el}` } />
       </div>
 
-      <button className="rounded-lg bg-background px-8 py-4">£1200</button>
+      <div className="rounded-lg bg-background px-8 py-4">£1200</div>
     </div>
   );
 }

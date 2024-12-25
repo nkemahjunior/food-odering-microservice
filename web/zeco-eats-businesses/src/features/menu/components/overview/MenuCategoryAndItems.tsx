@@ -31,7 +31,7 @@ export default function MenuCategoryAndItems() {
         </div>
       </div>
 
-      <div>
+      <div className="  mr-[12rem]">
         <SortableCategories />
       </div>
     </div>

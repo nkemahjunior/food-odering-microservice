@@ -4,6 +4,8 @@ import "../globals.css";
 import SideNav from "@/shared/components/nav/SideNav";
 import TopNav from "@/shared/components/nav/TopNav";
 import Line from "@/shared/components/Line";
+import ModalProvider from "@/shared/context/modal/ModalProvider";
+import Modal from "@/shared/components/modal/Modal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,27 +33,19 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} text-sm antialiased`}
       >
-        <div className="sticky top-0 z-[10] w-full space-y-4 bg-white pl-6 pr-28 pt-4">
-          <TopNav />
-          <Line />
-        </div>
+        <ModalProvider>
+          <Modal />
+          <div className="sticky top-0 z-[10] w-full space-y-4 bg-white pl-6 pr-28 pt-4">
+            <TopNav />
+            <Line />
+          </div>
 
-        <div className="fixed  left-0 top-0h z-[9] h-screen w-[15rem] overflow-y-auto border-r-2 border-solid border-backgroundBorder pl-6 pt-[1rem]">
-          <SideNav />
-        </div>
-
-        <div className="ml-[15rem]  px-28 pt-[1rem]">
-          {children}
-        </div>
-
-        {/* <div className="grid grid-cols-[13fr,87fr]">
-          <div className="h-screen  sticky  top-14 w-full border-2 border-solid border-backgroundBorder pl-6">
+          <div className="top-0h fixed left-0 z-[9] h-screen w-[15rem] overflow-y-auto border-r-2 border-solid border-backgroundBorder pl-6 pt-[1rem]">
             <SideNav />
           </div>
-          <div className="border-0 border-solid border-yellow-400 px-28">
-            {children}
-          </div>
-        </div> */}
+
+          <div className="ml-[15rem] px-28 pt-[1rem]">{children}</div>
+        </ModalProvider>
       </body>
     </html>
   );
