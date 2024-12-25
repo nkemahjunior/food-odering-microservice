@@ -44,7 +44,6 @@ export default function EditItem() {
   }, [createNew, hideNewCategoryInput]);
 
   const searchForCategories = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log("changing");
     if (e.target.value.length === 0) {
       setSearchCategories([...ItemCategoriesArr]);
       return;
