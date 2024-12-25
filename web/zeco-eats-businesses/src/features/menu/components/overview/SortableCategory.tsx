@@ -12,6 +12,7 @@ import {
   ModalContext,
   modalContextTypes,
 } from "@/shared/context/modal/ModalProvider";
+import EditItem from "./EditItem";
 
 interface fnProps {
   el: string;
@@ -24,29 +25,19 @@ export default function SortableCategory({ el }: fnProps) {
     });
 
   const [close, setClose] = useState(false);
-  const { openModal, modalProps } = useContext(ModalContext) as modalContextTypes;
+  const { openModal, modalProps } = useContext(
+    ModalContext,
+  ) as modalContextTypes;
 
   const openModalAndSetContent = () => {
-    openModal(
-      <div className="bg-red-700 w-full h-full">
-        {" "}
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nobis
-        veritatis labore ipsa libero sed perferendis, exercitationem id iure
-        facere eos debitis quis dicta itaque est non, odit quisquam accusamus
-        culpa ratione vitae nesciunt, porro totam excepturi necessitatibus? Qui,
-        omnis vitae ab voluptatibus fugit delectus, culpa aliquam ut
-        reprehenderit dicta harum.
-      </div>,
-      {
-        ...modalProps,
-        centerChildVer: false,
-        childPos: "justify-end",
-        showCloseBtn:false,
-        height: " h-full",
-        width: "w-[40%]",
-        
-      },
-    );
+    openModal(<EditItem />, {
+      ...modalProps,
+      centerChildVer: false,
+      childPos: "justify-end",
+      showCloseBtn: false,
+      height: " h-full",
+      width: "w-[20%]",
+    });
   };
 
   const [items, setItems] = useState(["1", "2", "3", "4", "5"]);

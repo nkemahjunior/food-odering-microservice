@@ -52,7 +52,7 @@ export default function ModalProvider({
 
   const closeModal = () => {
     setModalContent(null);
-    setModalProps({});
+    setModalProps({...modalProps});
     setOpen(false);
   };
   return (

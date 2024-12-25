@@ -8,7 +8,7 @@ import {
 } from "@/shared/context/modal/ModalProvider";
 
 export default function Modal() {
-  const { open, setOpen, modalContent, modalProps } = useContext(
+  const { open, closeModal, modalContent, modalProps } = useContext(
     ModalContext,
   ) as modalContextTypes;
   usePreventScrolling(open);
@@ -16,7 +16,7 @@ export default function Modal() {
   return (
     <div
       className={`${open ? "fixed" : "hidden"} inset-0 z-[100] flex h-screen w-full bg-[rgb(0,0,0,0.2)] ${modalProps?.childPos} ${modalProps?.centerChildVer && "items-center"} `}
-      onClick={() => setOpen(false)}
+      onClick={closeModal}
     >
       <div
         className={`relative ${modalProps?.height} ${modalProps?.width}`}
@@ -29,7 +29,7 @@ export default function Modal() {
         >
           {modalProps?.showCloseBtn && (
             <div className={`flex w-full ${modalProps?.closeBtnPos}`}>
-              <CloseBtn setOpen={setOpen} />
+              <CloseBtn />
             </div>
           )}
           {modalContent}
