@@ -33,14 +33,6 @@ export default function EditItemInput({
             setValue(e.target.value),
         }}
       />
-
-      {/* <input
-        id="itemName"
-        type="text"
-        className="focus:border-secondary w-full rounded-lg border-2 border-solid border-transparent bg-background px-2 py-2 focus:bg-white"
-        value={name}
-        onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
-      /> */}
     </div>
   );
 }

@@ -1,11 +1,9 @@
-import MenuMenusUi from "@/features/menu/ui/MenuMenusUi";
+import MenuSchduleUi from "@/features/menu/ui/MenuScheduleUi";
 
- 
- 
-export default function  Page() {
-    return (
-        <>
-            <MenuMenusUi/>
-        </>
-    );
+export default function Page() {
+  return (
+    <>
+      <MenuSchduleUi />
+    </>
+  );
 }
