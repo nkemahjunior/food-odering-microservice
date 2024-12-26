@@ -3,16 +3,16 @@
 export default function Heading({
   text,
   textColor = "text-black",
-  style,
+  className
 }: {
   text: string;
   textColor?: string;
-  style?: string;
+  className?:string
 }) {
   return (
     <>
       <h1
-        className={`text-xl font-bold lg:text-2xl ${textColor} ${style}`}
+        className={`text-xl font-bold lg:text-2xl ${textColor}  ${className}`}
       >
         {text}
       </h1>

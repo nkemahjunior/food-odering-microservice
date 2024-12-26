@@ -31,7 +31,7 @@ export default function MenuTitle() {
           autoFocus
         />
       ) : (
-        <Heading text={`San siro Menu`} />
+        <Heading  text={`San siro Menu`} className=" border-solid border-2 border-transparent" />
       )}
       {isEditing ? (
         <button className="rounded-lg bg-background px-4 py-2">Save</button>

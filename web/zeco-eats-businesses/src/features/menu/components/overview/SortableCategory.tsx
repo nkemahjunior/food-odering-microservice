@@ -6,7 +6,7 @@ import DragBtn from "./DragBtn";
 import CategoryTitle from "./CategoryTitle";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import Item from "./Item";
-import { useContext, useState } from "react";
+import { MouseEvent, useContext, useState } from "react";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import {
   ModalContext,
@@ -30,6 +30,7 @@ export default function SortableCategory({ el }: fnProps) {
   ) as modalContextTypes;
 
   const openModalAndSetContent = () => {
+    if (close) return;
     openModal(<EditItem />, {
       ...modalProps,
       centerChildVer: false,
@@ -72,7 +73,10 @@ export default function SortableCategory({ el }: fnProps) {
 
         <button
           className="rounded-lg bg-background p-4"
-          onClick={() => setClose((v) => !v)}
+          onClick={(e: MouseEvent<HTMLButtonElement>) => {
+            e.stopPropagation()
+            setClose((v) => !v);
+          }}
         >
           {close ? (
             <span>
