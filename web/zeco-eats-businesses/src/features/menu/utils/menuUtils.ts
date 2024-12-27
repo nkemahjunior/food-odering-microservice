@@ -16,7 +16,10 @@ export const convert24HrTo12Hr = (hour: number) => {
   else return hour - 12;
 };
 
-export const createTimePoints = (initialHour: number, length:number): string[] => {
+export const createTimePoints = (
+  initialHour: number,
+  length: number,
+): string[] => {
   if (initialHour === 24) return [`24:00:00`]; // next day 12 am. 00:00 will mean 12 am same day when converted by date object
   let initialMin = 0;
   //6 points in 3hr gap
@@ -28,6 +31,27 @@ export const createTimePoints = (initialHour: number, length:number): string[] =
   });
 };
 
+export function getDayOfWeek(dayNumber: number): string {
+  console.log("---------", dayNumber);
+  switch (dayNumber) {
+    case 1:
+      return "Monday";
+    case 2:
+      return "Tuesday";
+    case 3:
+      return "Wednesday";
+    case 4:
+      return "Thursday";
+    case 5:
+      return "Friday";
+    case 6:
+      return "Saturday";
+    case 7:
+      return "Sunday";
+    default:
+      throw new Error("Invalid day number. Please pass a valid number.");
+  }
+}
 
 // const generateStartAndEndTime = () => {
 

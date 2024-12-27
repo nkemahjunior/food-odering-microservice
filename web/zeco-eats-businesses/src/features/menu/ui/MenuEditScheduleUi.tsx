@@ -1,15 +1,15 @@
 import Line from "@/shared/components/Line";
 import MenuScheduleHeader from "../components/menuSchedule/MenuScheduleHeader";
-import ScheduleChart from "../components/menuSchedule/ScheduleChart";
+import EditSchedule from "../components/menuSchedule/EditSchedule";
 
  
  
-export default function MenuSchduleUi() {
+export default function MenuEditSchduleUi() {
     return (
       <div className=" space-y-8">
         <MenuScheduleHeader />
         <Line />
-        <ScheduleChart/>
+        <EditSchedule/>
       </div>
     );
 }
