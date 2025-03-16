@@ -55,18 +55,18 @@
 
     <properties>
 
-        <awsS3.version>2.31.1</awsS3.version>
-        <aws-crt.version>0.36.2</aws-crt.version>
-        <central-publishing-maven-plugin.version>0.7.0</central-publishing-maven-plugin.version>
-        <firebase.admin.version>9.4.3</firebase.admin.version>
-        <hibernate.spatial.version>7.0.0.Beta4</hibernate.spatial.version>
+        <awsS3.version>2.27.21</awsS3.version>
+        <aws-crt.version>0.30.11</aws-crt.version>
+        <central-publishing-maven-plugin.version>0.6.0</central-publishing-maven-plugin.version>
+        <firebase.admin.version>9.3.0</firebase.admin.version>
+        <hibernate.spatial.version>7.0.0.Alpha3</hibernate.spatial.version>
         <maven-gpg-plugin.version>3.2.7</maven-gpg-plugin.version>
-        <maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
-        <maven-source-plugin.version>4.0.0-beta-1</maven-source-plugin.version>
+        <maven-javadoc-plugin.version>3.10.0</maven-javadoc-plugin.version>
+        <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
         <maven-update-dependencies.version>2.18.0</maven-update-dependencies.version>
         <zeco-eats.common.version>1.0.1</zeco-eats.common.version>
-        <spring-cloud.version>2024.0.0</spring-cloud.version>
-        <spring-retry.version>2.0.11</spring-retry.version>
+        <spring-cloud.version>2023.0.3</spring-cloud.version>
+        <spring-retry.version>2.0.8</spring-retry.version>
         <spring-cloud-aws.version>3.2.0</spring-cloud-aws.version>
 
 
