@@ -21,6 +21,7 @@ public class MultipleRestaurantsStrategy extends FetchDistanceFactory implements
     @Autowired
     private WebClient webClient;
 
+
     @Value("${mapbox.access-token}")
     private String accessToken;
 
@@ -29,38 +30,37 @@ public class MultipleRestaurantsStrategy extends FetchDistanceFactory implements
     public GetDeliveryFee calculateDeliveryFee(String customerLongitude, String customerLat, List<String> restaurantCoordinates) {
         List<String> distances = fetchMultipleDistances(customerLongitude, customerLat, restaurantCoordinates);
 
+
         double cumulativeDistance = 0;
-        if(distances != null){
-            for(String distance : distances){
+        if (distances != null) {
+            for (String distance : distances) {
                 cumulativeDistance = cumulativeDistance + Double.parseDouble(distance);
             }
-        }else {
+        } else {
             log.info("distance list is missing");
             throw new RuntimeException();
         }
 
         double price = getFee(cumulativeDistance);
-        if(price < 0) throw new DistanceTooFar("Restaurant is too far from your location");
+        if (price < 0) throw new DistanceTooFar("Restaurant is too far from your location");
 
-        return  new GetDeliveryFee(price);
+        return new GetDeliveryFee(price);
     }
 
 
-
     /**
-     *
-     * @param customerLongitude customer longitude
-     * @param customerLat customer latitude
+     * @param customerLongitude     customer longitude
+     * @param customerLat           customer latitude
      * @param restaurantCoordinates list of restaurant coordinates( latitude and longitude) for which the customer wants to order from
      * @return list of the distances from the respective restaurants and the customer's location
      */
-    public List<String> fetchMultipleDistances(String customerLongitude,String customerLat,List<String> restaurantCoordinates ){
+    public List<String> fetchMultipleDistances(String customerLongitude, String customerLat, List<String> restaurantCoordinates) {
         List<Mono<String>> distanceMonos = restaurantCoordinates.stream().map(coordinates -> {
 
             // longitude, latitude in that order
             String[] latLon = coordinates.split(",");
 
-            URI uri = createUri(accessToken, customerLongitude,customerLat,latLon[0],latLon[1]);
+            URI uri = createUri(accessToken, customerLongitude, customerLat, latLon[0], latLon[1]);
             return fetchDistance(uri, webClient);
 
         }).collect(Collectors.toList());

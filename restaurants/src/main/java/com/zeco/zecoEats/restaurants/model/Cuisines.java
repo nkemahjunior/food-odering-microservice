@@ -18,9 +18,6 @@ import java.util.Set;
 public class Cuisines {
 
 
-
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cuisine_id")

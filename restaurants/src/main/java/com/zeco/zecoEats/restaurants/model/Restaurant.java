@@ -16,78 +16,55 @@ import java.util.List;
 @Table(name = "restaurants")
 public class Restaurant {
 
+    @OneToMany(orphanRemoval = true, cascade = {CascadeType.REMOVE, CascadeType.MERGE}, mappedBy = "restaurant")
+    List<Dishes> dishes = new ArrayList<>();
+    @OneToMany(mappedBy = "restaurantID", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<RestaurantOperationalTimes> operationalTimes = new ArrayList<>();
+    @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.MERGE}, mappedBy = "restaurantID", orphanRemoval = true)
+    List<Menus> restaurantMenus = new ArrayList<>();
     @Id
     //@GeneratedValue(strategy = GenerationType.UUID) I will handle you my self because i want to use this id to create the hashcode
     @Column(name = "restaurant_id")
     @NonNull
     private UUID restaurantID;
-
     @Column(name = "user_id")
     @NonNull
     private UUID userID;
-
     @Column(name = "postcode")
     @NonNull
     private String postCode;
-
     @Column(name = "location")
     @NonNull
     private String location;
-
     @Column(name = "address")
     @NonNull
     private String address;
-
     @Column(name = "description")
     private String description;
-
     @Column(name = "branding")
     private String branding;
-
     @Column(name = "restaurant_type")
     //@NonNull
     private String restaurantType;
-
     @Column(name = "restaurant_name")
     @NonNull
     private String restaurantName;
-
-
     @Column(name = "longitude")
     @NonNull
     private Double longitude;
-
     @Column(name = "latitude")
     @NonNull
     private Double latitude;
-
     @Column(name = "min_price_per_order")
     private BigDecimal minPricePerOrder;
-
     @Column(name = "max_price_per_order")
     private BigDecimal maxPricePerOrder;
-
-    @OneToMany(orphanRemoval = true, cascade = {CascadeType.REMOVE, CascadeType.MERGE}, mappedBy = "restaurant")
-    List<Dishes> dishes = new ArrayList<>();
-
-    @OneToMany(mappedBy = "restaurantID", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<RestaurantOperationalTimes> operationalTimes = new ArrayList<>();
-
-
     @ManyToMany
-    @JoinTable(
-            name = "restaurant_cuisines",
-            joinColumns = @JoinColumn(name = "restau_id"),
-            inverseJoinColumns = @JoinColumn(name = "cuisine_id")
-    )
+    @JoinTable(name = "restaurant_cuisines", joinColumns = @JoinColumn(name = "restau_id"), inverseJoinColumns = @JoinColumn(name = "cuisine_id"))
     private Set<Cuisines> cuisinesSet = new HashSet<>();
 
-    @OneToMany(cascade = {CascadeType.REMOVE, CascadeType.MERGE},mappedBy = "restaurantID", orphanRemoval = true)
-    List<Menus> restaurantMenus =  new ArrayList<>();
-
-
     //sync method for operational times
-    public void addOperationalTimes(RestaurantOperationalTimes times){
+    public void addOperationalTimes(RestaurantOperationalTimes times) {
         log.info("****adding and synchronizing operational time - {}****", times.getOpeningDay());
         operationalTimes.add(times);
         times.setRestaurantID(this); //synchronizing
@@ -95,15 +72,12 @@ public class Restaurant {
     }
 
     //sync method for cuisineSet
-    public void addCousines(Cuisines cuisine){
+    public void addCousines(Cuisines cuisine) {
         log.info("****adding and synchronizing cusine - {}****", cuisine.getCuisineID());
         cuisinesSet.add(cuisine);
         cuisine.getRestaurantsSet().add(this);//synchronizing
         log.info("****finished adding and synchronizing cusine - {}****", cuisine.getCuisineID());
     }
-
-
-
 
 
     @Override

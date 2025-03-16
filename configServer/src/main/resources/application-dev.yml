@@ -16,7 +16,7 @@ spring:
           #knownHostsFile: ${user.home}/Documents/fullStack projects/02-zeco-eats-front-and-back/backend/zeco-eats-backend/.ssh/known_hosts
           #timeout: 10 #seconds
           username: ${username}
-          password: ${password}
+          password: ${password} #get new token at GitHub > Settings > Developer Settings > Personal Access Tokens > Tokens (classic).
 
 management:
   endpoints:

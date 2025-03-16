@@ -1,9 +1,0 @@
-base = 14px
-card titles = font-medium
-card titles = 18px
-card desc = 14px
-card ratings = 12px
- headings 2 = font-semibold
-
- section titles = 24px
- section titles = font bold
