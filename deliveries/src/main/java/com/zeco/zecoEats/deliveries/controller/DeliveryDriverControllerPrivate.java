@@ -18,8 +18,8 @@ import java.util.NoSuchElementException;
 
 @Slf4j
 @RestController
-@RequestMapping("api/deliveries")
-public class DeliveryDriverController {
+@RequestMapping("_p/api/deliveries")
+public class DeliveryDriverControllerPrivate {
 
 
     @Autowired

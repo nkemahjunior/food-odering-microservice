@@ -1,3 +1,43 @@
 spring:
   config:
     import: optional:configserver:http://localhost:8888
+
+  cloud:
+    gateway:
+      default-filters:
+        - SecureHeaders
+        - TokenRelay
+        - name: Retry
+          args:
+            retries: 3
+            statuses: INTERNAL_SERVER_ERROR, BAD_GATEWAY
+            #methods: GET, POST
+            backoff:
+              firstBackoff: 10ms
+              maxBackoff: 50ms
+              factor: 2
+              basedOnPreviousValue: false
+      routes:
+        # Config Server Route
+        - id: config-server
+          uri: http://localhost:8080
+          predicates:
+            - Path=/api/config-server/**
+
+        # Deliveries Service Route
+        - id: deliveries-service
+          uri: http://localhost:8083
+          predicates:
+            - Path=/api/deliveries/**, /_p/api/deliveries/**
+
+        # Restaurants Service Route
+        - id: restaurants-service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/restaurants/**, /_p/api/restaurants/**
+
+        # Users Service Route
+        - id: users-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/users/**, /_p/api/users/**

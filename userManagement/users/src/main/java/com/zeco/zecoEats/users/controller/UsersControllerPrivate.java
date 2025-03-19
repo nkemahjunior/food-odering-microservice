@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/users")
-public class UsersController {
+@RequestMapping("_p/api/users")
+public class UsersControllerPrivate {
 
     @Autowired
     private UsersService usersService;
