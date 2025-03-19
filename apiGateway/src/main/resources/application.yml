@@ -4,4 +4,4 @@ spring:
   profiles:
     active: dev
   application:
-    name: ApiGatewayApplication
+    name: api-gateway
