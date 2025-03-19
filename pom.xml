@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"> 
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.3</version>
+        <version>3.4.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -49,8 +49,8 @@
         <module>configServer</module>
         <module>deliveries</module>
         <module>common</module>
+        <module>apiGateway</module>
     </modules>
-
 
 
     <properties>
@@ -90,7 +90,6 @@
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>s3</artifactId>
                 <version>${awsS3.version}</version>
-
             </dependency>
             <!-- https://mvnrepository.com/artifact/software.amazon.awssdk.crt/aws-crt -->
             <dependency>
@@ -118,7 +117,6 @@
                 <artifactId>spring-retry</artifactId>
                 <version>${spring-retry.version}</version>
             </dependency>
-
 
 
             <!-- https://mvnrepository.com/artifact/com.google.firebase/firebase-admin -->
@@ -216,8 +214,5 @@
             </plugins>
         </pluginManagement>
     </build>
-
-
-
 
 </project>

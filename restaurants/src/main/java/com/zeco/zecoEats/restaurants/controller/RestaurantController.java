@@ -19,7 +19,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("api/restaurant")
+@RequestMapping("api/restaurants")
 public class RestaurantController {
 
     @Autowired
@@ -30,6 +30,11 @@ public class RestaurantController {
 
     @Autowired
     private S3clientService s3clientService;
+
+    @GetMapping("/test")
+    public ResponseEntity<String> testEndpoint(){
+        return ResponseEntity.ok( "working");
+    }
 
 
     @PostMapping("/new")
