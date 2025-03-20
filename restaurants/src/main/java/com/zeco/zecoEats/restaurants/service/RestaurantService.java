@@ -12,6 +12,8 @@ import com.zeco.zecoEats.restaurants.service.searchStrategies.SearchFactory;
 import com.zeco.zecoEats.restaurants.service.searchStrategies.SearchType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -80,6 +82,7 @@ public class RestaurantService {
      *
      * creates a new menu
      */
+    @CacheEvict(value = "menus", key = "#createMenuDTO.restaurant()")
     public CreateMenuDTO createMenu(CreateMenuDTO createMenuDTO){
         log.info("**** creating menu - ****");
         Restaurant restaurant = restaurantRepository.findById(createMenuDTO.restaurant()).orElseThrow(() -> new NoSuchElementException("restaurant not found"));
@@ -99,6 +102,7 @@ public class RestaurantService {
      *
      * create new dish and its spices
      */
+    @CacheEvict(value = "dishes", key = "#createDishDTO.restaurantID()")
     public CreateDishDTO createDish(CreateDishDTO createDishDTO){
         log.info("**** creating dish - ****");
         Menus menu = menusRepository.findById(createDishDTO.menuID()).orElseThrow(() -> new NoSuchElementException("Menu not found"));
@@ -143,11 +147,10 @@ public class RestaurantService {
 
     }
 
-
-    public Page<GetRestaurantsDTO> getRestaurantsInALocation(String location, Pageable pageable){
+    @Cacheable(value = "restaurants", key = "#location + '-' + #pageable.pageNumber + '-' + #pageable.pageSize")
+    public Page<GetRestaurantsDTO> getRestaurantsInALocation(String location, Pageable pageable) {
         return searchFactory.search(SearchType.LOCATION, location, pageable);
     }
-
 
 }
 
