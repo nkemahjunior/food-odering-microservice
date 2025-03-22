@@ -29,7 +29,7 @@ public class AuthTests {
     }
 
     //helper method
-    private WebTestClient authenticatedClient(String... authorities) {
+    public WebTestClient authenticatedClient(String... authorities) {
         return webTestClient.mutateWith(mockJwt()
                 .authorities(
                         Arrays.stream(authorities)
@@ -44,7 +44,7 @@ public class AuthTests {
                 .get()
                 .uri("/api/configServer/actuator/health")
                 .exchange()
-                .expectStatus().isOk(); // Assumes downstream allows it
+                .expectStatus().isOk();
     }
 
     @Test
@@ -53,7 +53,7 @@ public class AuthTests {
                 .get()
                 .uri("/api/configServer/actuator/health")
                 .exchange()
-                .expectStatus().isForbidden(); // 403: Authorized but not allowed
+                .expectStatus().isForbidden();
     }
 
     @Test
