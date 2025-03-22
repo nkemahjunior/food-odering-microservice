@@ -15,7 +15,7 @@ services:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
       KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://192.168.150.11:5432/keycloak_users
+      KC_DB_URL: jdbc:postgresql://host.docker.internal:5432/keycloak_users
       KC_DB_USERNAME: postgres
       KC_DB_PASSWORD: 1234
       KC_HEALTH_ENABLED: true
@@ -24,6 +24,8 @@ services:
       KC_CACHE_STACK: jdbc-ping
     command:
       start-dev
+    extra_hosts: # For Linux compatibility, if needed
+      - "host.docker.internal:host-gateway"
 
   keycloak-2:
     networks:
@@ -36,7 +38,7 @@ services:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
       KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://192.168.150.11:5432/keycloak_users
+      KC_DB_URL: jdbc:postgresql://host.docker.internal:5432/keycloak_users
       KC_DB_USERNAME: postgres
       KC_DB_PASSWORD: 1234
       KC_HEALTH_ENABLED: true
@@ -45,6 +47,8 @@ services:
       KC_CACHE_STACK: jdbc-ping
     command:
       start-dev
+    extra_hosts: # For Linux compatibility, if needed
+      - "host.docker.internal:host-gateway"
 
   ##KAFKA
   kafka-controller-1:
