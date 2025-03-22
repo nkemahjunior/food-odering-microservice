@@ -4,9 +4,11 @@ spring:
 
   cloud:
     gateway:
+      redis-route-definition-repository: #redis location is already configured in application.yml( config server)
+        enabled: true
       default-filters:
         - SecureHeaders
-        - TokenRelay
+        #- TokenRelay
         - name: Retry
           args:
             retries: 3
@@ -17,12 +19,21 @@ spring:
               maxBackoff: 50ms
               factor: 2
               basedOnPreviousValue: false
+        - name: RequestRateLimiter #rate limiter
+          args:
+            redis-rate-limiter:
+              key-resolver: "#{@customKeyResolver}"
+              replenishRate: 10 # Allow up to 10 requests/sec per user
+              burstCapacity: 20 # Allow bursts up to 20 tokens
+              requestedTokens: 1 # use 1 token per request
+              deny-empty-key: false #use true in prod
+
       routes:
         # Config Server Route
         - id: config-server
-          uri: http://localhost:8080
+          uri: http://localhost:8888
           predicates:
-            - Path=/api/config-server/**
+            - Path=/api/configServer/**
 
         # Deliveries Service Route
         - id: deliveries-service
