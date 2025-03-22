@@ -18,6 +18,11 @@ public class UsersControllerPrivate {
     @Autowired
     private UsersService usersService;
 
+    @GetMapping("/testPrivate")
+    public ResponseEntity<String> testEndpoint(){
+        return ResponseEntity.ok( "working private- users-service");
+    }
+
     @GetMapping("/{userID}")
     public ResponseEntity<GetUserResponseDTO> getUSerEndpoint(@PathVariable("userID") String userID){
         return ResponseEntity.ok(usersService.getUser(UUID.fromString(userID)));

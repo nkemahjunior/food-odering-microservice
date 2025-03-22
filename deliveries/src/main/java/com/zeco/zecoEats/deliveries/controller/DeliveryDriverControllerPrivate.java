@@ -38,6 +38,11 @@ public class DeliveryDriverControllerPrivate {
            throw new Exception();
     }
 
+    @GetMapping("/testPrivate")
+    public ResponseEntity<String> testEndpoint(){
+        return ResponseEntity.ok( "working private-deliveries");
+    }
+
     @PostMapping("/driver/available")
     public ResponseEntity<Void> addDriverAvailableForWorkEndpoint(@RequestBody AddAvailableDriverDTO addAvailableDriverDTO){
         deliveryDriversService.addDriverAvailableForWork(addAvailableDriverDTO);
