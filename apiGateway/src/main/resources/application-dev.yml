@@ -52,3 +52,13 @@ spring:
           uri: http://localhost:8082
           predicates:
             - Path=/api/users/**, /_p/api/users/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /api/apiGateway/actuator
+  endpoint:
+    health:
+      show-details: always
