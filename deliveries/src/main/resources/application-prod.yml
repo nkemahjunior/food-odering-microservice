@@ -9,4 +9,7 @@ management:
       exposure:
         include: health, info, metrics, prometheus
       base-path: /api/deliveries/actuator
+  metrics:
+    tags:
+      service: deliveries-service
 

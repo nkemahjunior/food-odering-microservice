@@ -8,3 +8,6 @@ management:
       exposure:
         include: health, info, metrics, prometheus
       base-path: /api/users/actuator
+  metrics:
+    tags:
+      service: users-service

@@ -8,4 +8,6 @@ management:
       exposure:
         include: health, info, metrics, prometheus
       base-path: /api/apiGateway/actuator
-
+  metrics:
+    tags:
+      service: api-gateway

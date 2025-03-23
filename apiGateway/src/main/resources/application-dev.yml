@@ -62,3 +62,6 @@ management:
   endpoint:
     health:
       show-details: always
+  metrics:
+    tags:
+      service: api-gateway

@@ -27,3 +27,6 @@ management:
   endpoint:
     health:
       show-details: always
+  metrics:
+    tags:
+      service: config-server

@@ -22,3 +22,6 @@ management:
       exposure:
         include: health, info, metrics, prometheus
       base-path: /api/configServer/actuator
+  metrics:
+    tags:
+      service: config-server
