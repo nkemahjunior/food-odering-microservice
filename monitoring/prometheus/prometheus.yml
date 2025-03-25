@@ -1,0 +1,38 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'api-gateway'
+    metrics_path: '/api/apiGateway/actuator/prometheus'
+    static_configs:
+      - targets: ['host.docker.internal:8084']
+        labels:
+          service: 'api-gateway'
+
+  - job_name: 'config-server'
+    metrics_path: '/api/configServer/actuator/prometheus'
+    static_configs:
+      - targets: [ 'host.docker.internal:8888' ]
+        labels:
+          service: 'config-server'
+
+  - job_name: 'users-service'
+    metrics_path: '/api/users/actuator/prometheus'
+    static_configs:
+      - targets: ['host.docker.internal:8082']
+        labels:
+          service: 'users-service'
+
+  - job_name: 'restaurants-service'
+    metrics_path: '/api/restaurants/actuator/prometheus'
+    static_configs:
+      - targets: ['host.docker.internal:8081']
+        labels:
+          service: 'restaurants-service'
+
+  - job_name: 'deliveries-service'
+    metrics_path: '/api/deliveries/actuator/prometheus'
+    static_configs:
+      - targets: ['host.docker.internal:8083']
+        labels:
+          service: 'deliveries-service'

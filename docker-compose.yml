@@ -24,7 +24,9 @@ services:
       KC_CACHE_STACK: jdbc-ping
     command:
       start-dev
-    extra_hosts: # For Linux compatibility, if needed
+    volumes:
+      - keycloak-data:/opt/keycloak/data
+    extra_hosts:
       - "host.docker.internal:host-gateway"
 
   keycloak-2:
@@ -47,7 +49,9 @@ services:
       KC_CACHE_STACK: jdbc-ping
     command:
       start-dev
-    extra_hosts: # For Linux compatibility, if needed
+    volumes:
+      - keycloak-data:/opt/keycloak/data
+    extra_hosts:
       - "host.docker.internal:host-gateway"
 
   ##KAFKA
@@ -335,6 +339,30 @@ services:
 
     ]
 
+  # Prometheus
+  prometheus:
+    image: prom/prometheus:3.2
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    networks:
+      - zeco-eats-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  #grafana
+  grafana:
+    image: grafana/grafana:11.5
+    ports:
+      - "3004:3000"
+    networks:
+      - zeco-eats-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
 volumes:
   kafka-controller-1-data:
   kafka-controller-2-data:
@@ -342,6 +370,7 @@ volumes:
   kafka-broker-1-data:
   kafka-broker-2-data:
   kafka-broker-3-data:
+  keycloak-data:
 
 
 #  redis-cluster:
