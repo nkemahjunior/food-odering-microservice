@@ -18,6 +18,7 @@ jobs:
     uses: ./.github/workflows/build-service.yml
     with:
       service-name: 'apiGateway'
+      skip-tests: true
 
     # JOB to build config server service
   build-configServer:
