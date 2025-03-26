@@ -3,6 +3,12 @@ name: Determine modified Services
 on:
   workflow_call:
     outputs:
+      customPrometheus-changed:
+        description: 'Indicates if prometheus module have new any modifications'
+        value: ${{ jobs.determine-changes.outputs.customPrometheus-changed }}
+      apiGateway-changed:
+        description: 'Indicates if api gateway module have new any modifications'
+        value: ${{ jobs.determine-changes.outputs.apiGateway-changed }}
       configServer-changed:
         description: 'Indicates if configServer module have new any modifications'
         value: ${{ jobs.determine-changes.outputs.configServer-changed }}
@@ -22,6 +28,8 @@ jobs:
   determine-changes:
     runs-on: ubuntu-latest
     outputs:
+      customPrometheus-changed: ${{ steps.filter.outputs.customPrometheus }}
+      apiGateway-changed: ${{ steps.filter.outputs.apiGateway }}
       configServer-changed: ${{ steps.filter.outputs.configServer }}
       deliveries-changed: ${{ steps.filter.outputs.deliveries }}
       restaurants-changed: ${{ steps.filter.outputs.restaurants }}
@@ -36,6 +44,11 @@ jobs:
         id: filter
         with:
           filters: |
+            customPrometheus:
+            - 'monitoring/prometheus/**'
+            apiGateway:
+            - 'apiGateway/**'
+            - 'pom.xml' #root POM affects all services
             configServer:
               - 'configServer/**'
               - 'pom.xml' #root POM affects all services

@@ -12,6 +12,14 @@ jobs:
 
 
     # JOB to build config server service
+  build-apiGateway:
+    needs: determine-changes
+    if: ${{ needs.determine-changes.outputs.apiGateway-changed == 'true' }}
+    uses: ./.github/workflows/build-service.yml
+    with:
+      service-name: 'apiGateway'
+
+    # JOB to build config server service
   build-configServer:
     needs: determine-changes
     if: ${{ needs.determine-changes.outputs.configServer-changed == 'true' }}
