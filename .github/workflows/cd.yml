@@ -14,6 +14,25 @@ jobs:
   determine-changes:
     uses: ./.github/workflows/modified-services.yml
 
+
+  deploy-custom-prometheus:
+    needs: determine-changes
+    if: ${{ github.event.workflow_run.conclusion == 'success' && needs.determine-changes.outputs.customPrometheus-changed == 'true' }}
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit
+    with:
+      dockerfile-path: monitoring/prometheus/Dockerfile
+      ecr-repository: zeco-eats-prometheus
+
+  deploy-api-gateway:
+    needs: determine-changes
+    if: ${{ github.event.workflow_run.conclusion == 'success' && needs.determine-changes.outputs.apiGateway-changed == 'true' }}  # Only run if CI succeeded
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit
+    with:
+      dockerfile-path: apiGateway/Dockerfile
+      ecr-repository: zeco-eats-api-gateway
+
   deploy-config-server:
     needs: determine-changes
     if: ${{ github.event.workflow_run.conclusion == 'success' && needs.determine-changes.outputs.configServer-changed == 'true' }}  # Only run if CI succeeded
