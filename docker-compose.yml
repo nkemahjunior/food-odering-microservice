@@ -363,6 +363,17 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
+  #zipkin
+  zipkin:
+    image: openzipkin/zipkin:3.5
+    container_name: zipkin
+    ports:
+      - "9411:9411"
+    environment:
+      - STORAGE_TYPE=mem
+    networks:
+      - zeco-eats-network
+
 volumes:
   kafka-controller-1-data:
   kafka-controller-2-data:
