@@ -39,6 +39,7 @@ public class SecurityConfig {
                 .pathMatchers("/_p/api/deliveries/**").hasAuthority("DELIVERY_DRIVER")
                 .pathMatchers("_p/api/users/**").hasAnyAuthority("CUSTOMER", "RESTAURANT_OWNER", "DELIVERY_DRIVER" )
                 .pathMatchers("/api/**").permitAll()
+                .pathMatchers("/auth/**").permitAll()
                 .anyExchange().authenticated()
         );
 

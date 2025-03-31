@@ -2,6 +2,12 @@ spring:
   config:
     import: optional:configserver:http://localhost:8888
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/zeco-eats-realm
+
   cloud:
     gateway:
       redis-route-definition-repository: #redis location is already configured in application.yml( config server)
