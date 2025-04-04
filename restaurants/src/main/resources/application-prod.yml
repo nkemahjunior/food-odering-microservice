@@ -11,4 +11,3 @@ management:
   metrics:
     tags:
       service: restaurants-service
-
