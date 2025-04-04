@@ -48,11 +48,9 @@ services:
 #      KC_HOSTNAME: http://localhost:8084/auth #gateway  address on dev, use load balancer address on prod
 #      KC_HOSTNAME_ADMIN: http://localhost:8084/keycloak/admin #gateway  address on dev, use load balancer address on prod
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
-      KC_BOOTSTRAP_ADMIN_PASSWORD: admin&
-      KC_DB_URL: jdbc:postgresql://zeco-eats-db.c5mi08yoijvs.us-east-1.rds.amazonaws.com:5432/keycloak_users
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
       KC_DB_USERNAME: postgres
-      #KC_DB_PASSWORD: 1234
-      KC_DB_PASSWORD: ppg9tJ6fDKQuJP91pkze
+      KC_DB_PASSWORD: 1234
       KC_HEALTH_ENABLED: true
       KC_METRICS_ENABLED: true
       KC_CACHE: ispn
