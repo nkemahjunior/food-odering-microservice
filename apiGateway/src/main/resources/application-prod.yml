@@ -1,6 +1,6 @@
 spring:
   config:
-    import: optional:configserver:http://zeco-eats-config-server.zeco-eats-cluster-namespace:8888
+    import: optional:configserver:http://zeco-eats-config-server.zeco-eats-cluster:8888
 
   security:
     oauth2:
@@ -37,13 +37,13 @@ spring:
       routes:
         # Config Server Route
         - id: config-server
-          uri: http://zeco-eats-config-server.zeco-eats-cluster-namespace:8888
+          uri: http://zeco-eats-config-server.zeco-eats-cluster:8888
           predicates:
             - Path=/api/configServer/**
 
         # keycloak Route
         - id: keycloak
-          uri: http://zeco-eats-keyclaok.zeco-eats-cluster-namespace:8080
+          uri: http://zeco-eats-keycloak.zeco-eats-cluster:8080
           predicates:
             - Path=/auth/**
           filters:
@@ -59,19 +59,19 @@ spring:
 
         # Deliveries Service Route
         - id: deliveries-service
-          uri: http://zeco-eats-deliveries-service.zeco-eats-cluster-namespace:8083
+          uri: http://zeco-eats-deliveries-service.zeco-eats-cluster:8083
           predicates:
             - Path=/api/deliveries/**, /_p/api/deliveries/**
 
         # Restaurants Service Route
         - id: restaurants-service
-          uri: http://zeco-eats-restaurants-service.zeco-eats-cluster-namespace:8081
+          uri: http://zeco-eats-restaurants-service.zeco-eats-cluster:8081
           predicates:
             - Path=/api/restaurants/**, /_p/api/restaurants/**
 
         # Users Service Route
         - id: users-service
-          uri: http://zeco-eats-users-service.zeco-eats-cluster-namespace:8082
+          uri: http://zeco-eats-users-service.zeco-eats-cluster:8082
           predicates:
             - Path=/api/users/**, /_p/api/users/**
 
