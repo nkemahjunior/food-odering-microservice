@@ -12,6 +12,13 @@ services:
     image: quay.io/keycloak/keycloak:26.1.3
     container_name: keycloak-1
     environment:
+      KC_HOSTNAME: http://localhost:8084/auth #gateway  address on dev, use load balancer address on prod
+      KC_HTTP_ENABLED: true
+#      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: true
+      KC_PROXY_HEADERS: xforwarded
+      KC_HTTP_RELATIVE_PATH: /auth
+#      KC_HOSTNAME_ADMIN: http://localhost:8084/keycloak/admin #gateway  address on dev, use load balancer address on prod
+      KC_LOG_LEVEL: DEBUG
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
       KC_DB: postgres
@@ -23,7 +30,8 @@ services:
       KC_CACHE: ispn
       KC_CACHE_STACK: jdbc-ping
     command:
-      start-dev
+      #start-dev
+      start
     volumes:
       - keycloak-data:/opt/keycloak/data
     extra_hosts:
@@ -37,18 +45,21 @@ services:
     image: quay.io/keycloak/keycloak:26.1.3
     container_name: keycloak-2
     environment:
+#      KC_HOSTNAME: http://localhost:8084/auth #gateway  address on dev, use load balancer address on prod
+#      KC_HOSTNAME_ADMIN: http://localhost:8084/keycloak/admin #gateway  address on dev, use load balancer address on prod
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
-      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
-      KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://host.docker.internal:5432/keycloak_users
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin&
+      KC_DB_URL: jdbc:postgresql://zeco-eats-db.c5mi08yoijvs.us-east-1.rds.amazonaws.com:5432/keycloak_users
       KC_DB_USERNAME: postgres
-      KC_DB_PASSWORD: 1234
+      #KC_DB_PASSWORD: 1234
+      KC_DB_PASSWORD: ppg9tJ6fDKQuJP91pkze
       KC_HEALTH_ENABLED: true
       KC_METRICS_ENABLED: true
       KC_CACHE: ispn
       KC_CACHE_STACK: jdbc-ping
     command:
       start-dev
+      #start
     volumes:
       - keycloak-data:/opt/keycloak/data
     extra_hosts:
