@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisClusterConfiguration;
@@ -25,11 +26,23 @@ import java.util.Map;
 public class RedisCacheConfig {
 
     @Bean
-    public RedisConnectionFactory connectionFactory(RedisProperties redisProperties) {
+    @Profile("dev")
+    public RedisConnectionFactory connectionFactoryDev(RedisProperties redisProperties) {
         LettuceClientConfiguration clientConfig = LettuceClientConfiguration.builder()
                 .readFrom(ReadFrom.REPLICA_PREFERRED) //write to master, read from replicas
                 .build();
+        RedisClusterConfiguration clusterConfig = new RedisClusterConfiguration(redisProperties.getCluster().getNodes());
+        clusterConfig.setPassword(RedisPassword.of(redisProperties.getPassword()));
+        return new LettuceConnectionFactory(clusterConfig, clientConfig);
+    }
 
+    @Bean
+    @Profile("prod")
+    public RedisConnectionFactory connectionFactoryProd(RedisProperties redisProperties) {
+        LettuceClientConfiguration clientConfig = LettuceClientConfiguration.builder()
+                .readFrom(ReadFrom.REPLICA_PREFERRED) //write to master, read from replicas
+                .useSsl()
+                .build();
         RedisClusterConfiguration clusterConfig = new RedisClusterConfiguration(redisProperties.getCluster().getNodes());
         clusterConfig.setPassword(RedisPassword.of(redisProperties.getPassword()));
         return new LettuceConnectionFactory(clusterConfig, clientConfig);
