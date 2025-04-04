@@ -6,7 +6,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/zeco-eats-realm
+          issuer-uri: http://localhost:8084/auth/realms/zeco-eats-realm
+          jwk-set-uri: http://localhost:8084/auth/realms/zeco-eats-realm/protocol/openid-connect/certs
 
   cloud:
     gateway:
@@ -29,8 +30,8 @@ spring:
           args:
             redis-rate-limiter:
               key-resolver: "#{@customKeyResolver}"
-              replenishRate: 10 # Allow up to 10 requests/sec per user
-              burstCapacity: 20 # Allow bursts up to 20 tokens
+              replenishRate: 50 # Allow up to 10 requests/sec per user
+              burstCapacity: 70 # Allow bursts up to 20 tokens
               requestedTokens: 1 # use 1 token per request
               deny-empty-key: false #use true in prod
 
@@ -40,6 +41,25 @@ spring:
           uri: http://localhost:8888
           predicates:
             - Path=/api/configServer/**
+          filters:
+            - SecureHeaders
+
+        # keycloak Route
+        - id: keycloak
+          uri: http://localhost:8079
+          predicates:
+            - Path=/auth/**
+          filters:
+#          - RewritePath=/auth/(?<segment>.*), /${segment}
+           - AddRequestHeader=X-Forwarded-Proto, http
+           - AddRequestHeader=X-Forwarded-Host, localhost
+           - AddRequestHeader=X-Forwarded-Port, 8084
+           - MapRequestHeader=authorization, authorization
+           - name: SecureHeaders
+             args:
+#                strict-transport-security: ""
+                frame-options: "SAMEORIGIN"
+                content-security-policy: "default-src 'self' 'unsafe-inline' 'unsafe-eval'; frame-ancestors 'self'"
 
         # Deliveries Service Route
         - id: deliveries-service

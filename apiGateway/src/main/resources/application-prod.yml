@@ -6,7 +6,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://zeco-eats-keyclaok.zeco-eats-cluster-namespace:8080/realms/zeco-eats-realm
+          issuer-uri: http://zeco-eats-keyclaok.zeco-eats-cluster-namespace:8080/auth/realms/zeco-eats-realm
+          jwk-set-uri: http://zeco-eats-keyclaok.zeco-eats-cluster-namespace:8080/auth/realms/zeco-eats-realm/protocol/openid-connect/certs
 
   cloud:
     gateway:
@@ -46,7 +47,15 @@ spring:
           predicates:
             - Path=/auth/**
           filters:
-            - RewritePath=/auth/(?<segment>.*), /${segment}
+            - SetRequestHeader=X-Forwarded-Proto, ${loadBalancerProtocol}
+            - SetRequestHeader=X-Forwarded-Host, ${loadBalancerURL}
+            - SetRequestHeader=X-Forwarded-Port, ${loadBalancerPort}
+            - MapRequestHeader=X-Forwarded-For, X-Forwarded-For
+            - MapRequestHeader=authorization, authorization
+            - name: SecureHeaders
+              args:
+                frame-options: "SAMEORIGIN"
+                content-security-policy: "default-src 'self' 'unsafe-inline' 'unsafe-eval'; frame-ancestors 'self'"
 
         # Deliveries Service Route
         - id: deliveries-service
