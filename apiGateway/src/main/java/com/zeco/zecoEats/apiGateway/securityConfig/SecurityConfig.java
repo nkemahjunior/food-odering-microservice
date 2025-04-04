@@ -16,6 +16,8 @@ import org.springframework.security.oauth2.jwt.ReactiveJwtDecoders;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.ReactiveJwtAuthenticationConverterAdapter;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.server.context.NoOpServerSecurityContextRepository;
+import org.springframework.security.web.server.util.matcher.ServerWebExchangeMatchers;
 import reactor.core.publisher.Mono;
 
 import java.util.Collection;
@@ -27,11 +29,16 @@ import java.util.stream.Collectors;
 public class SecurityConfig {
 
     @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
-    private String issuerUri;
+    private String issuerUris;
+
+
 
     @Bean
-    SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
+    SecurityWebFilterChain securityFilterChain(ServerHttpSecurity http) {
 
+        http.securityMatcher(
+                ServerWebExchangeMatchers.pathMatchers("/_p/api/**")
+        );
 
         http.authorizeExchange(exchanges -> exchanges
                 .pathMatchers("/api/configServer/**").hasAuthority("ADMIN")
@@ -39,7 +46,6 @@ public class SecurityConfig {
                 .pathMatchers("/_p/api/deliveries/**").hasAuthority("DELIVERY_DRIVER")
                 .pathMatchers("_p/api/users/**").hasAnyAuthority("CUSTOMER", "RESTAURANT_OWNER", "DELIVERY_DRIVER" )
                 .pathMatchers("/api/**").permitAll()
-                .pathMatchers("/auth/**").permitAll()
                 .anyExchange().authenticated()
         );
 
@@ -49,13 +55,32 @@ public class SecurityConfig {
                 )
         );
 
+        http.csrf(ServerHttpSecurity.CsrfSpec::disable);
+        //stateless session
+        http.securityContextRepository(NoOpServerSecurityContextRepository.getInstance());
         return http.build();
     }
 
     @Bean
-    public ReactiveJwtDecoder jwtDecoder() {
-        return ReactiveJwtDecoders.fromIssuerLocation(issuerUri);
+    public SecurityWebFilterChain publicFilterChain(ServerHttpSecurity http) {
+        http
+                .securityMatcher(ServerWebExchangeMatchers.pathMatchers("/auth/**", "/api/**"))
+                .authorizeExchange(exchanges -> exchanges
+                        .anyExchange().permitAll()
+                )
+                .csrf(ServerHttpSecurity.CsrfSpec::disable)
+                .securityContextRepository(NoOpServerSecurityContextRepository.getInstance());
+
+        return http.build();
     }
+
+
+
+
+//    @Bean
+//    public ReactiveJwtDecoder jwtDecoder() {
+//        return ReactiveJwtDecoders.fromIssuerLocation(issuerUri);
+//    }
 
     Converter<Jwt, Mono<AbstractAuthenticationToken>> grantedAuthoritiesExtractor() {
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
