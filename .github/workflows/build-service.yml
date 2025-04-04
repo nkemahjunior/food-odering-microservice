@@ -26,5 +26,12 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
+#      - name: Build with Maven
+#        run: mvn -B package -pl ${{ inputs.service-name }} ${{ inputs.also-build-its-dependencies}} ${{ inputs.skip-tests && '-DskipTests' }}
+      - name: Build with Maven (skip tests)
+        if: inputs.skip-tests == true
+        run: mvn -B package -pl ${{ inputs.service-name }} ${{ inputs.also-build-its-dependencies }} -DskipTests
+
       - name: Build with Maven
-        run: mvn -B package -pl ${{ inputs.service-name }} ${{ inputs.also-build-its-dependencies}} ${{ inputs.skip-tests && '-DskipTests' }}
+        if: inputs.skip-tests == false
+        run: mvn -B package -pl ${{ inputs.service-name }} ${{ inputs.also-build-its-dependencies }}
