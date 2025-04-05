@@ -6,8 +6,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://zeco-eats-keyclaok.zeco-eats-cluster-namespace:8080/auth/realms/zeco-eats-realm
-          jwk-set-uri: http://zeco-eats-keyclaok.zeco-eats-cluster-namespace:8080/auth/realms/zeco-eats-realm/protocol/openid-connect/certs
+          issuer-uri: ${loadBalancerProtocol}://${loadBalancerURL}:${loadBalancerPort}/auth/realms/zeco-eats-realm
+          jwk-set-uri: ${loadBalancerProtocol}://${loadBalancerURL}:${loadBalancerPort}/auth/realms/zeco-eats-realm/protocol/openid-connect/certs
 
   cloud:
     gateway:

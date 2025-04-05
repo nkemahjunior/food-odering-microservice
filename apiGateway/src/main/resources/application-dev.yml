@@ -50,10 +50,10 @@ spring:
           predicates:
             - Path=/auth/**
           filters:
-#          - RewritePath=/auth/(?<segment>.*), /${segment}
-           - AddRequestHeader=X-Forwarded-Proto, http
-           - AddRequestHeader=X-Forwarded-Host, localhost
-           - AddRequestHeader=X-Forwarded-Port, 8084
+           - SetRequestHeader=X-Forwarded-Proto, http
+           - SetRequestHeader=X-Forwarded-Host, localhost
+           - SetRequestHeader=X-Forwarded-Port, 8084
+           - MapRequestHeader=X-Forwarded-For, X-Forwarded-For
            - MapRequestHeader=authorization, authorization
            - name: SecureHeaders
              args:
