@@ -46,10 +46,10 @@ spring:
           predicates:
             - Path=/auth/**
           filters:
-            - SetRequestHeader=X-Forwarded-Proto, ${loadBalancerProtocol}
-            - SetRequestHeader=X-Forwarded-Host, ${loadBalancerURL}
-            - SetRequestHeader=X-Forwarded-Port, ${loadBalancerPort}
-            - MapRequestHeader=X-Forwarded-For, X-Forwarded-For
+#            - SetRequestHeader=X-Forwarded-Proto, ${loadBalancerProtocol}
+#            - SetRequestHeader=X-Forwarded-Host, ${loadBalancerURL}
+#            - SetRequestHeader=X-Forwarded-Port, ${loadBalancerPort}
+#            - MapRequestHeader=X-Forwarded-For, X-Forwarded-For
             - MapRequestHeader=authorization, authorization
             - name: SecureHeaders
               args:
