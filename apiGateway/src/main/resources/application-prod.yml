@@ -6,8 +6,10 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${loadBalancerProtocol}://${loadBalancerURL}:${loadBalancerPort}/auth/realms/zeco-eats-realm
-          jwk-set-uri: ${loadBalancerProtocol}://${loadBalancerURL}:${loadBalancerPort}/auth/realms/zeco-eats-realm/protocol/openid-connect/certs
+          issuer-uri: http://zeco-eats-ASG-Loadbalancer-1871376648.us-east-1.elb.amazonaws.com/auth/realms/zeco-eats-realm
+          jwk-set-uri: http://zeco-eats-ASG-Loadbalancer-1871376648.us-east-1.elb.amazonaws.com/auth/realms/zeco-eats-realm/protocol/openid-connect/certs
+#          issuer-uri: ${loadBalancerProtocol}://${loadBalancerURL}:${loadBalancerPort}/auth/realms/zeco-eats-realm
+#          jwk-set-uri: ${loadBalancerProtocol}://${loadBalancerURL}:${loadBalancerPort}/auth/realms/zeco-eats-realm/protocol/openid-connect/certs
 
   cloud:
     gateway:
@@ -46,9 +48,12 @@ spring:
           predicates:
             - Path=/auth/**
           filters:
-            - SetRequestHeader=X-Forwarded-Proto, ${loadBalancerProtocol}
-            - SetRequestHeader=X-Forwarded-Host, ${loadBalancerURL}
-            - SetRequestHeader=X-Forwarded-Port, ${loadBalancerPort}
+#            - SetRequestHeader=X-Forwarded-Proto, ${loadBalancerProtocol}
+#            - SetRequestHeader=X-Forwarded-Host, ${loadBalancerURL}
+#            - SetRequestHeader=X-Forwarded-Port, ${loadBalancerPort}
+            - SetRequestHeader=X-Forwarded-Proto, http
+            - SetRequestHeader=X-Forwarded-Host, http://zeco-eats-ASG-Loadbalancer-1871376648.us-east-1.elb.amazonaws.com
+            - SetRequestHeader=X-Forwarded-Port, 80
             - MapRequestHeader=X-Forwarded-For, X-Forwarded-For
             - MapRequestHeader=authorization, authorization
             - name: SecureHeaders
