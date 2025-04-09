@@ -51,11 +51,11 @@ spring:
 #            - SetRequestHeader=X-Forwarded-Proto, ${loadBalancerProtocol}
 #            - SetRequestHeader=X-Forwarded-Host, ${loadBalancerURL}
 #            - SetRequestHeader=X-Forwarded-Port, ${loadBalancerPort}
-            - SetRequestHeader=X-Forwarded-Proto, http
-            - SetRequestHeader=X-Forwarded-Host, zeco-eats-ASG-Loadbalancer-1871376648.us-east-1.elb.amazonaws.com
-            - SetRequestHeader=X-Forwarded-Port, 80
-            - MapRequestHeader=X-Forwarded-For, X-Forwarded-For
-            - MapRequestHeader=authorization, authorization
+#            - SetRequestHeader=X-Forwarded-Proto, http
+#            - SetRequestHeader=X-Forwarded-Host, zeco-eats-ASG-Loadbalancer-1871376648.us-east-1.elb.amazonaws.com
+#            - SetRequestHeader=X-Forwarded-Port, 80
+#            - MapRequestHeader=X-Forwarded-For, X-Forwarded-For
+#            - MapRequestHeader=authorization, authorization
             - name: SecureHeaders
               args:
                 frame-options: "SAMEORIGIN"
