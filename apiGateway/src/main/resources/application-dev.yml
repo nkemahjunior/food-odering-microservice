@@ -13,6 +13,20 @@ spring:
     gateway:
       redis-route-definition-repository: #redis location is already configured in application.yml( config server)
         enabled: true
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            allowCredentials: true
+            allowedOrigins: "http://localhost:3000"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+            allowedHeaders: '*'
+            maxAge: 1800 #clients should cache the response from a preflight request for 30 mins
+
       default-filters:
         - SecureHeaders
         #- TokenRelay
@@ -53,8 +67,8 @@ spring:
            - SetRequestHeader=X-Forwarded-Proto, http
            - SetRequestHeader=X-Forwarded-Host, localhost
            - SetRequestHeader=X-Forwarded-Port, 8084
-           - MapRequestHeader=X-Forwarded-For, X-Forwarded-For
-           - MapRequestHeader=authorization, authorization
+#           - MapRequestHeader=X-Forwarded-For, X-Forwarded-For
+#           - MapRequestHeader=authorization, authorization
            - name: SecureHeaders
              args:
 #                strict-transport-security: ""
@@ -65,7 +79,17 @@ spring:
         - id: deliveries-service
           uri: http://localhost:8083
           predicates:
-            - Path=/api/deliveries/**, /_p/api/deliveries/**
+            - Path=/api/deliveries/**, /_p/api/deliveries/**, /socket/deliveries/info, /socket/deliveries/info/** #for sockjs http
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin #remove duplicates
+
+        # Deliveries Service websocket Route
+        - id: deliveries-service
+          uri: ws://localhost:8083
+          predicates:
+            - Path=/socket/deliveries/**
+          filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin #remove duplicates
 
         # Restaurants Service Route
         - id: restaurants-service
