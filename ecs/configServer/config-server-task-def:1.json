@@ -1,0 +1,72 @@
+{
+  "family": "zeco-eats-config-server-task-def",
+  "containerDefinitions": [
+    {
+      "name": "zeco-eats-config-server-container",
+      "image": "__",
+      "cpu": 256,
+      "memory": 512,
+      "memoryReservation": 512,
+      "portMappings": [
+        {
+          "name": "zeco-eats-config-server-container-8888-tcp",
+          "containerPort": 8888,
+          "hostPort": 80,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "password",
+          "value": "__"
+        },
+        {
+          "name": "username",
+          "value": "nkemahjunior"
+        }
+      ],
+      "environmentFiles": [],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "ulimits": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/zeco-eats-config-server-task-def",
+          "mode": "non-blocking",
+          "awslogs-create-group": "true",
+          "max-buffer-size": "25m",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        },
+        "secretOptions": []
+      },
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "curl -f http://localhost:8888/api/configServer/actuator/health || exit 1"
+        ],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3
+      },
+      "systemControls": []
+    }
+  ],
+  "executionRoleArn": "arn:aws:iam::390402552767:role/ecsTaskExecutionRole",
+  "networkMode": "bridge",
+  "volumes": [],
+  "placementConstraints": [],
+  "requiresCompatibilities": [
+    "EC2"
+  ],
+  "cpu": "256",
+  "memory": "512",
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  },
+  "enableFaultInjection": false
+}

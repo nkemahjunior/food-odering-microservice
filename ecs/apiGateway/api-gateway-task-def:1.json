@@ -1,0 +1,78 @@
+{
+  "family": "zeco-eats-api-gateway-task-def",
+  "containerDefinitions": [
+    {
+      "name": "zeco-eats-api-gateway-container",
+      "image": "__",
+      "cpu": 256,
+      "memory": 512,
+      "memoryReservation": 512,
+      "portMappings": [
+        {
+          "name": "zeco-eats-api-gateway-container-80-tcp",
+          "containerPort": 8084,
+          "hostPort": 8084,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "loadBalancerURL",
+          "value": "zeco-eats-ASG-Loadbalancer-1871376648.us-east-1.elb.amazonaws.com"
+        },
+        {
+          "name": "allowedOrigins",
+          "value": "http://localhost:3000"
+        },
+        {
+          "name": "loadBalancerPort",
+          "value": "80"
+        },
+        {
+          "name": "loadBalancerProtocol",
+          "value": "http"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/zeco-eats-api-gateway-task-def",
+          "mode": "non-blocking",
+          "awslogs-create-group": "true",
+          "max-buffer-size": "25m",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "curl -f http://localhost:8084/api/apiGateway/actuator/health || exit 1"
+        ],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 300
+      },
+      "systemControls": []
+    }
+  ],
+  "executionRoleArn": "arn:aws:iam::390402552767:role/ecsTaskExecutionRole",
+  "networkMode": "bridge",
+  "volumes": [],
+  "placementConstraints": [],
+  "requiresCompatibilities": [
+    "EC2"
+  ],
+  "cpu": "256",
+  "memory": "512",
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  },
+  "enableFaultInjection": false
+}

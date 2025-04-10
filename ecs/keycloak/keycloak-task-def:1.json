@@ -1,0 +1,137 @@
+{
+  "family": "zeco-eats-keycloak-task-def",
+  "containerDefinitions": [
+    {
+      "name": "zeco-eats-keycloak",
+      "image": "__",
+      "cpu": 256,
+      "memory": 512,
+      "memoryReservation": 512,
+      "portMappings": [
+        {
+          "name": "zeco-eats-keycloak-8080-tcp",
+          "containerPort": 8080,
+          "hostPort": 0,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        },
+        {
+          "name": "zeco-eats-keycloak-9000-tcp",
+          "containerPort": 9000,
+          "hostPort": 0,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        }
+      ],
+      "essential": true,
+      "command": [
+        "start",
+        "--verbose"
+      ],
+      "environment": [
+        {
+          "name": "KC_HOSTNAME_ADMIN",
+          "value": "http://zeco-eats-ASG-Loadbalancer-1871376648.us-east-1.elb.amazonaws.com/auth"
+        },
+        {
+          "name": "KC_PROXY_HEADERS",
+          "value": "xforwarded"
+        },
+        {
+          "name": "KC_DB_PASSWORD",
+          "value": "__"
+        },
+        {
+          "name": "KC_HTTP_RELATIVE_PATH",
+          "value": "/auth"
+        },
+        {
+          "name": "KC_DB_USERNAME",
+          "value": "postgres"
+        },
+        {
+          "name": "KC_DB",
+          "value": "postgres"
+        },
+        {
+          "name": "KC_HTTP_ENABLED",
+          "value": "true"
+        },
+        {
+          "name": "KC_BOOTSTRAP_ADMIN_PASSWORD",
+          "value": "admin"
+        },
+        {
+          "name": "KC_BOOTSTRAP_ADMIN_USERNAME",
+          "value": "admin"
+        },
+        {
+          "name": "KC_CACHE_STACK",
+          "value": "jdbc-ping"
+        },
+        {
+          "name": "KC_DB_URL",
+          "value": "__"
+        },
+        {
+          "name": "KC_HEALTH_ENABLED",
+          "value": "true"
+        },
+        {
+          "name": "KC_METRICS_ENABLED",
+          "value": "true"
+        },
+        {
+          "name": "KC_LOG_LEVEL",
+          "value": "DEBUG"
+        },
+        {
+          "name": "KC_CACHE",
+          "value": "ispn"
+        },
+        {
+          "name": "KC_HOSTNAME",
+          "value": "http://zeco-eats-ASG-Loadbalancer-1871376648.us-east-1.elb.amazonaws.com/auth"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/zeco-eats-keycloak-task-def",
+          "mode": "non-blocking",
+          "awslogs-create-group": "true",
+          "max-buffer-size": "25m",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "exec 3<> /dev/tcp/127.0.0.1/9000;  echo -e 'GET /health/ready HTTP/1.1\\\\r\\\\nhost: http://localhost\\\\r\\\\nConnection: close\\\\r\\\\n\\\\r\\\\n' >&3;  if [ $? -eq 0 ]; then echo 'Healthcheck Successful'; exit 0; else echo 'Healthcheck Failed'; exit 1; fi;"
+        ],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 300
+      },
+      "systemControls": []
+    }
+  ],
+  "executionRoleArn": "arn:aws:iam::390402552767:role/ecsTaskExecutionRole",
+  "networkMode": "bridge",
+  "volumes": [],
+  "placementConstraints": [],
+  "requiresCompatibilities": [
+    "EC2"
+  ],
+  "cpu": "256",
+  "memory": "512",
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  },
+  "enableFaultInjection": false
+}
