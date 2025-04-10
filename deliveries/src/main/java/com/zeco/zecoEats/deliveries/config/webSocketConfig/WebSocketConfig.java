@@ -1,4 +1,4 @@
-package com.zeco.zecoEats.deliveries.webSocketConfig;
+package com.zeco.zecoEats.deliveries.config.webSocketConfig;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -12,9 +12,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/socket").
-                setAllowedOrigins("http://localhost:3000" ).
-                withSockJS();
+        registry.addEndpoint("/socket/deliveries")
+                .setAllowedOrigins("http://localhost:3000" )
+                .withSockJS();
 
 /*        registry.addEndpoint("/socket").
                 setAllowedOrigins("http://localhost:3000", "http://localhost:4000" );*/

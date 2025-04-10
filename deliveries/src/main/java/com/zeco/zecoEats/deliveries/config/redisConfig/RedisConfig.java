@@ -1,4 +1,4 @@
-package com.zeco.zecoEats.deliveries.redisConfig;
+package com.zeco.zecoEats.deliveries.config.redisConfig;
 
 import com.zeco.zecoEats.deliveries.dtos.OrderCurrentLocationDTO;
 import com.zeco.zecoEats.deliveries.service.DriversDeliveringOrdersLocationSubscriber;
@@ -43,7 +43,7 @@ public class RedisConfig {
     }
 
     @Bean
-    @Profile("dev")
+    @Profile("prod")
     public RedisConnectionFactory connectionFactoryProd(RedisProperties redisProperties) {
         LettuceClientConfiguration clientConfig = LettuceClientConfiguration.builder()
                 .readFrom(ReadFrom.REPLICA_PREFERRED) //write to master, read from replicas
@@ -66,10 +66,9 @@ public class RedisConfig {
     }
 
     //pub sub configurations
-
     @Bean
     public MessageListenerAdapter messageListenerAdapter(DriversDeliveringOrdersLocationSubscriber listener) {
-        MessageListenerAdapter adapter = new MessageListenerAdapter(listener, "handleMessage");
+        MessageListenerAdapter adapter = new MessageListenerAdapter(listener, "handleMessage");// check DriversDeliveringOrdersLocationSubscriber class in service package
 
         // JSON deserialization for message content
         adapter.setSerializer(new GenericJackson2JsonRedisSerializer());

@@ -36,7 +36,7 @@ public class WebSocketController {
         log.info("**** publishing message to all instances of the delivery service subscribed to topic - {} - redis pub****", driversDeliveringAnOrderTopic);
 
         //publish location to all instances of this service
-        //the subscriber class will receive the message in the handleMessage method and send to the user
+        //the subscriber class will receive the message in the handleMessage method of the DriversDeliveringOrdersLocationSubscriber class( in service package) and send to the user
         redisTemplate.convertAndSend(driversDeliveringAnOrderTopic, orderCurrentLocationDTO);
         log.info("**** published message to all instances of the delivery service - redis pub****");
 

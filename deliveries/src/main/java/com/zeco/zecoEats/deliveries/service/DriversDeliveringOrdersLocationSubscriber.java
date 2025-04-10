@@ -23,6 +23,7 @@ public class DriversDeliveringOrdersLocationSubscriber {
         log.info("**** sending message to user - websocket****");
 
         //send location to user
+        //unique link which the front end user is subscribed to. unique because of that orderId there
         template.convertAndSend("/queue/oder/location/"+currentLocation.getOrderID(), currentLocation);
         log.info("**** sent message to user - websocket****");
 
