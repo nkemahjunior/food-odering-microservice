@@ -32,6 +32,9 @@ jobs:
     with:
       dockerfile-path: apiGateway/Dockerfile
       ecr-repository: zeco-eats-api-gateway
+      ecs-service: zeco-eats-api-gateway-service
+      ecs-task-def-path: ecs/apiGateway/api-gateway-task-def:1.json
+      container-name: zeco-eats-api-gateway-container
 
   deploy-config-server:
     needs: determine-changes
@@ -41,6 +44,11 @@ jobs:
     with:
       dockerfile-path: configServer/Dockerfile
       ecr-repository: zeco-eats-config-server
+      ecs-service: zeco-eats-config-server-service-q
+      ecs-task-def-path: ecs/configServer/config-server-task-def:1.json
+      container-name: zeco-eats-config-server-container
+      environment-variables: |
+        password=${{ secrets.CONFIG_SERVER_GITHUB_PASSWORD }}
 
 
   deploy-restaurant-service:
@@ -51,6 +59,10 @@ jobs:
     with:
       dockerfile-path: restaurants/Dockerfile
       ecr-repository: zeco-eats-restaurant-service
+      ecs-service: zeco-eats-restaurants-service-service
+      ecs-task-def-path: ecs/restaurants/restaurants-task-def:1.json
+      container-name: zeco-eats-restaurants-service-task-def
+
 
 
   deploy-delivery-service:
@@ -61,6 +73,9 @@ jobs:
     with:
       dockerfile-path: deliveries/Dockerfile
       ecr-repository: zeco-eats-deliveries-service
+      ecs-service: zeco-eats-deliveries-service-service
+      ecs-task-def-path: ecs/deliveries/deliveries-task-def:1.json
+      container-name: zeco-eats-deliveries-service-container
 
 
   deploy-users-service:
@@ -71,3 +86,6 @@ jobs:
     with:
       dockerfile-path: userManagement/users/Dockerfile
       ecr-repository: zeco-eats-users-service
+      ecs-service: zeco-eats-users-service-service
+      ecs-task-def-path: ecs/users/users-task-def:1.json
+      container-name: zeco-eats-users-service-task-def

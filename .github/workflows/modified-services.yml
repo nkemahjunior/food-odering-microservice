@@ -46,21 +46,27 @@ jobs:
           filters: |
             customPrometheus:
             - 'monitoring/prometheus/**'
+            - 'ecs/monitoring/prometheus/**'
             apiGateway:
             - 'apiGateway/**'
+            - 'ecs/apiGateway/**'
             - 'pom.xml' #root POM affects all services
             configServer:
               - 'configServer/**'
+              - 'ecs/configServer/**'
               - 'pom.xml' #root POM affects all services
             deliveries:
               - 'deliveries/**'
+              - 'ecs/deliveries/**'
               - 'pom.xml' #root POM affects all services
             restaurants:
               - 'restaurants/**'
+              - 'ecs/restaurants/**'
               - 'pom.xml' #root POM affects all services
             common:
               - 'common/**'
               - 'pom.xml' #root POM affects all services
             userManagement:
               - 'userManagement/**'
+              - 'ecs/users/**'
               - 'pom.xml' #root POM affects all services
