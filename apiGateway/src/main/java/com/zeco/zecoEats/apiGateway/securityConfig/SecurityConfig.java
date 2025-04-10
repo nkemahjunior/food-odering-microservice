@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,6 +22,7 @@ import org.springframework.security.web.server.context.NoOpServerSecurityContext
 import org.springframework.security.web.server.util.matcher.ServerWebExchangeMatchers;
 import reactor.core.publisher.Mono;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Collectors;
@@ -29,9 +32,7 @@ import java.util.stream.Collectors;
 public class SecurityConfig {
 
     @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
-    private String issuerUris;
-
-
+    private String issuerUri;
 
     @Bean
     SecurityWebFilterChain securityFilterChain(ServerHttpSecurity http) {
@@ -40,11 +41,15 @@ public class SecurityConfig {
                 ServerWebExchangeMatchers.pathMatchers("/_p/api/**")
         );
 
+        http.cors(Customizer.withDefaults());
         http.authorizeExchange(exchanges -> exchanges
+                .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()//cors preflight
                 .pathMatchers("/api/configServer/**").hasAuthority("ADMIN")
                 .pathMatchers("/_p/api/restaurants/**").hasAnyAuthority("RESTAURANT_OWNER")
-                .pathMatchers("/_p/api/deliveries/**").hasAuthority("DELIVERY_DRIVER")
-                .pathMatchers("_p/api/users/**").hasAnyAuthority("CUSTOMER", "RESTAURANT_OWNER", "DELIVERY_DRIVER" )
+//                .pathMatchers("/_p/api/deliveries/**").hasAuthority("DELIVERY_DRIVER")
+                .pathMatchers("/_p/api/deliveries/**").hasAnyAuthority("CUSTOMER", "RESTAURANT_OWNER", "DELIVERY_DRIVER" )
+
+                .pathMatchers("/_p/api/users/**").hasAnyAuthority("CUSTOMER", "RESTAURANT_OWNER", "DELIVERY_DRIVER" )
                 .pathMatchers("/api/**").permitAll()
                 .anyExchange().authenticated()
         );
