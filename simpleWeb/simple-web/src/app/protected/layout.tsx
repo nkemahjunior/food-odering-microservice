@@ -1,3 +1,4 @@
+import { SessionProvider } from "next-auth/react";
 import { auth } from "../auth";
 
 export default async function ProtectedLayout({
@@ -17,6 +18,6 @@ export default async function ProtectedLayout({
     console.log("***************************************************");
   return (
    
-      <div>{children}</div>
+      <SessionProvider session={session}><div>{children}</div></SessionProvider>
   );
 }

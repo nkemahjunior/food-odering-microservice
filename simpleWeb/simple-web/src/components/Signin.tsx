@@ -2,6 +2,8 @@ import { signIn } from "@/app/auth"
 
  
 export default function SignIn() {
+  //email: user1@gmail.com
+  //password: user1
   return (
     <form className=" h-screen flex justify-center items-center"
       action={async () => {
