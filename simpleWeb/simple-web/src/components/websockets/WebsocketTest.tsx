@@ -30,7 +30,10 @@ export default function WebsocketTest () {
 
     // Configure the WebSocket endpoint URL
     //const websocketUrl = "ws://localhost:8083/socket"; // Replace with your WebSocket endpoint URL
-    const sock = new SockJS("http://localhost:8084/socket/deliveries"); //pass through gateway -> delivery service
+  
+  
+    //const sock = new SockJS("http://localhost:8084/socket/deliveries"); //pass through gateway -> delivery service
+    const sock = new SockJS("http://zeco-eats-asg-loadbalancer-1871376648.us-east-1.elb.amazonaws.com/socket/deliveries"); //pass through alb-> gateway -> delivery service
 
     sock.onopen = () => {
         console.log('Transport used by SockJS:'); // Logs the transport mode (e.g., "websocket", "xhr-streaming", etc.)
@@ -38,7 +41,7 @@ export default function WebsocketTest () {
 
     // Connect to the WebSocket server
     client.configure({
-      //brokerURL: websocketUrl,
+      //brokerURL: websocketUrl, connect directly, if u are not using sock js
       debug: function (str: any) {
         console.log(str);
       },
@@ -77,7 +80,8 @@ export default function WebsocketTest () {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:8084/_p/api/deliveries/testPrivate', {
+      //http://localhost:8084/_p/api/deliveries/testPrivate
+      const response = await fetch('http://zeco-eats-asg-loadbalancer-1871376648.us-east-1.elb.amazonaws.com/api/deliveries/actuator/health', {
         method: 'GET',
         headers: {
           'authorization': `Bearer ${accessToken.data?.accessToken}`,
