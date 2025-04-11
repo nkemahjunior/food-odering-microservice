@@ -18,9 +18,9 @@ on:
       container-name:
         required: true
         type: string
-#    secrets:
-#      CONFIG_SERVER_GITHUB_PASSWORD:
-#        required: false
+    secrets:
+      CONFIG_SERVER_GITHUB_PASSWORD:
+        required: false
 #      environment-variables:
 #        required: false
 #        type: string
@@ -72,7 +72,6 @@ jobs:
           docker build -t $ECR_REGISTRY/$REGISTRY_ALIAS/$ECR_REPOSITORY:$IMAGE_TAG -f ${{ inputs.dockerfile-path }}  .
           docker push $ECR_REGISTRY/$REGISTRY_ALIAS/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
-          - name: Fill in the new image ID in the Amazon ECS task definition
 
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
