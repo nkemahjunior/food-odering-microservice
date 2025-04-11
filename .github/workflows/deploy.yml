@@ -18,9 +18,9 @@ on:
       container-name:
         required: true
         type: string
-    secrets:
-      CONFIG_SERVER_GITHUB_PASSWORD:
-        required: false
+#    secrets:
+#      CONFIG_SERVER_GITHUB_PASSWORD:
+#        required: false
 #      environment-variables:
 #        required: false
 #        type: string

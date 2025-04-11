@@ -45,8 +45,9 @@ jobs:
     needs: determine-changes
     if: ${{ github.event.workflow_run.conclusion == 'success' && needs.determine-changes.outputs.configServer-changed == 'true' }}  # Only run if CI succeeded
     uses: ./.github/workflows/deploy.yml
-    secrets:
-      CONFIG_SERVER_GITHUB_PASSWORD: ${{ secrets.CONFIG_SERVER_GITHUB_PASSWORD }}
+    secrets: inherit
+
+      #CONFIG_SERVER_GITHUB_PASSWORD: ${{ secrets.CONFIG_SERVER_GITHUB_PASSWORD }}
     with:
       dockerfile-path: configServer/Dockerfile
       ecr-repository: zeco-eats-config-server
