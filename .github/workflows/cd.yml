@@ -67,7 +67,7 @@ jobs:
       ecr-repository: zeco-eats-restaurant-service
       ecs-service: zeco-eats-restaurants-service-service
       ecs-task-def-path: ecs/restaurants/restaurants-task-def:1.json
-      container-name: zeco-eats-restaurants-service-task-def
+      container-name: zeco-eats-restaurants-service-container
 
 
 
@@ -94,4 +94,4 @@ jobs:
       ecr-repository: zeco-eats-users-service
       ecs-service: zeco-eats-users-service-service
       ecs-task-def-path: ecs/users/users-task-def:1.json
-      container-name: zeco-eats-users-service-task-def
+      container-name: zeco-eats-users-service-container
