@@ -10,6 +10,8 @@ permissions:
   id-token: write   # This is required for requesting the JWT
   contents: read
 
+
+
 jobs:
   determine-changes:
     uses: ./.github/workflows/modified-services.yml
@@ -40,15 +42,15 @@ jobs:
     needs: determine-changes
     if: ${{ github.event.workflow_run.conclusion == 'success' && needs.determine-changes.outputs.configServer-changed == 'true' }}  # Only run if CI succeeded
     uses: ./.github/workflows/deploy.yml
-    secrets: inherit
+    secrets:
+      CONFIG_SERVER_GITHUB_PASSWORD: ${{ secrets.CONFIG_SERVER_GITHUB_PASSWORD }}
     with:
       dockerfile-path: configServer/Dockerfile
       ecr-repository: zeco-eats-config-server
       ecs-service: zeco-eats-config-server-service-q
       ecs-task-def-path: ecs/configServer/config-server-task-def:1.json
       container-name: zeco-eats-config-server-container
-      environment-variables: |
-        password=${{ secrets.CONFIG_SERVER_GITHUB_PASSWORD }}
+
 
 
   deploy-restaurant-service:

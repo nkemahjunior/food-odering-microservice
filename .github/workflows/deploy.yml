@@ -18,9 +18,12 @@ on:
       container-name:
         required: true
         type: string
-      environment-variables:
+    secrets:
+      CONFIG_SERVER_GITHUB_PASSWORD:
         required: false
-        type: string
+#      environment-variables:
+#        required: false
+#        type: string
 
 env:
   AWS_REGION: us-east-1
@@ -78,7 +81,8 @@ jobs:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
           container-name: ${{ env.CONTAINER_NAME }}
           image: ${{ steps.build-image.outputs.image }}
-          environment-variables: ${{ inputs.environment-variables }}
+          environment-variables: |
+           password=${{ secrets.CONFIG_SERVER_GITHUB_PASSWORD }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
