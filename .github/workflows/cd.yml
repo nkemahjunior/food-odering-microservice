@@ -25,6 +25,9 @@ jobs:
     with:
       dockerfile-path: monitoring/prometheus/Dockerfile
       ecr-repository: zeco-eats-prometheus
+      ecs-service: zeco-eats-prometheus-service
+      ecs-task-def-path: ecs/monitoring/prometheus/prometheus-task-def:1.json
+      container-name: zeco-eats-prometheus-container
 
   deploy-api-gateway:
     needs: determine-changes
