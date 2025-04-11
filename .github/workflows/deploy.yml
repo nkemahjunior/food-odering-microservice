@@ -18,9 +18,9 @@ on:
       container-name:
         required: true
         type: string
-    secrets:
-      CONFIG_SERVER_GITHUB_PASSWORD:
-        required: false
+#    secrets:
+#      CONFIG_SERVER_GITHUB_PASSWORD:
+#        required: false
 #      environment-variables:
 #        required: false
 #        type: string
@@ -82,7 +82,8 @@ jobs:
           container-name: ${{ env.CONTAINER_NAME }}
           image: ${{ steps.build-image.outputs.image }}
           environment-variables: |
-           password=${{ secrets.CONFIG_SERVER_GITHUB_PASSWORD }}
+            password=ssdddd
+          
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
@@ -92,3 +93,4 @@ jobs:
           cluster: ${{ env.ECS_CLUSTER }}
           wait-for-service-stability: true
 
+# password=${{ secrets.CONFIG_SERVER_GITHUB_PASSWORD }}
