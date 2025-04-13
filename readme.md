@@ -24,3 +24,6 @@ zeco-eats is a food delivery application where users can browse different dishes
 - **Postgres**: database.
 - - **Keycloak**: Authentication.
 
+![Architecture Diagram](arch.png)
+
+
