@@ -36,6 +36,7 @@ services:
       start
     volumes:
       - keycloak-data:/opt/keycloak/data
+      - ./keycloak/themes:/opt/keycloak/providers/
     extra_hosts:
       - "host.docker.internal:host-gateway"
     healthcheck:
@@ -79,6 +80,7 @@ services:
       start
     volumes:
       - keycloak-data:/opt/keycloak/data
+      - ./keycloak/themes:/opt/keycloak/providers/
     extra_hosts:
       - "host.docker.internal:host-gateway"
     healthcheck:
