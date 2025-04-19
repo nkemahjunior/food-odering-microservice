@@ -22,4 +22,8 @@ zeco-eats is a food delivery application where users can browse different dishes
 - **PostGIS**: To perform geospatial calculations for driver assignments.
 - **Quartz Scheduler**: To automate order assignment .
 - **Postgres**: database.
+- **Keycloak**: Authentication.
+
+![Architecture Diagram](arch.png)
+
 
