@@ -16,7 +16,7 @@ spring:
       globalcors:
         add-to-simple-url-handler-mapping: true
         cors-configurations:
-          '[/**]':
+          '[/api/**]': #keycloak will handle its cors
             allowCredentials: true
             allowedOrigins: "http://localhost:3000"
             allowedMethods:
