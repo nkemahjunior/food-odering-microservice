@@ -18,7 +18,7 @@ import java.util.NoSuchElementException;
 
 @Slf4j
 @RestController
-@RequestMapping("api/_p/deliveries")
+@RequestMapping("api/private/deliveries")
 public class DeliveryDriverControllerPrivate {
 
 

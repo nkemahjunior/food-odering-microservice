@@ -20,7 +20,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("api/_p/restaurants")
+@RequestMapping("api/private/restaurants")
 public class RestaurantControllerPrivate {
 
     @Autowired

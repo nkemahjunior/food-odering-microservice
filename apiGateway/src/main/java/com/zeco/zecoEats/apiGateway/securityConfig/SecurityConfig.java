@@ -38,18 +38,18 @@ public class SecurityConfig {
     SecurityWebFilterChain securityFilterChain(ServerHttpSecurity http) {
 
         http.securityMatcher(
-                ServerWebExchangeMatchers.pathMatchers("/api/_p/**")
+                ServerWebExchangeMatchers.pathMatchers("/api/private/**")
         );
 
         http.cors(Customizer.withDefaults());
         http.authorizeExchange(exchanges -> exchanges
                 .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()//cors preflight
                 .pathMatchers("/api/configServer/**").hasAuthority("ADMIN")
-                .pathMatchers("/api/_p/restaurants/**").hasAnyAuthority("RESTAURANT_OWNER")
-//                .pathMatchers("/api/_p/deliveries/**").hasAuthority("DELIVERY_DRIVER")
-                .pathMatchers("/api/_p/deliveries/**").hasAnyAuthority("CUSTOMER", "RESTAURANT_OWNER", "DELIVERY_DRIVER" )
+                .pathMatchers("/api/private/restaurants/**").hasAnyAuthority("RESTAURANT_OWNER")
+//                .pathMatchers("/api/private/deliveries/**").hasAuthority("DELIVERY_DRIVER")
+                .pathMatchers("/api/private/deliveries/**").hasAnyAuthority("CUSTOMER", "RESTAURANT_OWNER", "DELIVERY_DRIVER" )
 
-                .pathMatchers("/api/_p/users/**").hasAnyAuthority("CUSTOMER", "RESTAURANT_OWNER", "DELIVERY_DRIVER" )
+                .pathMatchers("/api/private/users/**").hasAnyAuthority("CUSTOMER", "RESTAURANT_OWNER", "DELIVERY_DRIVER" )
                 .anyExchange().authenticated()
         );
 
@@ -68,7 +68,7 @@ public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain publicFilterChain(ServerHttpSecurity http) {
         http
-                .securityMatcher(ServerWebExchangeMatchers.pathMatchers("/auth/**", "/api/**"))
+                .securityMatcher(ServerWebExchangeMatchers.pathMatchers("/auth/**", "/api/public/**"))
                 .authorizeExchange(exchanges -> exchanges
                         .anyExchange().permitAll()
                 )

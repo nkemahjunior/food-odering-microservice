@@ -79,7 +79,7 @@ spring:
         - id: deliveries-service
           uri: http://localhost:8083
           predicates:
-            - Path=/api/deliveries/**, /_p/api/deliveries/**, /socket/deliveries/info, /socket/deliveries/info/** #for sockjs http
+            - Path=/api/public/deliveries/**, /api/private/deliveries/**, /socket/deliveries/info, /socket/deliveries/info/** #for sockjs http
           filters:
             - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin #remove duplicates
 
@@ -95,13 +95,13 @@ spring:
         - id: restaurants-service
           uri: http://localhost:8081
           predicates:
-            - Path=/api/restaurants/**, /_p/api/restaurants/**
+            - Path=/api/public/restaurants/**, /api/private/restaurants/**
 
         # Users Service Route
         - id: users-service
           uri: http://localhost:8082
           predicates:
-            - Path=/api/users/**, /_p/api/users/**
+            - Path=/api/public/users/**, /api/private/users/**
 
 management:
   endpoints:
