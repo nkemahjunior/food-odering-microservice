@@ -38,19 +38,18 @@ public class SecurityConfig {
     SecurityWebFilterChain securityFilterChain(ServerHttpSecurity http) {
 
         http.securityMatcher(
-                ServerWebExchangeMatchers.pathMatchers("/_p/api/**")
+                ServerWebExchangeMatchers.pathMatchers("/api/_p/**")
         );
 
         http.cors(Customizer.withDefaults());
         http.authorizeExchange(exchanges -> exchanges
                 .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()//cors preflight
                 .pathMatchers("/api/configServer/**").hasAuthority("ADMIN")
-                .pathMatchers("/_p/api/restaurants/**").hasAnyAuthority("RESTAURANT_OWNER")
-//                .pathMatchers("/_p/api/deliveries/**").hasAuthority("DELIVERY_DRIVER")
-                .pathMatchers("/_p/api/deliveries/**").hasAnyAuthority("CUSTOMER", "RESTAURANT_OWNER", "DELIVERY_DRIVER" )
+                .pathMatchers("/api/_p/restaurants/**").hasAnyAuthority("RESTAURANT_OWNER")
+//                .pathMatchers("/api/_p/deliveries/**").hasAuthority("DELIVERY_DRIVER")
+                .pathMatchers("/api/_p/deliveries/**").hasAnyAuthority("CUSTOMER", "RESTAURANT_OWNER", "DELIVERY_DRIVER" )
 
-                .pathMatchers("/_p/api/users/**").hasAnyAuthority("CUSTOMER", "RESTAURANT_OWNER", "DELIVERY_DRIVER" )
-                .pathMatchers("/api/**").permitAll()
+                .pathMatchers("/api/_p/users/**").hasAnyAuthority("CUSTOMER", "RESTAURANT_OWNER", "DELIVERY_DRIVER" )
                 .anyExchange().authenticated()
         );
 
