@@ -1,7 +1,12 @@
 server:
   port: 8084
+  compression:
+     enabled: true
+     mime-types: application/json, text/html, text/plain
+
 spring:
   profiles:
     active: dev
   application:
     name: api-gateway
+
